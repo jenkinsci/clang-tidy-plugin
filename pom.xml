@@ -1,3 +1,25 @@
+<?xml version="1.0"?>
+
+<!--
+  The MIT License
+  Copyright (c) 2017, PIXMAP
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+  THE SOFTWARE.
+-->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -7,18 +29,20 @@
         <version>1.447</version>
     </parent>
 
-    <artifactId>cppcheck</artifactId>
+    <artifactId>clangtidy</artifactId>
     <packaging>hpi</packaging>
-    <name>Jenkins Cppcheck Plug-in</name>
-    <version>1.22-SNAPSHOT</version>
-    <url>http://wiki.jenkins-ci.org/display/JENKINS/Cppcheck+Plugin</url>
-
+    <name>Jenkins Clang-tidy Plug-in</name>
+    <version>0.1</version>
+    <url></url>
+    
     <licenses>
         <license>
-            <name>MIT license</name>
-            <comments>All source code is under the MIT license.</comments>
+            <name>The MIT license</name>
+            <url>https://github.com/migermain/clang-tidy-plugin/blob/master/LICENCE.md</url>
+            <distribution>repo</distribution>
         </license>
     </licenses>
+
 
     <developers>
         <developer>
@@ -31,11 +55,17 @@
             <name>Michal Turek</name>
             <email>mixalturek@users.sf.net</email>
         </developer>
+        <developer>
+            <id>migermain</id>
+            <name>Mickael Germain</name>
+            <email>mickael.germain@pixmap3d.com</email>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/jenkinsci/cppcheck-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com:jenkinsci/cppcheck-plugin.git</developerConnection>
+        <connection>scm:git:git://github.com/migermain/clang-tidy-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com/migermain/clang-tidy-plugin.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -109,13 +139,13 @@
                 <version>${jaxb2.maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>generatedCppcheck1</id>
+                        <id>generatedClang-tidy1</id>
                         <configuration>
-                            <packageName>com.thalesgroup.jenkinsci.plugins.cppcheck.model</packageName>
-                            <schemaDirectory>${basedir}/src/main/resources/com/thalesgroup/hudson/plugins/cppcheck
+                            <packageName>com.thalesgroup.jenkinsci.plugins.clangtidy.model</packageName>
+                            <schemaDirectory>${basedir}/src/main/resources/com/thalesgroup/hudson/plugins/clangtidy
                             </schemaDirectory>
-                            <schemaFiles>cppcheck-1.0.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/generated-sources/jaxb/cppcheck1/.staleFlag.
+                            <schemaFiles>clangtidy-1.0.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy1/.staleFlag.
                             </staleFile>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
@@ -124,13 +154,13 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>generatedCppcheck2</id>
+                        <id>generatedClang-tidy2</id>
                         <configuration>
-                            <packageName>org.jenkinsci.plugins.cppcheck.model</packageName>
-                            <schemaDirectory>${basedir}/src/main/resources/org/jenkinsci/plugins/cppcheck
+                            <packageName>org.jenkinsci.plugins.clangtidy.model</packageName>
+                            <schemaDirectory>${basedir}/src/main/resources/org/jenkinsci/plugins/clangtidy
                             </schemaDirectory>
-                            <schemaFiles>cppcheck-2.0.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/generated-sources/jaxb/cppcheck2/.staleFlag.
+                            <schemaFiles>clangtidy-2.0.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy2/.staleFlag.
                             </staleFile>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
