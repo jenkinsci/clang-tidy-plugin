@@ -22,6 +22,7 @@ import java.util.*;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyResult implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -254,11 +255,18 @@ public class ClangtidyResult implements Serializable {
         return new ClangtidyStatistics(
                 current.getNumberErrorSeverity() - previous.getNumberErrorSeverity(),
                 current.getNumberWarningSeverity() - previous.getNumberWarningSeverity(),
-                current.getNumberStyleSeverity() - previous.getNumberStyleSeverity(),
-                current.getNumberPerformanceSeverity() - previous.getNumberPerformanceSeverity(),
-                current.getNumberInformationSeverity() - previous.getNumberInformationSeverity(),
-                current.getNumberNoCategorySeverity() - previous.getNumberNoCategorySeverity(),
-                current.getNumberPortabilitySeverity() - previous.getNumberPortabilitySeverity(),
+                current.getNumberBoostWarning() - previous.getNumberBoostWarning(),
+                current.getNumberCertWarning() - previous.getNumberCertWarning(),
+                current.getNumberCppcoreguidelinesWarning() - previous.getNumberCppcoreguidelinesWarning(),
+                current.getNumberClangAnalyzerWarning() - previous.getNumberClangAnalyzerWarning(),
+                current.getNumberClangDiagnosticWarning() - previous.getNumberClangDiagnosticWarning(),
+                current.getNumberGoogleWarning() - previous.getNumberGoogleWarning(),
+                current.getNumberLlvmWarning() - previous.getNumberLlvmWarning(),
+                current.getNumberMiscWarning() - previous.getNumberMiscWarning(),
+                current.getNumberModernizeWarning() - previous.getNumberModernizeWarning(),
+                current.getNumberMpiWarning() - previous.getNumberMpiWarning(),
+                current.getNumberPerformanceWarning() - previous.getNumberPerformanceWarning(),
+                current.getNumberReadabilityWarning() - previous.getNumberReadabilityWarning(),
                 current.getVersions());
     }
 
@@ -302,45 +310,103 @@ public class ClangtidyResult implements Serializable {
             }
         }
 
-        //Style
-        if (severityEvaluation.isSeverityStyle()) {
-            nbErrors += st.getNumberStyleSeverity();
+        //Boost
+        if (severityEvaluation.isWarningBoost()) {
+            nbErrors += st.getNumberBoostWarning();
             if (previousResult != null) {
-                nbPreviousError += prev.getNumberStyleSeverity();
+                nbPreviousError += prev.getNumberBoostWarning();
+            }
+        }
+
+        //Cert
+        if (severityEvaluation.isWarningCert()) {
+            nbErrors += st.getNumberCertWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberCertWarning();
+            }
+        }
+
+        //Cppcoreguidelines
+        if (severityEvaluation.isWarningCppcoreguidelines()) {
+            nbErrors += st.getNumberCppcoreguidelinesWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberCppcoreguidelinesWarning();
+            }
+        }
+
+        //Clang-analyzer
+        if (severityEvaluation.isWarningClangAnalyzer()) {
+            nbErrors += st.getNumberClangAnalyzerWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberClangAnalyzerWarning();
+            }
+        }
+
+        //Clang-diagnostic
+        if (severityEvaluation.isWarningClangDiagnostic()) {
+            nbErrors += st.getNumberClangDiagnosticWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberClangDiagnosticWarning();
+            }
+        }
+
+        //Google
+        if (severityEvaluation.isWarningGoogle()) {
+            nbErrors += st.getNumberGoogleWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberGoogleWarning();
+            }
+        }
+
+        //Llvm
+        if (severityEvaluation.isWarningLlvm()) {
+            nbErrors += st.getNumberLlvmWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberLlvmWarning();
+            }
+        }
+
+        //Misc
+        if (severityEvaluation.isWarningMisc()) {
+            nbErrors += st.getNumberMiscWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberMiscWarning();
+            }
+        }
+
+        //Modernize
+        if (severityEvaluation.isWarningModernize()) {
+            nbErrors += st.getNumberModernizeWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberModernizeWarning();
+            }
+        }
+
+        //Mpi
+        if (severityEvaluation.isWarningMpi()) {
+            nbErrors += st.getNumberMpiWarning();
+            if (previousResult != null) {
+                nbPreviousError += prev.getNumberMpiWarning();
             }
         }
 
         //Performance
-        if (severityEvaluation.isSeverityPerformance()) {
-            nbErrors += st.getNumberPerformanceSeverity();
+        if (severityEvaluation.isWarningPerformance()) {
+            nbErrors += st.getNumberPerformanceWarning();
             if (previousResult != null) {
-                nbPreviousError += prev.getNumberPerformanceSeverity();
+                nbPreviousError += prev.getNumberPerformanceWarning();
             }
         }
 
-        //Information
-        if (severityEvaluation.isSeverityInformation()) {
-            nbErrors += st.getNumberInformationSeverity();
+        //Readability
+        if (severityEvaluation.isWarningReadability()) {
+            nbErrors += st.getNumberReadabilityWarning();
             if (previousResult != null) {
-                nbPreviousError += prev.getNumberInformationSeverity();
+                nbPreviousError += prev.getNumberReadabilityWarning();
             }
         }
 
-        //NoCategory
-        if (severityEvaluation.isSeverityNoCategory()) {
-            nbErrors += st.getNumberNoCategorySeverity();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberNoCategorySeverity();
-            }
-        }
 
-        //Portability
-        if (severityEvaluation.isSeverityPortability()) {
-            nbErrors += st.getNumberPortabilitySeverity();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberPortabilitySeverity();
-            }
-        }
 
         if (checkNewError) {
             if (previousResult != null) {

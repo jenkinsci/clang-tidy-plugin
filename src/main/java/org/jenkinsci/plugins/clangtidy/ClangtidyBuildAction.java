@@ -14,6 +14,7 @@ import org.jenkinsci.plugins.clangtidy.util.ClangtidyBuildHealthEvaluator;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
 

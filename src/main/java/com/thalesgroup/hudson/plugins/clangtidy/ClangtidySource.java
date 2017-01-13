@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -152,16 +154,10 @@ public class ClangtidySource implements Serializable {
         output.append("<div tooltip=\"");
 
         outputEscaped(output, "<h3>");
-        outputEscaped(output, clangtidyFile.getClangTidyId());
+        outputEscaped(output, clangtidyFile.getId());
         output.append(": ");
         outputEscaped(output, clangtidyFile.getMessage());
         outputEscaped(output, "</h3>");
-
-        if(clangtidyFile.getVerbose() != null) {
-            outputEscaped(output, "<p style=\"white-space: pre-wrap;\">");
-            outputEscaped(output, clangtidyFile.getVerbose());
-            outputEscaped(output, "</p>");
-        }
 
         output.append("\" nodismiss=\"\">\n");
         output.append("<code><b>\n");

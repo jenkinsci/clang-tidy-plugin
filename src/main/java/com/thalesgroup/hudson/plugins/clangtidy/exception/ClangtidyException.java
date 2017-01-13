@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2011 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -24,6 +26,8 @@
 package com.thalesgroup.hudson.plugins.clangtidy.exception;
 
 public class ClangtidyException extends RuntimeException {
+
+    private static final long serialVersionUID = 1L;
 
     public ClangtidyException() {
     }

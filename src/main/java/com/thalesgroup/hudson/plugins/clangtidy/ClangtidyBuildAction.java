@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -159,11 +161,6 @@ public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
             newReport.setAllErrors(report.getEverySeverities());
             newReport.setErrorSeverityList(report.getErrorSeverities());
             newReport.setWarningSeverityList(report.getPossibleErrorSeverities());
-            newReport.setStyleSeverityList(report.getStyleSeverities());
-            newReport.setPerformanceSeverityList(report.getPossibleStyleSeverities());
-            newReport.setInformationSeverityList(report.getNoCategorySeverities());
-            newReport.setNoCategorySeverityList(new ArrayList<ClangtidyFile>());
-            newReport.setPortabilitySeverityList(new ArrayList<ClangtidyFile>());
         }
 
         //Result
@@ -187,7 +184,7 @@ public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityPossibleError(),
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityStyle(),
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityPossibleStyle(),
-                true, true, true);
+                true, true, true, true, true, true, true, true, true, true);
         newConfig.setConfigSeverityEvaluation(configSeverityEvaluation);
         org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigGraph configGraph = new org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigGraph(
                 clangtidyConfig.getConfigGraph().getXSize(),
@@ -198,7 +195,7 @@ public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
                 clangtidyConfig.getConfigGraph().isDisplaySeverityPossibleError(),
                 clangtidyConfig.getConfigGraph().isDisplaySeverityStyle(),
                 clangtidyConfig.getConfigGraph().isDisplaySeverityPossibleStyle(),
-                true, true, true);
+                true, true, true, true, true, true, true, true, true, true);
         newConfig.setConfigGraph(configGraph);
 
 

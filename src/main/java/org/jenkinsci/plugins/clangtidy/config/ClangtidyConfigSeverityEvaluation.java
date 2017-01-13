@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyConfigSeverityEvaluation implements Serializable {
     /** Serial version UID. */
@@ -21,19 +22,34 @@ public class ClangtidyConfigSeverityEvaluation implements Serializable {
 
     private String unHealthy;
 
-    private boolean severityError = true;
+    private boolean severityError = false;
 
-    private boolean severityWarning = true;
+    private boolean severityWarning = false;
 
-    private boolean severityStyle = true;
+    private boolean warningBoost = true;
 
-    private boolean severityPerformance = true;
+    private boolean warningCert = true;
 
-    private boolean severityInformation = true;
+    private boolean warningCppcoreguidelines = true;
 
-    private boolean severityNoCategory = true;
+    private boolean warningClangAnalyzer = true;
 
-    private boolean severityPortability = true;
+    private boolean warningClangDiagnostic = true;
+    
+    private boolean warningGoogle = true;
+
+    private boolean warningLlvm = true;
+
+    private boolean warningMisc = true;
+
+    private boolean warningModernize = true;
+
+    private boolean warningMpi = true;
+    
+    private boolean warningPerformance = true;
+
+    private boolean warningReadability = true;
+    
 
     public ClangtidyConfigSeverityEvaluation() {
     }
@@ -41,9 +57,12 @@ public class ClangtidyConfigSeverityEvaluation implements Serializable {
     public ClangtidyConfigSeverityEvaluation(String threshold, String newThreshold,
             String failureThreshold, String newFailureThreshold, String healthy,
             String unHealthy, boolean severityError, boolean severityWarning,
-            boolean severityStyle, boolean severityPerformance,
-            boolean severityInformation, boolean severityNoCategory,
-            boolean severityPortability) {
+            boolean warningBoost, boolean warningCert,
+            boolean warningCppcoreguidelines, boolean warningClangAnalyzer,
+            boolean warningClangDiagnostic, boolean warningGoogle,
+            boolean warningLlvm, boolean warningMisc,
+            boolean warningModernize, boolean warningMpi,
+            boolean warningPerformance, boolean warningReadability) {
         this.threshold = threshold;
         this.newThreshold = newThreshold;
         this.failureThreshold = failureThreshold;
@@ -52,11 +71,18 @@ public class ClangtidyConfigSeverityEvaluation implements Serializable {
         this.unHealthy = unHealthy;
         this.severityError = severityError;
         this.severityWarning = severityWarning;
-        this.severityStyle = severityStyle;
-        this.severityPerformance = severityPerformance;
-        this.severityInformation = severityInformation;
-        this.severityNoCategory = severityNoCategory;
-        this.severityPortability = severityPortability;
+        this.warningBoost = warningBoost;
+        this.warningCert = warningCert;
+        this.warningCppcoreguidelines = warningCppcoreguidelines;
+        this.warningClangAnalyzer = warningClangAnalyzer;
+        this.warningClangDiagnostic = warningClangDiagnostic;
+        this.warningGoogle = warningGoogle;
+        this.warningLlvm = warningLlvm;
+        this.warningMisc = warningMisc;
+        this.warningModernize = warningModernize;
+        this.warningMpi =  warningMpi;
+        this.warningPerformance = warningPerformance;
+        this.warningReadability = warningReadability;
     }
 
     public String getThreshold() {
@@ -91,23 +117,55 @@ public class ClangtidyConfigSeverityEvaluation implements Serializable {
         return severityWarning;
     }
 
-    public boolean isSeverityStyle() {
-        return severityStyle;
+    public boolean isWarningBoost() {
+        return warningBoost;
     }
 
-    public boolean isSeverityPerformance() {
-        return severityPerformance;
+    public boolean isWarningCert() {
+        return warningCert;
     }
 
-    public boolean isSeverityInformation() {
-        return severityInformation;
+    public boolean isWarningCppcoreguidelines() {
+        return warningCppcoreguidelines;
     }
 
-    public boolean isSeverityNoCategory() {
-        return severityNoCategory;
+    public boolean isWarningClangAnalyzer() {
+        return warningClangAnalyzer;
     }
 
-    public boolean isSeverityPortability() {
-        return severityPortability;
+    public boolean isWarningClangDiagnostic() {
+        return warningClangDiagnostic;
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
+
+    public boolean isWarningGoogle() {
+        return warningGoogle;
+    }
+
+    public boolean isWarningLlvm() {
+        return warningLlvm;
+    }
+
+    public boolean isWarningMisc() {
+        return warningMisc;
+    }
+
+    public boolean isWarningModernize() {
+        return warningModernize;
+    }
+
+    public boolean isWarningMpi() {
+        return warningMpi;
+    }
+
+    public boolean isWarningPerformance() {
+        return warningPerformance;
+    }
+
+    public boolean isWarningReadability() {
+        return warningReadability;
     }
 }

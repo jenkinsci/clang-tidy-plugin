@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009-2011 Thales Corporate Services SAS                        *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -42,17 +44,13 @@ public class ClangtidyFile implements ModelObject, Serializable {
 
     private int lineNumber;
 
+    private String type;
+
+    private String id;
+    
     private String severity;
 
-    private String clangTidyId;
-
     private String message;
-
-    /** Verbose message, optional. */
-    private String verbose = null;
-    
-    /** The issue may be false positive. */
-    private boolean inconclusive = false;
 
     @Exported
     public String getFileName() {
@@ -98,14 +96,23 @@ public class ClangtidyFile implements ModelObject, Serializable {
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
     }
-
+    
     @Exported
-    public String getClangTidyId() {
-        return clangTidyId;
+    public String getType() {
+        return type;
     }
 
-    public void setClangTidyId(String clangTidyId) {
-        this.clangTidyId = clangTidyId;
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    @Exported
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Exported
@@ -137,28 +144,6 @@ public class ClangtidyFile implements ModelObject, Serializable {
 
     public void setKey(Integer key) {
         this.key = key;
-    }
-
-    @Exported
-    public String getVerbose() {
-        return verbose;
-    }
-    
-    public String getVerboseHtml() {
-        return StringEscapeUtils.escapeHtml(verbose);
-    }
-
-    public void setVerbose(String verbose) {
-        this.verbose = verbose;
-    }
-
-    @Exported
-    public boolean isInconclusive() {
-        return inconclusive;
-    }
-
-    public void setInconclusive(boolean inconclusive) {
-        this.inconclusive = inconclusive;
     }
 
     public String getDisplayName() {

@@ -17,6 +17,7 @@ import java.io.IOException;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyParserResult implements FilePath.FileCallable<ClangtidyReport> {
 
@@ -78,11 +79,18 @@ public class ClangtidyParserResult implements FilePath.FileCallable<ClangtidyRep
     private static void mergeReport(ClangtidyReport clangtidyReportResult, ClangtidyReport clangtidyReport) {
         clangtidyReportResult.getErrorSeverityList().addAll(clangtidyReport.getErrorSeverityList());
         clangtidyReportResult.getWarningSeverityList().addAll(clangtidyReport.getWarningSeverityList());
-        clangtidyReportResult.getStyleSeverityList().addAll(clangtidyReport.getStyleSeverityList());
-        clangtidyReportResult.getPerformanceSeverityList().addAll(clangtidyReport.getPerformanceSeverityList());
-        clangtidyReportResult.getInformationSeverityList().addAll(clangtidyReport.getInformationSeverityList());
-        clangtidyReportResult.getNoCategorySeverityList().addAll(clangtidyReport.getNoCategorySeverityList());
-        clangtidyReportResult.getPortabilitySeverityList().addAll(clangtidyReport.getPortabilitySeverityList());
+        clangtidyReportResult.getBoostWarningList().addAll(clangtidyReport.getBoostWarningList());
+        clangtidyReportResult.getCertWarningList().addAll(clangtidyReport.getCertWarningList());
+        clangtidyReportResult.getCppcoreguidelinesWarningList().addAll(clangtidyReport.getCppcoreguidelinesWarningList());
+        clangtidyReportResult.getClangAnalyzerWarningList().addAll(clangtidyReport.getClangAnalyzerWarningList());
+        clangtidyReportResult.getClangDiagnosticWarningList().addAll(clangtidyReport.getClangDiagnosticWarningList());
+        clangtidyReportResult.getGoogleWarningList().addAll(clangtidyReport.getGoogleWarningList());
+        clangtidyReportResult.getLlvmWarningList().addAll(clangtidyReport.getLlvmWarningList());
+        clangtidyReportResult.getMiscWarningList().addAll(clangtidyReport.getMiscWarningList());
+        clangtidyReportResult.getModernizeWarningList().addAll(clangtidyReport.getModernizeWarningList());
+        clangtidyReportResult.getMpiWarningList().addAll(clangtidyReport.getMpiWarningList());
+        clangtidyReportResult.getPerformanceWarningList().addAll(clangtidyReport.getPerformanceWarningList());
+        clangtidyReportResult.getReadabilityWarningList().addAll(clangtidyReport.getReadabilityWarningList());
         clangtidyReportResult.getAllErrors().addAll(clangtidyReport.getAllErrors());
         clangtidyReportResult.getVersions().add(clangtidyReport.getVersion());
     }

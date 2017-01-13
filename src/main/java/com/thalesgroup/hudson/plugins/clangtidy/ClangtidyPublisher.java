@@ -9,6 +9,7 @@ import hudson.tasks.Recorder;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 @Deprecated
 public class ClangtidyPublisher extends Recorder {
@@ -62,7 +63,7 @@ public class ClangtidyPublisher extends Recorder {
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityPossibleError(),
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityStyle(),
                 clangtidyConfig.getConfigSeverityEvaluation().isSeverityPossibleStyle(),
-                true, true, true);
+                true, true, true, true, true, true, true, true, true, true);
         config.setConfigSeverityEvaluation(configSeverityEvaluation);
 
         org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigGraph configGraph = new org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigGraph(
@@ -74,7 +75,7 @@ public class ClangtidyPublisher extends Recorder {
                 clangtidyConfig.getConfigGraph().isDisplaySeverityPossibleError(),
                 clangtidyConfig.getConfigGraph().isDisplaySeverityStyle(),
                 clangtidyConfig.getConfigGraph().isDisplaySeverityPossibleStyle(),
-                true, true, true);
+                true, true, true, true, true, true, true, true, true, true);
         config.setConfigGraph(configGraph);
 
         org.jenkinsci.plugins.clangtidy.ClangtidyPublisher clangtidyPublisher = new org.jenkinsci.plugins.clangtidy.ClangtidyPublisher(config);

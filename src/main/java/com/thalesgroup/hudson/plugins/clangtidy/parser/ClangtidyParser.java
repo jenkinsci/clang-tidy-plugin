@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009-2011 Thales Corporate Services SAS                        *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -104,7 +106,7 @@ public class ClangtidyParser implements Serializable {
                 clangtidyFile.setLineNumber(Integer.parseInt(lineAtr));
             }
 
-            clangtidyFile.setClangTidyId(error.getId());
+            clangtidyFile.setId(error.getId());
             clangtidyFile.setSeverity(error.getSeverity());
             clangtidyFile.setMessage(error.getMsg());
 
@@ -161,9 +163,9 @@ public class ClangtidyParser implements Serializable {
                     }
                 }
 
-                clangtidyFile.setClangTidyId(error.getId());
+                clangtidyFile.setId(error.getId());
                 clangtidyFile.setSeverity(error.getSeverity());
-                clangtidyFile.setMessage(error.getMsg());
+                clangtidyFile.setMessage(error.getMessage());
 
                 if ("possible error".equals(clangtidyFile.getSeverity())) {
                     possibleErrorSeverities.add(clangtidyFile);

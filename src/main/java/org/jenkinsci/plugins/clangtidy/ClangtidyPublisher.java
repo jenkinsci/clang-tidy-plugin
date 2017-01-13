@@ -28,6 +28,7 @@ import java.util.Collection;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyPublisher extends Recorder {
     /**
@@ -47,21 +48,35 @@ public class ClangtidyPublisher extends Recorder {
                              String newFailureThreshold, String healthy, String unHealthy,
                              boolean severityError,
                              boolean severityWarning,
-                             boolean severityStyle,
-                             boolean severityPerformance,
-                             boolean severityInformation,
-                             boolean severityNoCategory,
-                             boolean severityPortability,
+                             boolean warningBoost,
+                             boolean warningCert,
+                             boolean warningCppcoreguidelines,
+                             boolean warningClangAnalyzer,
+                             boolean warningClangDiagnostic,
+                             boolean warningGoogle,
+                             boolean warningLlvm,
+                             boolean warningMisc,
+                             boolean warningModernize,
+                             boolean warningMpi,
+                             boolean warningPerformance,
+                             boolean warningReadability,
                              int xSize, int ySize,
                              int numBuildsInGraph,
                              boolean displayAllErrors,
                              boolean displayErrorSeverity,
                              boolean displayWarningSeverity,
-                             boolean displayStyleSeverity,
-                             boolean displayPerformanceSeverity,
-                             boolean displayInformationSeverity,
-                             boolean displayNoCategorySeverity,
-                             boolean displayPortabilitySeverity) {
+                             boolean displayBoostWarning,
+                             boolean displayCertWarning,
+                             boolean displayCppcoreguidelinesWarning,
+                             boolean displayClangAnalyzerWarning,
+                             boolean displayClangDiagnosticWarning,
+                             boolean displayGoogleWarning,
+                             boolean displayLlvmWarning,
+                             boolean displayMiscWarning,
+                             boolean displayModernizeWarning,
+                             boolean displayMpiWarning,
+                             boolean displayPerformanceWarning,
+                             boolean displayReadabilityWarning) {
 
         clangtidyConfig = new ClangtidyConfig();
 
@@ -72,22 +87,36 @@ public class ClangtidyPublisher extends Recorder {
                 threshold, newThreshold, failureThreshold, newFailureThreshold, healthy, unHealthy,
                 severityError,
                 severityWarning,
-                severityStyle,
-                severityPerformance,
-                severityInformation,
-                severityNoCategory,
-                severityPortability);
+                warningBoost,
+                warningCert,
+                warningCppcoreguidelines,
+                warningClangAnalyzer,
+                warningClangDiagnostic,
+                warningGoogle,
+                warningLlvm,
+                warningMisc,
+                warningModernize,
+                warningMpi,
+                warningPerformance,
+                warningReadability);
         clangtidyConfig.setConfigSeverityEvaluation(configSeverityEvaluation);
         ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph(
                 xSize, ySize, numBuildsInGraph,
                 displayAllErrors,
                 displayErrorSeverity,
                 displayWarningSeverity,
-                displayStyleSeverity,
-                displayPerformanceSeverity,
-                displayInformationSeverity,
-                displayNoCategorySeverity,
-                displayPortabilitySeverity);
+                displayBoostWarning,
+                displayCertWarning,
+                displayCppcoreguidelinesWarning,
+                displayClangAnalyzerWarning,
+                displayClangDiagnosticWarning,
+                displayGoogleWarning,
+                displayLlvmWarning,
+                displayMiscWarning,
+                displayModernizeWarning,
+                displayMpiWarning,
+                displayPerformanceWarning,
+                displayReadabilityWarning);
         clangtidyConfig.setConfigGraph(configGraph);
     }
 
@@ -125,7 +154,7 @@ public class ClangtidyPublisher extends Recorder {
             
 
             ClangtidyParserResult parser = new ClangtidyParserResult(listener,
-            		expandedPattern, clangtidyConfig.isIgnoreBlankFiles());
+                    expandedPattern, clangtidyConfig.isIgnoreBlankFiles());
             ClangtidyReport clangtidyReport;
             try {
                 clangtidyReport = build.getWorkspace().act(parser);

@@ -19,6 +19,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyParser implements Serializable {
 
@@ -45,98 +46,36 @@ public class ClangtidyParser implements Serializable {
             Unmarshaller unmarshaller = jc.get().createUnmarshaller();
             org.jenkinsci.plugins.clangtidy.model.Results results = (org.jenkinsci.plugins.clangtidy.model.Results) unmarshaller.unmarshal(file);
             if (results.getClangtidy() == null) {
-                throw new JAXBException("Test with versio 1");
+                
+                throw new JAXBException("Clang tidy not Found");
             }
-            report = getReportVersion2(results);
+            report = getReport(results, listener);
         } catch (JAXBException jxe) {
-            try {
-                jc.set(JAXBContext.newInstance(com.thalesgroup.jenkinsci.plugins.clangtidy.model.Error.class, com.thalesgroup.jenkinsci.plugins.clangtidy.model.Results.class));
-                Unmarshaller unmarshaller = jc.get().createUnmarshaller();
-                com.thalesgroup.jenkinsci.plugins.clangtidy.model.Results results = (com.thalesgroup.jenkinsci.plugins.clangtidy.model.Results) unmarshaller.unmarshal(file);
-                report = getReportVersion1(results);
-
-                ClangtidyLogger.log(listener, "WARNING: Legacy format of report file detected, "
-                        + "please consider to pass additional argument '--xml-version=2' to Clangtidy. "
-                        + "It often detects and reports more issues with the new format, "
-                        + "so its usage is highly recommended.");
-            } catch (JAXBException jxe1) {
-                // Since Java 1.6
-                // throw new IOException(jxe1);
-
-                // Legacy constructor for compatibility with Java 1.5
-                throw (IOException) new IOException(jxe1.toString()).initCause(jxe1);
-            }
+            ClangtidyLogger.log(listener, "WARNING: Bad report file detected.");
+            throw (IOException) new IOException(jxe.toString()).initCause(jxe);
         }
         return report;
     }
 
-    private ClangtidyReport getReportVersion1(com.thalesgroup.jenkinsci.plugins.clangtidy.model.Results results) {
+    private ClangtidyReport getReport(Results results, BuildListener listener) {
 
         ClangtidyReport clangTidyReport = new ClangtidyReport();
         List<ClangtidyFile> allErrors = new ArrayList<ClangtidyFile>();
         List<ClangtidyFile> errorSeverityList = new ArrayList<ClangtidyFile>();
         List<ClangtidyFile> warningSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> styleSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> performanceSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> informationSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> noCategorySeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> portabilitySeverityList = new ArrayList<ClangtidyFile>();
-
-        ClangtidyFile clangtidyFile;
-        for (int i = 0; i < results.getError().size(); i++) {
-            com.thalesgroup.jenkinsci.plugins.clangtidy.model.Error error = results.getError().get(i);
-            clangtidyFile = new ClangtidyFile();
-
-            clangtidyFile.setFileName(error.getFile());
-
-            //line can be optional
-            String lineAtr;
-            if ((lineAtr = error.getLine()) != null) {
-                clangtidyFile.setLineNumber(Integer.parseInt(lineAtr));
-            }
-
-            clangtidyFile.setClangTidyId(error.getId());
-            clangtidyFile.setSeverity(error.getSeverity());
-            clangtidyFile.setMessage(error.getMsg());
-
-            if ("possible error".equals(clangtidyFile.getSeverity())) {
-                warningSeverityList.add(clangtidyFile);
-            } else if ("style".equals(clangtidyFile.getSeverity())) {
-                styleSeverityList.add(clangtidyFile);
-            } else if ("possible style".equals(clangtidyFile.getSeverity())) {
-                performanceSeverityList.add(clangtidyFile);
-            } else if ("error".equals(clangtidyFile.getSeverity())) {
-                errorSeverityList.add(clangtidyFile);
-            } else {
-                noCategorySeverityList.add(clangtidyFile);
-            }
-            allErrors.add(clangtidyFile);
-        }
-
-        clangTidyReport.setAllErrors(allErrors);
-        clangTidyReport.setErrorSeverityList(errorSeverityList);
-        clangTidyReport.setInformationSeverityList(informationSeverityList);
-        clangTidyReport.setNoCategorySeverityList(noCategorySeverityList);
-        clangTidyReport.setPerformanceSeverityList(performanceSeverityList);
-        clangTidyReport.setStyleSeverityList(styleSeverityList);
-        clangTidyReport.setWarningSeverityList(warningSeverityList);
-        clangTidyReport.setPortabilitySeverityList(portabilitySeverityList);
-
-
-        return clangTidyReport;
-    }
-
-    private ClangtidyReport getReportVersion2(Results results) {
-
-        ClangtidyReport clangTidyReport = new ClangtidyReport();
-        List<ClangtidyFile> allErrors = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> errorSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> warningSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> styleSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> performanceSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> informationSeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> noCategorySeverityList = new ArrayList<ClangtidyFile>();
-        List<ClangtidyFile> portabilitySeverityList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> boostWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> certWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> cppcoreguidelinesWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> clangAnalyzerWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> clangDiagnosticWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> googleWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> llvmWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> miscWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> modernizeWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> mpiWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> performanceWarningList = new ArrayList<ClangtidyFile>();
+        List<ClangtidyFile> readabilityWarningList = new ArrayList<ClangtidyFile>();
+        
 
         ClangtidyFile clangtidyFile;
 
@@ -147,34 +86,65 @@ public class ClangtidyParser implements Serializable {
                 org.jenkinsci.plugins.clangtidy.model.Error error = errors.getError().get(i);
                 clangtidyFile = new ClangtidyFile();
 
-                clangtidyFile.setClangTidyId(error.getId());
+                clangtidyFile.setType(error.getType());
+                clangtidyFile.setId(error.getId());
                 clangtidyFile.setSeverity(error.getSeverity());
-                clangtidyFile.setMessage(error.getMsg());
-                clangtidyFile.setInconclusive((error.getInconclusive() != null)
-                        ? error.getInconclusive() : false);
+                clangtidyFile.setMessage(error.getMessage());
 
-                // msg and verbose items have often the same text in XML report,
-                // there is no need to store duplications
-                if(error.getVerbose() != null
-                        && !error.getMsg().equals(error.getVerbose())) {
-                    clangtidyFile.setVerbose(error.getVerbose());
-                }
-
-                if ("warning".equals(clangtidyFile.getSeverity())) {
+                // TODO Use switch on 1.7
+                String severity = clangtidyFile.getSeverity();
+                if ("warning".equals(severity)) {
                     warningSeverityList.add(clangtidyFile);
-                } else if ("style".equals(clangtidyFile.getSeverity())) {
-                    styleSeverityList.add(clangtidyFile);
-                } else if ("performance".equals(clangtidyFile.getSeverity())) {
-                    performanceSeverityList.add(clangtidyFile);
-                } else if ("error".equals(clangtidyFile.getSeverity())) {
+                } 
+                else if("error".equals(severity)) {
                     errorSeverityList.add(clangtidyFile);
-                } else if ("information".equals(clangtidyFile.getSeverity())) {
-                    informationSeverityList.add(clangtidyFile);
-                } else if ("portability".equals(clangtidyFile.getSeverity())) {
-                    portabilitySeverityList.add(clangtidyFile);
-                } else {
-                    noCategorySeverityList.add(clangtidyFile);
                 }
+                else {
+                    ClangtidyLogger.log(listener, "WARNING: Clang tidy report contain unknown warning severity " + severity + ".");
+                }
+                
+                // TODO Use switch on 1.7
+                String type = clangtidyFile.getType();
+                if ("boost".equals(type)) {
+                    boostWarningList.add(clangtidyFile);
+                } 
+                else if("cert".equals(type)) {
+                    certWarningList.add(clangtidyFile);
+                } 
+                else if("cppcoreguidelines".equals(type)) {
+                    cppcoreguidelinesWarningList.add(clangtidyFile);
+                } 
+                else if("clang-analyzer".equals(type)) {
+                    clangAnalyzerWarningList.add(clangtidyFile);
+                } 
+                else if("clang-diagnostic".equals(type)) {
+                    clangDiagnosticWarningList.add(clangtidyFile);
+                } 
+                else if("google".equals(type)) {
+                    googleWarningList.add(clangtidyFile);
+                } 
+                else if("llvm".equals(type)) {
+                    llvmWarningList.add(clangtidyFile);
+                }
+                else if("misc".equals(type)) {
+                    miscWarningList.add(clangtidyFile);
+                } 
+                else if("modernize".equals(type)) {
+                    modernizeWarningList.add(clangtidyFile);
+                } 
+                else if("mpi".equals(type)) {
+                    mpiWarningList.add(clangtidyFile);
+                } 
+                else if("performance".equals(type)) {
+                    performanceWarningList.add(clangtidyFile);
+                } 
+                else if("readability".equals(type)) {
+                    readabilityWarningList.add(clangtidyFile);
+                }
+                else {
+                    ClangtidyLogger.log(listener, "WARNING: Clang tidy report contain unknown warning type " + type + ".");
+                }
+                
                 allErrors.add(clangtidyFile);
 
                 //FileName and Line
@@ -188,15 +158,25 @@ public class ClangtidyParser implements Serializable {
                 }
             }
         }
-
+        
         clangTidyReport.setAllErrors(allErrors);
+        
         clangTidyReport.setErrorSeverityList(errorSeverityList);
-        clangTidyReport.setInformationSeverityList(informationSeverityList);
-        clangTidyReport.setNoCategorySeverityList(noCategorySeverityList);
-        clangTidyReport.setPerformanceSeverityList(performanceSeverityList);
-        clangTidyReport.setStyleSeverityList(styleSeverityList);
         clangTidyReport.setWarningSeverityList(warningSeverityList);
-        clangTidyReport.setPortabilitySeverityList(portabilitySeverityList);
+        
+        clangTidyReport.setBoostWarningList(boostWarningList);
+        clangTidyReport.setCertWarningList(certWarningList);
+        clangTidyReport.setCppcoreguidelinesWarningList(cppcoreguidelinesWarningList);
+        clangTidyReport.setClangAnalyzerWarningList(clangAnalyzerWarningList);
+        clangTidyReport.setClangDiagnosticWarningList(clangDiagnosticWarningList);
+        clangTidyReport.setGoogleWarningList(googleWarningList);
+        clangTidyReport.setLlvmWarningList(llvmWarningList);
+        clangTidyReport.setMiscWarningList(miscWarningList);
+        clangTidyReport.setModernizeWarningList(modernizeWarningList);
+        clangTidyReport.setMpiWarningList(mpiWarningList);
+        clangTidyReport.setPerformanceWarningList(performanceWarningList);
+        clangTidyReport.setReadabilityWarningList(readabilityWarningList);
+
 
         if (results.getClangtidy() != null) {
             clangTidyReport.setVersion(results.getClangtidy().getVersion());
