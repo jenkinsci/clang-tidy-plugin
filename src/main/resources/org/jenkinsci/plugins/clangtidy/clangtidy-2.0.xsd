@@ -14,14 +14,14 @@
                     <xs:complexType>
                         <xs:attribute name="file"/>
                         <xs:attribute name="line"/>
+                        <xs:attribute name="column"/>
                     </xs:complexType>
                 </xs:element>
             </xs:sequence>
+            <xs:attribute name="type" type="xs:string" use="required"/>
             <xs:attribute name="id" type="xs:string" use="required"/>
             <xs:attribute name="severity" type="xs:string" use="required"/>
-            <xs:attribute name="msg" type="xs:string" use="required"/>
-            <xs:attribute name="verbose" type="xs:string" use="optional"/>
-            <xs:attribute name="inconclusive" type="xs:boolean" use="optional"/>
+            <xs:attribute name="message" type="xs:string" use="required"/>
         </xs:complexType>
     </xs:element>
 
@@ -37,7 +37,7 @@
                 <xs:element ref="error" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
-</xs:element>
+    </xs:element>
 
 
     <xs:element name="results">
