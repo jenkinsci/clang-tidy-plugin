@@ -1,0 +1,73 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:g="/jelly/clangtidy">
+    <st:header name="Content-Type" value="text/html;charset=UTF-8"/>
+
+    <j:set var="cachedContainer" value="${it.diffCurrentAndPrevious(null)}"/>
+
+    <h2>${%Details}</h2>
+
+    <style type="text/css">
+    #clangtidyDetails { width: auto; }
+    #clangtidyDetails td { white-space: normal; }
+    #clangtidyDetails .new { background-color: #FFC8C8; }
+    #clangtidyDetails .solved { background-color: #C8FFC8; }
+    #clangtidyDetails .unchanged { }
+    #clangtidyDetails .inconclusive { color: #555555; }
+    </style>
+
+    <p>Show issues highlighted on a single page</p>
+    <ul>
+        <li><a href="source.all?before=5&amp;after=5">${%all}</a></li>
+        <li><a href="source.all?before=5&amp;after=5&amp;states=new,solved">${%new and solved}</a></li>
+        <li><a href="source.all?before=5&amp;after=5&amp;states=new">${%new}</a></li>
+        <li><a href="source.all?before=5&amp;after=5&amp;states=solved">${%solved}</a></li>
+        <li><a href="source.all?before=5&amp;after=5&amp;states=unchanged">${%unchanged}</a></li>
+    </ul>
+
+    <table class="pane sortable" id="clangtidyDetails">
+        <thead>
+            <tr>
+                <td class="pane-header">${%State}</td>
+                <td class="pane-header">${%File}</td>
+                <td class="pane-header">${%Line}</td>
+                <td class="pane-header">${%Severity}</td>
+                <td class="pane-header">${%Type}</td>
+                <td class="pane-header">${%Inconclusive}</td>
+                <td class="pane-header">${%Message}</td>
+            </tr>
+        </thead>
+        <tbody>
+            <j:forEach var="elt" items="${cachedContainer}">
+                <j:set var="clangtidyFile" value="${elt.clangtidyFile}"/>
+                
+                <j:set var="inconclusiveCss" value=""/>
+                <j:if test="${clangtidyFile.inconclusive}">
+                    <j:set var="inconclusiveCss" value="inconclusive"/>
+                </j:if>
+
+                <tr>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${elt.diffState.text}</td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">
+                        <j:if test="${elt.isSourceIgnored()}">
+                            ${clangtidyFile.fileName}
+                        </j:if>
+                        <j:if test="${not elt.isSourceIgnored()}">
+                            <a href="source.${clangtidyFile.key}">${clangtidyFile.fileName}</a>
+                        </j:if>
+                    </td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}" data="${clangtidyFile.lineNumber}">
+                        <j:if test="${elt.isSourceIgnored()}">
+                            ${clangtidyFile.lineNumberString}
+                        </j:if>
+                        <j:if test="${not elt.isSourceIgnored()}">
+                            <a href="source.${clangtidyFile.key}#${clangtidyFile.linkLineNumber}">${clangtidyFile.lineNumberString}</a>
+                        </j:if>
+                    </td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.severity}</td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.cppCheckId}</td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.inconclusive}</td>
+                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.messageHtml}</td>
+                </tr>
+            </j:forEach>
+        </tbody>
+    </table>
+</j:jelly>

@@ -1,0 +1,26 @@
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:u="/util">
+
+    <j:set var="config" value="${instance.clangtidyConfig}"/>
+    <j:if test="${config == null}">
+        <j:set var="config" value="${descriptor.config}"/>
+    </j:if>
+
+    <f:entry title="${%Clangtidy report XMLs}" field="pattern">
+        <f:textbox name="clangtidy.pattern" value="${config.pattern}"/>
+    </f:entry>
+
+    <f:entry>
+        <f:checkbox name="clangtidy.ignoreBlankFiles" checked="${config.ignoreBlankFiles}"/>
+        <label class="attach-previous">${%Ignore blank files}</label>
+    </f:entry>
+
+    <f:entry>
+        <f:checkbox name="clangtidy.allowNoReport" checked="${config.allowNoReport}"/>
+        <label class="attach-previous">${%Do not fail the build if the Clangtidy report is not found}</label>
+    </f:entry>
+
+    <f:advanced>
+        <u:thresholds id="clangtidy"/>
+    </f:advanced>
+
+</j:jelly>

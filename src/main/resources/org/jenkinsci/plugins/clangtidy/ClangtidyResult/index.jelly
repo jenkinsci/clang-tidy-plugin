@@ -1,0 +1,24 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout">
+    <l:layout norefresh="true" title="${%Clangtidy Results}">
+        <st:include it="${it.owner}" page="sidepanel.jelly"/>
+        <l:main-panel>
+
+            <h1>${%Clangtidy Results}</h1>
+
+            <h2>${%Summary}</h2>
+            <j:set var="stat" value="${it.statistics}"/>
+            <j:set var="diff" value="${it.diff}"/>
+            <st:include page="/org/jenkinsci/plugins/clangtidy/ClangtidyBuildAction/statistics.jelly"/>
+
+            <j:if test="${stat.versions != null}">
+                <h2>${%Clangtidy Engine}</h2>
+                <p>${stat.versions}</p>
+            </j:if>
+
+            <j:if test="${stat.numberTotal != 0}">
+                <st:include page="details.jelly"/>
+            </j:if>
+
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

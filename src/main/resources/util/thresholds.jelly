@@ -6,7 +6,7 @@
 
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:f="/lib/form">
 
-    <j:set var="config" value="${instance.cppcheckConfig}"/>
+    <j:set var="config" value="${instance.clangtidyConfig}"/>
     <j:if test="${config == null}">
         <j:set var="config" value="${descriptor.config}"/>
     </j:if>
@@ -49,27 +49,27 @@
             <tbody>
                 <tr>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.healthy"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.healthy"
                                    value="${config.configSeverityEvaluation.healthy}"/>
                     </td>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.unHealthy"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.unHealthy"
                                    value="${config.configSeverityEvaluation.unHealthy}"/>
                     </td>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.threshold"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.threshold"
                                    value="${config.configSeverityEvaluation.threshold}"/>
                     </td>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.newThreshold"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.newThreshold"
                                    value="${config.configSeverityEvaluation.newThreshold}"/>
                     </td>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.failureThreshold"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.failureThreshold"
                                    value="${config.configSeverityEvaluation.failureThreshold}"/>
                     </td>
                     <td>
-                        <f:textbox name="cppcheck.config.configSeverityEvaluation.newFailureThreshold"
+                        <f:textbox name="clangtidy.config.configSeverityEvaluation.newFailureThreshold"
                                    value="${config.configSeverityEvaluation.newFailureThreshold}"/>
                     </td>
                 </tr>

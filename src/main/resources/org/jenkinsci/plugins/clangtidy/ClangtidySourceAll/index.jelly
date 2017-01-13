@@ -1,0 +1,78 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:l="/lib/layout">
+
+    <st:header name="Content-Type" value="text/html;charset=UTF-8"/>
+    <l:layout norefresh="true" title="${%Clangtidy Results}">
+        <st:include it="${it.owner}" page="sidepanel.jelly"/>
+
+        <l:main-panel>
+            <style type="text/css">
+            .clangtidy { padding: 1em; margin: 1em 0em 1em 0em; border: 1px solid silver; }
+            .newClangtidy { background-color: #FFC8C8; }
+            .solvedClangtidy { background-color: #C8FFC8; }
+            .unchangedClangtidy { }
+            .inconclusiveClangtidy { color: #555555; }
+
+            .clangtidy h2 { margin-top: 0; }
+            .clangtidy code { display: block; margin: 1em 0em 1em 0em; }
+            .clangtidy .line { white-space: pre-wrap; }
+            .clangtidy .lineNumber { color: gray; }
+            .clangtidy .highlighted { line-height: 2.1em; background-color: #FCAF3E; font-weight: bold; }
+            .clangtidy .header { font-weight: bold; }
+            .clangtidy .verbose { white-space: pre-wrap; }
+            </style>
+
+            <h1>${%Clangtidy Results}</h1>
+
+            <j:if test="${it.files.isEmpty()}">
+                <p>${%The result set is empty.}</p>
+            </j:if>
+
+            <j:forEach var="file" items="${it.files}">
+                <j:set var="inconclusiveCss" value=""/>
+                <j:if test="${file.clangtidyFile.inconclusive}">
+                    <j:set var="inconclusiveCss" value="inconclusiveClangtidy"/>
+                </j:if>
+
+                <div class="clangtidy ${file.diffState.css}Clangtidy ${inconclusiveCss}">
+                    <h2>${file.clangtidyFile.messageHtml}</h2>
+
+                    <j:if test="${file.clangtidyFile.fileName != null}">
+                        <j:if test="${file.sourceIgnored}">
+                            <div>
+                                <span class="header">${%Location:}&amp;nbsp;</span>
+                                ${file.clangtidyFile.fileName}:${file.clangtidyFile.lineNumber}
+                            </div>
+                        </j:if>
+                        <j:if test="${not file.sourceIgnored}">
+                            <div>
+                                <span class="header">${%Location:}&amp;nbsp;</span>
+                                <a href="../source.${file.clangtidyFile.key}#${file.clangtidyFile.linkLineNumber}">
+                                    ${file.clangtidyFile.fileName}:${file.clangtidyFile.lineNumber}
+                                </a>
+                            </div>
+                        </j:if>
+                    </j:if>
+
+                    <div><span class="header">${%State:}&amp;nbsp;</span>${file.diffState.text}</div>
+                    <div><span class="header">${%Severity:}&amp;nbsp;</span>${file.clangtidyFile.severity}</div>
+                    <div><span class="header">${%Type:}&amp;nbsp;</span>${file.clangtidyFile.cppCheckId}</div>
+
+                    <j:if test="${file.clangtidyFile.inconclusive}">
+                        <div><span class="header">${%Inconclusive:}&amp;nbsp;</span>${file.clangtidyFile.inconclusive}</div>
+                    </j:if>
+
+                    <j:if test="${file.clangtidyFile.verbose != null}">
+                        <p class="verbose">${file.clangtidyFile.verboseHtml}</p>
+                    </j:if>
+
+                    <j:if test="${not file.sourceIgnored}">
+                        <code>
+                            ${it.getSourceCode(file)}
+                        </code>
+                    </j:if>
+                </div>
+            </j:forEach>
+
+        </l:main-panel>
+    </l:layout>
+</j:jelly>

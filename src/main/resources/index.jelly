@@ -1,5 +1,5 @@
 <div>
     This plug-in collects the
-    <a href="http://cppcheck.wiki.sourceforge.net/">Cppcheck</a>
+    <a href="http://clangtidy.wiki.sourceforge.net/">Clangtidy</a>
     analysis results of the project and visualizes the found errors.
 </div>
