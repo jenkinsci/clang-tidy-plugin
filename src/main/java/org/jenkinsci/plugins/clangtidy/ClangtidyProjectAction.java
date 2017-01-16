@@ -151,62 +151,62 @@ public class ClangtidyProjectAction extends AbstractClangtidyProjectAction {
             //Boost
             if (configGraph.isDisplayBoostWarning())
                 dsb.add(statistics.getNumberBoostWarning(),
-                        Messages.clangtidy_Style(), label);
+                        Messages.clangtidy_Boost(), label);
 
             //Cert
             if (configGraph.isDisplayCertWarning())
                 dsb.add(statistics.getNumberCertWarning(),
-                        Messages.clangtidy_Performance(), label);
+                        Messages.clangtidy_Cert(), label);
 
             //Cppcoreguidelines
             if (configGraph.isDisplayCppcoreguidelinesWarning())
                 dsb.add(statistics.getNumberCppcoreguidelinesWarning(),
-                        Messages.clangtidy_Information(), label);
+                        Messages.clangtidy_Cppcoreguidelines(), label);
 
             //Clang-analyzer
             if (configGraph.isDisplayClangAnalyzerWarning())
                 dsb.add(statistics.getNumberClangAnalyzerWarning(),
-                        Messages.clangtidy_NoCategory(), label);
+                        Messages.clangtidy_ClangAnalyzer(), label);
 
             //Clang-diagnostic
             if (configGraph.isDisplayClangDiagnosticWarning())
                 dsb.add(statistics.getNumberClangDiagnosticWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_ClangDiagnostic(), label);
             
             //Google
             if (configGraph.isDisplayGoogleWarning())
                 dsb.add(statistics.getNumberGoogleWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Google(), label);
             
             //Llvm
             if (configGraph.isDisplayLlvmWarning())
                 dsb.add(statistics.getNumberLlvmWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Llvm(), label);
             
             //Misc
             if (configGraph.isDisplayMiscWarning())
                 dsb.add(statistics.getNumberMiscWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Misc(), label);
             
             //Modernize
             if (configGraph.isDisplayModernizeWarning())
                 dsb.add(statistics.getNumberModernizeWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Modernize(), label);
             
             //Mpi
             if (configGraph.isDisplayMpiWarning())
                 dsb.add(statistics.getNumberMpiWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Mpi(), label);
             
             //Performance
             if (configGraph.isDisplayPerformanceWarning())
                 dsb.add(statistics.getNumberPerformanceWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Performance(), label);
             
             //Readability
             if (configGraph.isDisplayReadabilityWarning())
                 dsb.add(statistics.getNumberReadabilityWarning(),
-                        Messages.clangtidy_Portability(), label);
+                        Messages.clangtidy_Readability(), label);
 
             // all errors
             if (configGraph.isDisplayAllErrors())
