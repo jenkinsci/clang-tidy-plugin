@@ -54,18 +54,25 @@ public class ClangtidyGraph extends Graph {
     public static final int DEFAULT_CHART_WIDTH = 500;
     public static final int DEFAULT_CHART_HEIGHT = 200;
 
-    private static final Color RED = new Color(0xCC0000);
-    private static final Color BLUE = new Color(0x3465A4);
-    private static final Color GREEN = new Color(0x73D216);
-    private static final Color YELLOW = new Color(0xEDD400);
-    private static final Color BROWN = new Color(0xB87700);
-    private static final Color GRAY = new Color(0x4D4D4D);
-    private static final Color VIOLET = new Color(0xA020F0);
-    private static final Color PINK = new Color(0xFF9780);
+    private static final Color GREEN = new Color(0x00FF00);
+    private static final Color BLUE = new Color(0x0000FF);
+    private static final Color RED = new Color(0xFF0000);
+    private static final Color CYAN = new Color(0x01FFFE);
+    private static final Color LIGHT_PINK = new Color(0xFFA6FE);
+    private static final Color LIGHT_YELLOW = new Color(0xFFDB66);
+    private static final Color DARK_GREEN = new Color(0x006401);
+    private static final Color DARK_BLUE = new Color(0x010067);
+    private static final Color BORDEAU = new Color(0x95003A);
+    private static final Color GRAY_BLUE = new Color(0x007DB5);
+    private static final Color PINK = new Color(0xFF00F6);
+    private static final Color BROWN = new Color(0x774D00);
+    private static final Color YELLOW = new Color(0xFFE502);
+    private static final Color ORANGE = new Color(0xFF6E41);
+    private static final Color GRAY = new Color(0x6B6882);
 
     /** Color palette for the lines in the graph. */
     private static final List<Color> colors = Collections.unmodifiableList(
-            Arrays.asList(RED, BLUE, GREEN, YELLOW, BROWN, GRAY, VIOLET, PINK));
+            Arrays.asList(GREEN, BLUE, RED, CYAN, LIGHT_PINK, LIGHT_YELLOW, DARK_GREEN, BORDEAU, DARK_BLUE, GRAY_BLUE, PINK, BROWN, YELLOW, ORANGE, GRAY ));
 
     public ClangtidyGraph(AbstractBuild<?, ?> owner, CategoryDataset categoryDataset,
             String yLabel, int chartWidth, int chartHeight) {
