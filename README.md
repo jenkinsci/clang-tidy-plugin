@@ -5,10 +5,7 @@ This [Jenkins CI](http://jenkins-ci.org/) plug-in generates the trend report for
 
 A magic command:
 ```bash
-grep '^/' clangtidy-result.xml | sort | uniq | sed -r
-'s;^(/[^:]+):([0-9]+):([0-9]+): ([^:]+): (.*?) \[(.*)\];\;        <error
-id="\6" severity="\4" msg="\5" verbose="\5">\n            <location
-file="\1" line="\2"/>;' | grep -v '^/'
+/usr/share/clang/run-clang-tidy.py -j8 -clang-tidy-binary="$(which clang-tidy)" -p='debug' -header-filter='debug/.*/include/.*' 2>/dev/null | grep -E "^/"  | sort | uniq | sed -e 's/\&/\&amp;/g' -e 's/"/\&quot;/g' -e "s/'/\&apos;/g" -e 's/</\&lt;/g' -e 's/>/\&gt;/g' | sed -nr 's;^(/[^:]+):([0-9]+):([0-9]+): ([^:]+): (.*?) \[(((clang-)?[^-]*)-(.*))\]$;        <error type="\7" id="\9" severity="\4" message="\5">\n            <location file="\1" line="\2" column="\3"/>\n        </error>;p' | sed -r '1i<?xml version="1.0" encoding="UTF-8"?>\n<results>\n    <clangtidy version="'"$($(which clang-tidy) -version | sed -rn 's/^  LLVM version ([0-9.]+)$/\1/p')"'"/>\n    <errors>' | sed -r '$s;$;\n    </errors>\n</results>;'  > clangtidy-result.xml
 ```
 
 
