@@ -1,5 +1,5 @@
 <div>
     This plug-in collects the
-    <a href="http://clangtidy.wiki.sourceforge.net/">Clangtidy</a>
+    <a href="http://clang.llvm.org/extra/clang-tidy/">Clangtidy</a>
     analysis results of the project and visualizes the found errors.
 </div>

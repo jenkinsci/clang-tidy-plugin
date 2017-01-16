@@ -1,7 +1,7 @@
 <j:jelly xmlns:j="jelly:core" xmlns:x="jelly:xml">
     <x:element name="format">
         <x:attribute name="value"></x:attribute>
-        <x:attribute name="severity"></x:attribute>
+        <x:attribute name="warning"></x:attribute>
         <j:if test="${value==null}">
             <td class="pane"></td>
         </j:if>
@@ -9,12 +9,12 @@
             <td class="pane"></td>
         </j:if>
         <j:if test="${!(value==null) and !(value=='0')}">
-            <j:if test="${severity=='all'}">
+            <j:if test="${warning=='all'}">
                 <td class="pane">
                     <b>${value}</b>
                 </td>
             </j:if>
-            <j:if test="${! (severity=='all')}">
+            <j:if test="${! (warning=='all')}">
                 <td class="pane">${value}</td>
             </j:if>
         </j:if>

@@ -10,7 +10,6 @@
             .newClangtidy { background-color: #FFC8C8; }
             .solvedClangtidy { background-color: #C8FFC8; }
             .unchangedClangtidy { }
-            .inconclusiveClangtidy { color: #555555; }
 
             .clangtidy h2 { margin-top: 0; }
             .clangtidy code { display: block; margin: 1em 0em 1em 0em; }
@@ -18,7 +17,6 @@
             .clangtidy .lineNumber { color: gray; }
             .clangtidy .highlighted { line-height: 2.1em; background-color: #FCAF3E; font-weight: bold; }
             .clangtidy .header { font-weight: bold; }
-            .clangtidy .verbose { white-space: pre-wrap; }
             </style>
 
             <h1>${%Clangtidy Results}</h1>
@@ -28,12 +26,8 @@
             </j:if>
 
             <j:forEach var="file" items="${it.files}">
-                <j:set var="inconclusiveCss" value=""/>
-                <j:if test="${file.clangtidyFile.inconclusive}">
-                    <j:set var="inconclusiveCss" value="inconclusiveClangtidy"/>
-                </j:if>
 
-                <div class="clangtidy ${file.diffState.css}Clangtidy ${inconclusiveCss}">
+                <div class="clangtidy ${file.diffState.css}Clangtidy">
                     <h2>${file.clangtidyFile.messageHtml}</h2>
 
                     <j:if test="${file.clangtidyFile.fileName != null}">
@@ -55,15 +49,7 @@
 
                     <div><span class="header">${%State:}&amp;nbsp;</span>${file.diffState.text}</div>
                     <div><span class="header">${%Severity:}&amp;nbsp;</span>${file.clangtidyFile.severity}</div>
-                    <div><span class="header">${%Type:}&amp;nbsp;</span>${file.clangtidyFile.cppCheckId}</div>
-
-                    <j:if test="${file.clangtidyFile.inconclusive}">
-                        <div><span class="header">${%Inconclusive:}&amp;nbsp;</span>${file.clangtidyFile.inconclusive}</div>
-                    </j:if>
-
-                    <j:if test="${file.clangtidyFile.verbose != null}">
-                        <p class="verbose">${file.clangtidyFile.verboseHtml}</p>
-                    </j:if>
+                    <div><span class="header">${%Type:}&amp;nbsp;</span>${file.clangtidyFile.type}</div>
 
                     <j:if test="${not file.sourceIgnored}">
                         <code>

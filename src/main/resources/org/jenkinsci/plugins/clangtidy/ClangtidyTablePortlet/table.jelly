@@ -12,11 +12,19 @@
         <j:set var="numberTotal" value="${0}"/>
         <j:set var="numberErrorSeverity" value="${0}"/>
         <j:set var="numberWarningSeverity" value="${0}"/>
-        <j:set var="numberStyleSeverity" value="${0}"/>
-        <j:set var="numberPerformanceSeverity" value="${0}"/>
-        <j:set var="numberPortabilitySeverity" value="${0}"/>
-        <j:set var="numberInformationSeverity" value="${0}"/>
-        <j:set var="numberNoCategorySeverity" value="${0}"/>
+        <j:set var="numberBoostWarning" value="${0}"/>
+        <j:set var="numberCertWarning" value="${0}"/>
+        <j:set var="numberCppcoreguidelinesWarning" value="${0}"/>
+        <j:set var="numberClangAnalyzerWarning" value="${0}"/>
+        <j:set var="numberClangDiagnosticWarning" value="${0}"/>
+        <j:set var="numberGoogleWarning" value="${0}"/>
+        <j:set var="numberLlvmWarning" value="${0}"/>
+        <j:set var="numberMiscWarning" value="${0}"/>
+        <j:set var="numberModernizeWarning" value="${0}"/>
+        <j:set var="numberMpiWarning" value="${0}"/>
+        <j:set var="numberPerformanceWarning" value="${0}"/>
+        <j:set var="numberReadabilityWarning" value="${0}"/>
+        
 
         <thead>
             <tr>
@@ -24,11 +32,18 @@
                 <td class="pane-header">${%Total}</td>
                 <td class="pane-header">${%Error}</td>
                 <td class="pane-header">${%Warning}</td>
-                <td class="pane-header">${%Style}</td>
+                <td class="pane-header">${%Boost}</td>
+                <td class="pane-header">${%Cert}</td>
+                <td class="pane-header">${%Cppcoreguidelines}</td>
+                <td class="pane-header">${%Clang-Analyzer}</td>
+                <td class="pane-header">${%Clang-Diagnostic}</td>
+                <td class="pane-header">${%Google}</td>
+                <td class="pane-header">${%LLVM}</td>
+                <td class="pane-header">${%Misc}</td>
+                <td class="pane-header">${%Modernize}</td>
+                <td class="pane-header">${%Mpi}</td>
                 <td class="pane-header">${%Performance}</td>
-                <td class="pane-header">${%Portability}</td>
-                <td class="pane-header">${%Information}</td>
-                <td class="pane-header">${%No category}</td>
+                <td class="pane-header">${%Readability}</td>
             </tr>
         </thead>
         <tbody>
@@ -40,20 +55,34 @@
                     <td class="pane number">${stats.numberTotal}</td>
                     <td class="pane number">${stats.numberErrorSeverity}</td>
                     <td class="pane number">${stats.numberWarningSeverity}</td>
-                    <td class="pane number">${stats.numberStyleSeverity}</td>
-                    <td class="pane number">${stats.numberPerformanceSeverity}</td>
-                    <td class="pane number">${stats.numberPortabilitySeverity}</td>
-                    <td class="pane number">${stats.numberInformationSeverity}</td>
-                    <td class="pane number">${stats.numberNoCategorySeverity}</td>
+                    <td class="pane number">${stats.numberBoostWarning}</td>
+                    <td class="pane number">${stats.numberCertWarning}</td>
+                    <td class="pane number">${stats.numberCppcoreguidelinesWarning}</td>
+                    <td class="pane number">${stats.numberClangAnalyzerWarning}</td>
+                    <td class="pane number">${stats.numberClangDiagnosticWarning}</td>
+                    <td class="pane number">${stats.numberGoogleWarning}</td>
+                    <td class="pane number">${stats.numberLlvmWarning}</td>
+                    <td class="pane number">${stats.numberMiscWarning}</td>
+                    <td class="pane number">${stats.numberModernizeWarning}</td>
+                    <td class="pane number">${stats.numberMpiWarning}</td>
+                    <td class="pane number">${stats.numberPerformanceWarning}</td>
+                    <td class="pane number">${stats.numberReadabilityWarning}</td>
 
                     <j:set var="numberTotal" value="${numberTotal + stats.numberTotal}"/>
                     <j:set var="numberErrorSeverity" value="${numberErrorSeverity + stats.numberErrorSeverity}"/>
                     <j:set var="numberWarningSeverity" value="${numberWarningSeverity + stats.numberWarningSeverity}"/>
-                    <j:set var="numberStyleSeverity" value="${numberStyleSeverity + stats.numberStyleSeverity}"/>
-                    <j:set var="numberPerformanceSeverity" value="${numberPerformanceSeverity + stats.numberPerformanceSeverity}"/>
-                    <j:set var="numberPortabilitySeverity" value="${numberPortabilitySeverity + stats.numberPortabilitySeverity}"/>
-                    <j:set var="numberInformationSeverity" value="${numberInformationSeverity + stats.numberInformationSeverity}"/>
-                    <j:set var="numberNoCategorySeverity" value="${numberNoCategorySeverity + stats.numberNoCategorySeverity}"/>
+                    <j:set var="numberBoostWarning" value="${numberBoostWarning + stats.numberBoostWarning}"/>
+                    <j:set var="numberCertWarning" value="${numberCertWarning + stats.numberCertWarning}"/>
+                    <j:set var="numberCppcoreguidelinesWarning" value="${numberCppcoreguidelinesWarning + stats.numberCppcoreguidelinesWarning}"/>
+                    <j:set var="numberClangAnalyzerWarning" value="${numberClangAnalyzerWarning + stats.numberClangAnalyzerWarning}"/>
+                    <j:set var="numberClangDiagnosticWarning" value="${numberClangDiagnosticWarning + stats.numberClangDiagnosticWarning}"/>
+                    <j:set var="numberGoogleWarning" value="${numberGoogleWarning + stats.numberGoogleWarning}"/>
+                    <j:set var="numberLlvmWarning" value="${numberLlvmWarning + stats.numberLlvmWarning}"/>
+                    <j:set var="numberMiscWarning" value="${numberMiscWarning + stats.numberMiscWarning}"/>
+                    <j:set var="numberModernizeWarning" value="${numberModernizeWarning + stats.numberModernizeWarning}"/>
+                    <j:set var="numberMpiWarning" value="${numberMpiWarning + stats.numberMpiWarning}"/>
+                    <j:set var="numberPerformanceWarning" value="${numberPerformanceWarning + stats.numberPerformanceWarning}"/>
+                    <j:set var="numberReadabilityWarning" value="${numberReadabilityWarning + stats.numberReadabilityWarning}"/>
                 </tr>
             </j:forEach>
         </tbody>
@@ -63,11 +92,18 @@
                 <td class="pane-header number">${numberTotal}</td>
                 <td class="pane-header number">${numberErrorSeverity}</td>
                 <td class="pane-header number">${numberWarningSeverity}</td>
-                <td class="pane-header number">${numberStyleSeverity}</td>
-                <td class="pane-header number">${numberPerformanceSeverity}</td>
-                <td class="pane-header number">${numberPortabilitySeverity}</td>
-                <td class="pane-header number">${numberInformationSeverity}</td>
-                <td class="pane-header number">${numberNoCategorySeverity}</td>
+                <td class="pane-header number">${numberBoostWarning}</td>
+                <td class="pane-header number">${numberCertWarning}</td>
+                <td class="pane-header number">${numberCppcoreguidelinesWarning}</td>
+                <td class="pane-header number">${numberClangAnalyzerWarning}</td>
+                <td class="pane-header number">${numberClangDiagnosticWarning}</td>
+                <td class="pane-header number">${numberGoogleWarning}</td>
+                <td class="pane-header number">${numberLlvmWarning}</td>
+                <td class="pane-header number">${numberMiscWarning}</td>
+                <td class="pane-header number">${numberModernizeWarning}</td>
+                <td class="pane-header number">${numberMpiWarning}</td>
+                <td class="pane-header number">${numberPerformanceWarning}</td>
+                <td class="pane-header number">${numberReadabilityWarning}</td>
             </tr>
         </tfoot>
     </table>

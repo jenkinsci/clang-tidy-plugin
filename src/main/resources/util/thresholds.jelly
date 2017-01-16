@@ -77,58 +77,108 @@
         </table>
     </f:entry>
 
-
     <f:entry title="${%severity.evaluation}" field="severity">
-
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityError"
-                    checked="${config.configSeverityEvaluation.severityError}"
-                    id="thresholdLimit.severityError"/>
-        <st:nbsp/>
-        <label for="thresholdLimit.severityError">${%Error}</label>
-        <st:nbsp/>
-
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityWarning"
-                    checked="${config.configSeverityEvaluation.severityWarning}"
-                    id="thresholdLimit.severityWarning"/>
-        <st:nbsp/>
-        <label for="thresholdLimit.severityWarning">${%Warning}</label>
-        <st:nbsp/>
-
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityStyle"
-                    checked="${config.configSeverityEvaluation.severityStyle}"
+    
+            <f:checkbox name="${id}.config.configSeverityEvaluation.severityError"
+                        checked="${config.configSeverityEvaluation.severityError}"
+                        id="thresholdLimit.severityError"/>
+            <st:nbsp/>
+            <label for="thresholdLimit.severityError">${%Error}</label>
+            <st:nbsp/>
+    
+            <f:checkbox name="${id}.config.configSeverityEvaluation.severityWarning"
+                        checked="${config.configSeverityEvaluation.severityWarning}"
+                        id="thresholdLimit.severityWarning"/>
+            <st:nbsp/>
+            <label for="thresholdLimit.severityWarning">${%Warning}</label>
+            <st:nbsp/>
+    </f:entry>
+    
+    <f:entry title="${%warning.evaluation}" field="warning">
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningBoost"
+                    checked="${config.configSeverityEvaluation.warningBoost}"
                     id="thresholdLimit.severityStyle"/>
         <st:nbsp/>
-        <label for="thresholdLimit.severityStyle">${%Style}</label>
+        <label for="thresholdLimit.warningBoost">${%Boost}</label>
         <st:nbsp/>
 
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityPerformance"
-                    checked="${config.configSeverityEvaluation.severityPerformance}"
-                    id="thresholdLimit.severityPerformance"/>
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningCert"
+                    checked="${config.configSeverityEvaluation.warningCert}"
+                    id="thresholdLimit.warningCert"/>
         <st:nbsp/>
-        <label for="thresholdLimit.severityPerformance">${%Performance}</label>
-        <st:nbsp/>
-
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityPortability"
-                    checked="${config.configSeverityEvaluation.severityPortability}"
-                    id="thresholdLimit.severityPortability"/>
-        <st:nbsp/>
-        <label for="thresholdLimit.severityPortability">${%Portability}</label>
+        <label for="thresholdLimit.warningCert">${%Cert}</label>
         <st:nbsp/>
 
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityInformation"
-                    checked="${config.configSeverityEvaluation.severityInformation}"
-                    id="thresholdLimit.severityInformation"/>
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningCppcoreguidelines"
+                    checked="${config.configSeverityEvaluation.warningCppcoreguidelines}"
+                    id="thresholdLimit.warningCppcoreguidelines"/>
         <st:nbsp/>
-        <label for="thresholdLimit.severityInformation">${%Information}</label>
-        <st:nbsp/>
-
-        <f:checkbox name="${id}.config.configSeverityEvaluation.severityNoCategory"
-                    checked="${config.configSeverityEvaluation.severityNoCategory}"
-                    id="thresholdLimit.severityNoCategory"/>
-        <st:nbsp/>
-        <label for="thresholdLimit.severityNoCategory">${%No Category}</label>
+        <label for="thresholdLimit.warningCppcoreguidelines">${%Cppcoreguidelines}</label>
         <st:nbsp/>
 
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningClangAnalyzer"
+                    checked="${config.configSeverityEvaluation.warningClangAnalyzer}"
+                    id="thresholdLimit.warningClangAnalyzer"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningClangAnalyzer">${%Clang-Analyzer}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningClangDiagnostic"
+                    checked="${config.configSeverityEvaluation.warningClangDiagnostic}"
+                    id="thresholdLimit.warningClangDiagnostic"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningClangDiagnostic">${%Clang-Diagnostic}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningGoogle"
+                    checked="${config.configSeverityEvaluation.warningGoogle}"
+                    id="thresholdLimit.warningGoogle"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningGoogle">${%Google}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningLlvm"
+                    checked="${config.configSeverityEvaluation.warningLlvm}"
+                    id="thresholdLimit.warningLlvm"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningLlvm">${%LLVM}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningMisc"
+                    checked="${config.configSeverityEvaluation.warningMisc}"
+                    id="thresholdLimit.warningMisc"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningMisc">${%Misc}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningModernize"
+                    checked="${config.configSeverityEvaluation.warningModernize}"
+                    id="thresholdLimit.warningModernize"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningModernize">${%Modernize}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningMpi"
+                    checked="${config.configSeverityEvaluation.warningMpi}"
+                    id="thresholdLimit.warningMpi"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningMpi">${%MPI}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningPerformance"
+                    checked="${config.configSeverityEvaluation.warningPerformance}"
+                    id="thresholdLimit.warningPerformance"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningPerformance">${%Performance}</label>
+        <st:nbsp/>
+
+        <f:checkbox name="${id}.config.configSeverityEvaluation.warningReadability"
+                    checked="${config.configSeverityEvaluation.warningReadability}"
+                    id="thresholdLimit.warningReadability"/>
+        <st:nbsp/>
+        <label for="thresholdLimit.warningReadability">${%Readability}</label>
+        <st:nbsp/>
+        
     </f:entry>
 
     <f:entry title="${%graph.configuration}">
@@ -187,48 +237,111 @@
                 </td>
 
                 <td>
-                    <f:checkbox name="${id}.config.configGraph.displayStyleSeverity"
-                                checked="${config.configGraph.displayStyleSeverity}"
-                                id="configGraph.displayStyleSeverity"/>
+                    <f:checkbox name="${id}.config.configGraph.displayBoostWarning"
+                                checked="${config.configGraph.displayBoostWarning}"
+                                id="configGraph.displayBoostWarning"/>
                     <st:nbsp/>
-                    <label for="configGraph.displayStyleSeverity">${%Display style}</label>
+                    <label for="configGraph.displayBoostWarning">${%Display Boost}</label>
                     <st:nbsp/>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <f:checkbox name="${id}.config.configGraph.displayPerformanceSeverity"
-                                checked="${config.configGraph.displayPerformanceSeverity}"
-                                id="configGraph.displayPerformanceSeverity"/>
+                    <f:checkbox name="${id}.config.configGraph.displayCertWarning"
+                                checked="${config.configGraph.displayCertWarning}"
+                                id="configGraph.displayCertWarning"/>
                     <st:nbsp/>
-                    <label for="configGraph.displayPerformanceSeverity">${%Display performance}</label>
-                    <st:nbsp/>
-                </td>
-
-                <td>
-                    <f:checkbox name="${id}.config.configGraph.displayPortabilitySeverity"
-                                checked="${config.configGraph.displayPortabilitySeverity}"
-                                id="configGraph.displayPortabilitySeverity"/>
-                    <st:nbsp/>
-                    <label for="configGraph.displayPortabilitySeverity">${%Display portability}</label>
+                    <label for="configGraph.displayCertWarning">${%Display Cert}</label>
                     <st:nbsp/>
                 </td>
 
                 <td>
-                    <f:checkbox name="${id}.config.configGraph.displayInformationSeverity"
-                                checked="${config.configGraph.displayInformationSeverity}"
-                                id="configGraph.displayInformationSeverity"/>
+                    <f:checkbox name="${id}.config.configGraph.displayCppcoreguidelinesWarning"
+                                checked="${config.configGraph.displayCppcoreguidelinesWarning}"
+                                id="configGraph.displayCppcoreguidelinesWarning"/>
                     <st:nbsp/>
-                    <label for="configGraph.displayInformationSeverity">${%Display information}</label>
+                    <label for="configGraph.displayCppcoreguidelinesWarning">${%Display Cppcoreguidelines}</label>
                     <st:nbsp/>
                 </td>
 
                 <td>
-                    <f:checkbox name="${id}.config.configGraph.displayNoCategorySeverity"
-                                checked="${config.configGraph.displayNoCategorySeverity}"
-                                id="configGraph.displayNoCategorySeverity"/>
+                    <f:checkbox name="${id}.config.configGraph.displayClangAnalyzerWarning"
+                                checked="${config.configGraph.displayClangAnalyzerWarning}"
+                                id="configGraph.displayClangAnalyzerWarning"/>
                     <st:nbsp/>
-                    <label for="configGraph.displayNoCategorySeverity">${%Display no category}</label>
+                    <label for="configGraph.displayClangAnalyzerWarning">${%Display Clang-analyzer}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayClangDiagnosticWarning"
+                                checked="${config.configGraph.displayClangDiagnosticWarning}"
+                                id="configGraph.displayClangDiagnosticWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayClangDiagnosticWarning">${%Display Clang-Diagnostic}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayGoogleWarning"
+                                checked="${config.configGraph.displayGoogleWarning}"
+                                id="configGraph.displayGoogleWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayGoogleWarning">${%Display Google}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayLlvmWarning"
+                                checked="${config.configGraph.displayLlvmWarning}"
+                                id="configGraph.displayLlvmWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayLlvmWarning">${%Display LLVM}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayMiscWarning"
+                                checked="${config.configGraph.displayMiscWarning}"
+                                id="configGraph.displayMiscWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayMiscWarning">${%Display Misc}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayModernizeWarning"
+                                checked="${config.configGraph.displayModernizeWarning}"
+                                id="configGraph.displayModernizeWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayModernizeWarning">${%Display Modernize}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayMpiWarning"
+                                checked="${config.configGraph.displayMpiWarning}"
+                                id="configGraph.displayMpiWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayMpiWarning">${%Display MPI}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayPerformanceWarning"
+                                checked="${config.configGraph.displayPerformanceWarning}"
+                                id="configGraph.displayPerformanceWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayPerformanceWarning">${%Display Performance}</label>
+                    <st:nbsp/>
+                </td>
+
+                <td>
+                    <f:checkbox name="${id}.config.configGraph.displayReadabilityWarning"
+                                checked="${config.configGraph.displayReadabilityWarning}"
+                                id="configGraph.displayReadabilityWarning"/>
+                    <st:nbsp/>
+                    <label for="configGraph.displayReadabilityWarning">${%Display Readability}</label>
                     <st:nbsp/>
                 </td>
             </tr>

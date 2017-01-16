@@ -19,49 +19,91 @@
             </tr>
         </thead>
         <tbody>
+            
             <tr>
-                <td class="pane" data="6">${%Error}</td>
+                <td class="pane" data="14">${%Boost}</td>
+                <td class="pane number" data="${stat.numberBoostWarning}">${stat.numberBoostWarning}</td>
+                <td class="pane number" data="${diff.v}">${diff.formatDiff(diff.numberBoostWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="13">${%Cert}</td>
+                <td class="pane number" data="${stat.numberCertWarning}">${stat.numberCertWarning}</td>
+                <td class="pane number" data="${diff.numberCertWarning}">${diff.formatDiff(diff.numberCertWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="12">${%Cppcoreguidelines}</td>
+                <td class="pane number" data="${stat.numberCppcoreguidelinesWarning}">${stat.numberCppcoreguidelinesWarning}</td>
+                <td class="pane number" data="${diff.numberCppcoreguidelinesWarning}">${diff.formatDiff(diff.numberCppcoreguidelinesWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="11">${%Clang-Analyzer}</td>
+                <td class="pane number" data="${stat.numberClangAnalyzerWarning}">${stat.numberClangAnalyzerWarning}</td>
+                <td class="pane number" data="${diff.numberClangAnalyzerWarning}">${diff.formatDiff(diff.numberClangAnalyzerWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="10">${%Clang-Diagnostic}</td>
+                <td class="pane number" data="${stat.numberClangDiagnosticWarning}">${stat.numberClangDiagnosticWarning}</td>
+                <td class="pane number" data="${diff.numberClangDiagnosticWarning}">${diff.formatDiff(diff.numberClangDiagnosticWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="9">${%Google}</td>
+                <td class="pane number" data="${stat.numberGoogleWarning}">${stat.numberGoogleWarning}</td>
+                <td class="pane number" data="${diff.numberGoogleWarning}">${diff.formatDiff(diff.numberGoogleWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="8">${%LLVM}</td>
+                <td class="pane number" data="${stat.numberLlvmWarning}">${stat.numberLlvmWarning}</td>
+                <td class="pane number" data="${diff.numberLlvmWarning}">${diff.formatDiff(diff.numberLlvmWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="7">${%Misc}</td>
+                <td class="pane number" data="${stat.numberMiscWarning}">${stat.numberMiscWarning}</td>
+                <td class="pane number" data="${diff.numberMiscWarning}">${diff.formatDiff(diff.numberMiscWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="6">${%Modernize}</td>
+                <td class="pane number" data="${stat.numberModernizeWarning}">${stat.numberModernizeWarning}</td>
+                <td class="pane number" data="${diff.numberModernizeWarning}">${diff.formatDiff(diff.numberModernizeWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="5">${%MPI}</td>
+                <td class="pane number" data="${stat.numberMpiWarning}">${stat.numberMpiWarning}</td>
+                <td class="pane number" data="${diff.numberMpiWarning}">${diff.formatDiff(diff.numberMpiWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="4">${%Performance}</td>
+                <td class="pane number" data="${stat.numberPerformanceWarning}">${stat.numberPerformanceWarning}</td>
+                <td class="pane number" data="${diff.numberPerformanceWarning}">${diff.formatDiff(diff.numberPerformanceWarning)}</td>
+            </tr>
+
+            <tr>
+                <td class="pane" data="3">${%Readability}</td>
+                <td class="pane number" data="${stat.numberReadabilityWarning}">${stat.numberReadabilityWarning}</td>
+                <td class="pane number" data="${diff.numberReadabilityWarning}">${diff.formatDiff(diff.numberReadabilityWarning)}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td class="pane" data="2">${%Error}</td>
                 <td class="pane number" data="${stat.numberErrorSeverity}">${stat.numberErrorSeverity}</td>
                 <td class="pane number" data="${diff.numberErrorSeverity}">${diff.formatDiff(diff.numberErrorSeverity)}</td>
             </tr>
 
             <tr>
-                <td class="pane" data="5">${%Warning}</td>
+                <td class="pane" data="1">${%Warning}</td>
                 <td class="pane number" data="${stat.numberWarningSeverity}">${stat.numberWarningSeverity}</td>
                 <td class="pane number" data="${diff.numberWarningSeverity}">${diff.formatDiff(diff.numberWarningSeverity)}</td>
             </tr>
-
-            <tr>
-                <td class="pane" data="4">${%Style}</td>
-                <td class="pane number" data="${stat.numberStyleSeverity}">${stat.numberStyleSeverity}</td>
-                <td class="pane number" data="${diff.numberStyleSeverity}">${diff.formatDiff(diff.numberStyleSeverity)}</td>
-            </tr>
-
-            <tr>
-                <td class="pane" data="3">${%Performance}</td>
-                <td class="pane number" data="${stat.numberPerformanceSeverity}">${stat.numberPerformanceSeverity}</td>
-                <td class="pane number" data="${diff.numberPerformanceSeverity}">${diff.formatDiff(diff.numberPerformanceSeverity)}</td>
-            </tr>
-
-            <tr>
-                <td class="pane" data="3">${%Portability}</td>
-                <td class="pane number" data="${stat.numberPortabilitySeverity}">${stat.numberPortabilitySeverity}</td>
-                <td class="pane number" data="${diff.numberPortabilitySeverity}">${diff.formatDiff(diff.numberPortabilitySeverity)}</td>
-            </tr>
-
-            <tr>
-                <td class="pane" data="2">${%Information}</td>
-                <td class="pane number" data="${stat.numberInformationSeverity}">${stat.numberInformationSeverity}</td>
-                <td class="pane number" data="${diff.numberInformationSeverity}">${diff.formatDiff(diff.numberInformationSeverity)}</td>
-            </tr>
-
-            <tr>
-                <td class="pane" data="1">${%No category}</td>
-                <td class="pane number" data="${stat.numberNoCategorySeverity}">${stat.numberNoCategorySeverity}</td>
-                <td class="pane number" data="${diff.numberNoCategorySeverity}">${diff.formatDiff(diff.numberNoCategorySeverity)}</td>
-            </tr>
-        </tbody>
-        <tfoot>
             <tr class="sortbottom">
                 <td class="pane-header" data="0">${%Total}</td>
                 <td class="pane-header number" data="${stat.numberTotal}">${stat.numberTotal}</td>

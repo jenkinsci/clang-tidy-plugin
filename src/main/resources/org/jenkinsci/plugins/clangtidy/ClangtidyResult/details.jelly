@@ -11,7 +11,6 @@
     #clangtidyDetails .new { background-color: #FFC8C8; }
     #clangtidyDetails .solved { background-color: #C8FFC8; }
     #clangtidyDetails .unchanged { }
-    #clangtidyDetails .inconclusive { color: #555555; }
     </style>
 
     <p>Show issues highlighted on a single page</p>
@@ -31,22 +30,16 @@
                 <td class="pane-header">${%Line}</td>
                 <td class="pane-header">${%Severity}</td>
                 <td class="pane-header">${%Type}</td>
-                <td class="pane-header">${%Inconclusive}</td>
                 <td class="pane-header">${%Message}</td>
             </tr>
         </thead>
         <tbody>
             <j:forEach var="elt" items="${cachedContainer}">
                 <j:set var="clangtidyFile" value="${elt.clangtidyFile}"/>
-                
-                <j:set var="inconclusiveCss" value=""/>
-                <j:if test="${clangtidyFile.inconclusive}">
-                    <j:set var="inconclusiveCss" value="inconclusive"/>
-                </j:if>
 
                 <tr>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${elt.diffState.text}</td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">
+                    <td class="pane ${elt.diffState.css}">${elt.diffState.text}</td>
+                    <td class="pane ${elt.diffState.css}">
                         <j:if test="${elt.isSourceIgnored()}">
                             ${clangtidyFile.fileName}
                         </j:if>
@@ -54,7 +47,7 @@
                             <a href="source.${clangtidyFile.key}">${clangtidyFile.fileName}</a>
                         </j:if>
                     </td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}" data="${clangtidyFile.lineNumber}">
+                    <td class="pane ${elt.diffState.css}" data="${clangtidyFile.lineNumber}">
                         <j:if test="${elt.isSourceIgnored()}">
                             ${clangtidyFile.lineNumberString}
                         </j:if>
@@ -62,10 +55,9 @@
                             <a href="source.${clangtidyFile.key}#${clangtidyFile.linkLineNumber}">${clangtidyFile.lineNumberString}</a>
                         </j:if>
                     </td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.severity}</td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.cppCheckId}</td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.inconclusive}</td>
-                    <td class="pane ${elt.diffState.css} ${inconclusiveCss}">${clangtidyFile.messageHtml}</td>
+                    <td class="pane ${elt.diffState.css}">${clangtidyFile.severity}</td>
+                    <td class="pane ${elt.diffState.css}">${clangtidyFile.id}</td>
+                    <td class="pane ${elt.diffState.css}">${clangtidyFile.messageHtml}</td>
                 </tr>
             </j:forEach>
         </tbody>
