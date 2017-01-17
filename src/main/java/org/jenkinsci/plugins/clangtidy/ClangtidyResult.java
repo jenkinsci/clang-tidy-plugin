@@ -457,11 +457,13 @@ public class ClangtidyResult implements Serializable {
                 ClangtidyFile prevCppFile = prevFile.getClangtidyFile();
 
                 if (curCppFile.getLineNumber() == prevCppFile.getLineNumber()
+                		&& curCppFile.getColumnNumber() == prevCppFile.getColumnNumber()
                         && curCppFile.getFileNameNotNull().equals(prevCppFile.getFileNameNotNull())
                         && curCppFile.getMessage().equals(prevCppFile.getMessage())) {
-                    curFile.setDiffState(ClangtidyDiffState.UNCHANGED);
-                    prevFile.setDiffState(ClangtidyDiffState.UNCHANGED);
-                    break;
+
+	                    curFile.setDiffState(ClangtidyDiffState.UNCHANGED);
+	                    prevFile.setDiffState(ClangtidyDiffState.UNCHANGED);
+	                    break;
                 }
             }
         }

@@ -43,6 +43,8 @@ public class ClangtidyFile implements ModelObject, Serializable {
     private String fileName;
 
     private int lineNumber;
+    
+    private int columnNumber;
 
     private String type;
 
@@ -95,6 +97,15 @@ public class ClangtidyFile implements ModelObject, Serializable {
 
     public void setLineNumber(int lineNumber) {
         this.lineNumber = lineNumber;
+    }
+    
+    @Exported
+    public int getColumnNumber() {
+        return columnNumber;
+    }
+    
+    public void setColumnNumber(int columnNumber) {
+        this.columnNumber = columnNumber;
     }
     
     @Exported

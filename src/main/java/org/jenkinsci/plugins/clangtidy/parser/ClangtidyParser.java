@@ -155,6 +155,10 @@ public class ClangtidyParser implements Serializable {
                     if ((lineAtr = location.getLine()) != null) {
                         clangtidyFile.setLineNumber(Integer.parseInt(lineAtr));
                     }
+                    String columnAtr;
+                    if ((columnAtr = location.getColumn()) != null) {
+                        clangtidyFile.setColumnNumber(Integer.parseInt(columnAtr));
+                    }
                 }
             }
         }
