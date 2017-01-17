@@ -30,6 +30,7 @@
                 <td class="pane-header">${%Line}</td>
                 <td class="pane-header">${%Severity}</td>
                 <td class="pane-header">${%Type}</td>
+                <td class="pane-header">${%Id}</td>
                 <td class="pane-header">${%Message}</td>
             </tr>
         </thead>
@@ -56,6 +57,7 @@
                         </j:if>
                     </td>
                     <td class="pane ${elt.diffState.css}">${clangtidyFile.severity}</td>
+                    <td class="pane ${elt.diffState.css}">${clangtidyFile.type}</td>
                     <td class="pane ${elt.diffState.css}">${clangtidyFile.id}</td>
                     <td class="pane ${elt.diffState.css}">${clangtidyFile.messageHtml}</td>
                 </tr>
