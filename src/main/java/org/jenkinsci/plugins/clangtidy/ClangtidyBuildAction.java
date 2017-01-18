@@ -1,6 +1,5 @@
 package org.jenkinsci.plugins.clangtidy;
 
-
 import java.io.IOException;
 
 import org.jenkinsci.plugins.clangtidy.util.AbstractClangtidyBuildAction;
@@ -18,70 +17,73 @@ import org.jenkinsci.plugins.clangtidy.util.ClangtidyBuildHealthEvaluator;
  */
 public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
 
-    public static final String URL_NAME = "clangtidyResult";
+	public static final String URL_NAME = "clangtidyResult";
 
-    private ClangtidyResult result;
+	public static int computeHealthReportPercentage(ClangtidyResult result,
+			ClangtidyConfigSeverityEvaluation severityEvaluation) {
+		try {
+			return new ClangtidyBuildHealthEvaluator().evaluatBuildHealth(severityEvaluation,
+					result.getNumberErrorsAccordingConfiguration(severityEvaluation, false));
+		} catch (IOException e) {
+			return -1;
+		}
+	}
 
-    /** 
-     * The health report percentage.
-     * 
-     * @since 1.15
-     */
-    private int healthReportPercentage;
+	private ClangtidyResult result;
 
-    public ClangtidyBuildAction(AbstractBuild<?, ?> owner, ClangtidyResult result,
-            int healthReportPercentage) {
-        super(owner);
-        this.result = result;
-        this.healthReportPercentage = healthReportPercentage;
-    }
+	/**
+	 * The health report percentage.
+	 *
+	 * @since 1.15
+	 */
+	private int healthReportPercentage;
 
-    public String getIconFileName() {
-        return "/plugin/clangtidy/icons/clangtidy-24.png";
-    }
+	public ClangtidyBuildAction(AbstractBuild<?, ?> owner, ClangtidyResult result, int healthReportPercentage) {
+		super(owner);
+		this.result = result;
+		this.healthReportPercentage = healthReportPercentage;
+	}
 
-    public String getDisplayName() {
-        return Messages.clangtidy_ClangtidyResults();
-    }
+	AbstractBuild<?, ?> getBuild() {
+		return owner;
+	}
 
-    public String getUrlName() {
-        return URL_NAME;
-    }
+	@Override
+	public HealthReport getBuildHealth() {
+		if ((healthReportPercentage >= 0) && (healthReportPercentage <= 100)) {
+			return new HealthReport(healthReportPercentage, Messages._clangtidy_BuildStability());
+		} else {
+			return null;
+		}
+	}
 
-    public String getSearchUrl() {
-        return getUrlName();
-    }
+	@Override
+	public String getDisplayName() {
+		return Messages.clangtidy_ClangtidyResults();
+	}
 
-    public ClangtidyResult getResult() {
-        return this.result;
-    }
+	@Override
+	public String getIconFileName() {
+		return "/plugin/clangtidy/icons/clangtidy-24.png";
+	}
 
-    AbstractBuild<?, ?> getBuild() {
-        return this.owner;
-    }
+	public ClangtidyResult getResult() {
+		return result;
+	}
 
-    public Object getTarget() {
-        return this.result;
-    }
+	@Override
+	public String getSearchUrl() {
+		return getUrlName();
+	}
 
-    public HealthReport getBuildHealth() {
-        if(healthReportPercentage >= 0 && healthReportPercentage <= 100) {
-            return new HealthReport(healthReportPercentage, Messages._clangtidy_BuildStability());
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public Object getTarget() {
+		return result;
+	}
 
-    public static int computeHealthReportPercentage(ClangtidyResult result,
-            ClangtidyConfigSeverityEvaluation severityEvaluation) {
-        try {
-            return new ClangtidyBuildHealthEvaluator().evaluatBuildHealth(severityEvaluation,
-                    result.getNumberErrorsAccordingConfiguration(severityEvaluation,
-                            false));
-        } catch (IOException e) {
-            return -1;
-        }
-    }
-
+	@Override
+	public String getUrlName() {
+		return URL_NAME;
+	}
 
 }

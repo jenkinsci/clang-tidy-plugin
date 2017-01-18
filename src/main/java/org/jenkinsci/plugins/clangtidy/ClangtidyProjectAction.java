@@ -22,197 +22,200 @@ import org.jenkinsci.plugins.clangtidy.graph.ClangtidyGraph;
  * @author Mickael Germain
  */
 public class ClangtidyProjectAction extends AbstractClangtidyProjectAction {
-    /** Clangtidy graph configuration. */
-    private final ClangtidyConfigGraph configGraph;
+	/** Clangtidy graph configuration. */
+	private final ClangtidyConfigGraph configGraph;
 
-    public String getSearchUrl() {
-        return getUrlName();
-    }
+	public ClangtidyProjectAction(final AbstractProject<?, ?> project, ClangtidyConfigGraph configGraph) {
+		super(project);
+		this.configGraph = configGraph;
+	}
 
-    public ClangtidyProjectAction(final AbstractProject<?, ?> project,
-            ClangtidyConfigGraph configGraph) {
-        super(project);
-        this.configGraph = configGraph;
-    }
+	@Override
+	public void doGraph(StaplerRequest req, StaplerResponse rsp) throws IOException {
+		if (ChartUtil.awtProblemCause != null) {
+			rsp.sendRedirect2(req.getContextPath() + "/images/headless.png");
+			return;
+		}
 
-    public AbstractBuild<?, ?> getLastFinishedBuild() {
-        AbstractBuild<?, ?> lastBuild = project.getLastBuild();
-        while (lastBuild != null && (lastBuild.isBuilding()
-                || lastBuild.getAction(ClangtidyBuildAction.class) == null)) {
-            lastBuild = lastBuild.getPreviousBuild();
-        }
-        return lastBuild;
-    }
+		AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
+		Calendar timestamp = lastBuild.getTimestamp();
 
-    /**
-     * Get build action of the last finished build.
-     * 
-     * @return the build action or null
-     */
-    public ClangtidyBuildAction getLastFinishedBuildAction() {
-        AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
-        return (lastBuild != null) ? lastBuild.getAction(ClangtidyBuildAction.class) : null;
-    }
+		if (req.checkIfModified(timestamp, rsp)) {
+			return;
+		}
 
-    public final boolean isDisplayGraph() {
-        //Latest
-        AbstractBuild<?, ?> b = getLastFinishedBuild();
-        if (b == null) {
-            return false;
-        }
+		Graph g = new ClangtidyGraph(lastBuild, getDataSetBuilder().build(), Messages.clangtidy_NumberOfErrors(),
+				configGraph.getXSize(), configGraph.getYSize());
+		g.doPng(req, rsp);
+	}
 
-        //Affect previous
-        b = b.getPreviousBuild();
-        if (b != null) {
+	private DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel> getDataSetBuilder() {
+		DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel> dsb = new DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel>();
 
-            for (; b != null; b = b.getPreviousBuild()) {
-                if (b.getResult().isWorseOrEqualTo(Result.FAILURE)) {
-                    continue;
-                }
-                ClangtidyBuildAction action = b.getAction(ClangtidyBuildAction.class);
-                if (action == null || action.getResult() == null) {
-                    continue;
-                }
-                ClangtidyResult result = action.getResult();
-                if (result == null)
-                    continue;
+		AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
+		ClangtidyBuildAction lastAction = lastBuild.getAction(ClangtidyBuildAction.class);
 
-                return true;
-            }
-        }
-        return false;
-    }
+		int numBuilds = 0;
 
-    public Integer getLastResultBuild() {
-        for (AbstractBuild<?, ?> b = project.getLastBuild(); b != null; b = b.getPreviousBuiltBuild()) {
-            ClangtidyBuildAction r = b.getAction(ClangtidyBuildAction.class);
-            if (r != null)
-                return b.getNumber();
-        }
-        return null;
-    }
+		// numBuildsInGraph <= 1 means unlimited
+		for (ClangtidyBuildAction a = lastAction; (a != null)
+				&& ((configGraph.getNumBuildsInGraph() <= 1) || (numBuilds < configGraph.getNumBuildsInGraph())); a = a
+						.getPreviousResult(), ++numBuilds) {
 
+			ChartUtil.NumberOnlyBuildLabel label = new ChartUtil.NumberOnlyBuildLabel(a.getOwner());
+			ClangtidyStatistics statistics = a.getResult().getStatistics();
 
-    public String getDisplayName() {
-        return Messages.clangtidy_ClangtidyResults();
-    }
+			// Error
+			if (configGraph.isDisplayErrorSeverity()) {
+				dsb.add(statistics.getNumberErrorSeverity(), Messages.clangtidy_Error(), label);
+			}
 
-    public String getUrlName() {
-        return ClangtidyBuildAction.URL_NAME;
-    }
+			// Warnings
+			if (configGraph.isDisplayWarningSeverity()) {
+				dsb.add(statistics.getNumberWarningSeverity(), Messages.clangtidy_Warning(), label);
+			}
 
-    public void doGraph(StaplerRequest req, StaplerResponse rsp) throws IOException {
-        if (ChartUtil.awtProblemCause != null) {
-            rsp.sendRedirect2(req.getContextPath() + "/images/headless.png");
-            return;
-        }
+			// Boost
+			if (configGraph.isDisplayBoostWarning()) {
+				dsb.add(statistics.getNumberBoostWarning(), Messages.clangtidy_Boost(), label);
+			}
 
-        AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
-        Calendar timestamp = lastBuild.getTimestamp();
+			// Cert
+			if (configGraph.isDisplayCertWarning()) {
+				dsb.add(statistics.getNumberCertWarning(), Messages.clangtidy_Cert(), label);
+			}
 
-        if (req.checkIfModified(timestamp, rsp)) {
-            return;
-        }
+			// Cppcoreguidelines
+			if (configGraph.isDisplayCppcoreguidelinesWarning()) {
+				dsb.add(statistics.getNumberCppcoreguidelinesWarning(), Messages.clangtidy_Cppcoreguidelines(), label);
+			}
 
-        Graph g = new ClangtidyGraph(lastBuild, getDataSetBuilder().build(),
-                Messages.clangtidy_NumberOfErrors(),
-                configGraph.getXSize(),
-                configGraph.getYSize());
-        g.doPng(req, rsp);
-    }
+			// Clang-analyzer
+			if (configGraph.isDisplayClangAnalyzerWarning()) {
+				dsb.add(statistics.getNumberClangAnalyzerWarning(), Messages.clangtidy_ClangAnalyzer(), label);
+			}
 
-    private DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel> getDataSetBuilder() {
-        DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel> dsb
-                = new DataSetBuilder<String, ChartUtil.NumberOnlyBuildLabel>();
+			// Clang-diagnostic
+			if (configGraph.isDisplayClangDiagnosticWarning()) {
+				dsb.add(statistics.getNumberClangDiagnosticWarning(), Messages.clangtidy_ClangDiagnostic(), label);
+			}
 
-        AbstractBuild<?,?> lastBuild = getLastFinishedBuild();
-        ClangtidyBuildAction lastAction = lastBuild.getAction(ClangtidyBuildAction.class);
+			// Google
+			if (configGraph.isDisplayGoogleWarning()) {
+				dsb.add(statistics.getNumberGoogleWarning(), Messages.clangtidy_Google(), label);
+			}
 
-        int numBuilds = 0;
+			// Llvm
+			if (configGraph.isDisplayLlvmWarning()) {
+				dsb.add(statistics.getNumberLlvmWarning(), Messages.clangtidy_Llvm(), label);
+			}
 
-        // numBuildsInGraph <= 1 means unlimited
-        for (ClangtidyBuildAction a = lastAction;
-             a != null && (configGraph.getNumBuildsInGraph() <= 1 || numBuilds < configGraph.getNumBuildsInGraph());
-             a = a.getPreviousResult(), ++numBuilds) {
+			// Misc
+			if (configGraph.isDisplayMiscWarning()) {
+				dsb.add(statistics.getNumberMiscWarning(), Messages.clangtidy_Misc(), label);
+			}
 
-            ChartUtil.NumberOnlyBuildLabel label = new ChartUtil.NumberOnlyBuildLabel(a.getOwner());
-            ClangtidyStatistics statistics = a.getResult().getStatistics();
+			// Modernize
+			if (configGraph.isDisplayModernizeWarning()) {
+				dsb.add(statistics.getNumberModernizeWarning(), Messages.clangtidy_Modernize(), label);
+			}
 
-            //Error
-            if (configGraph.isDisplayErrorSeverity())
-                dsb.add(statistics.getNumberErrorSeverity(),
-                        Messages.clangtidy_Error(), label);
+			// Mpi
+			if (configGraph.isDisplayMpiWarning()) {
+				dsb.add(statistics.getNumberMpiWarning(), Messages.clangtidy_Mpi(), label);
+			}
 
-            //Warnings
-            if (configGraph.isDisplayWarningSeverity())
-                dsb.add(statistics.getNumberWarningSeverity(),
-                        Messages.clangtidy_Warning(), label);
+			// Performance
+			if (configGraph.isDisplayPerformanceWarning()) {
+				dsb.add(statistics.getNumberPerformanceWarning(), Messages.clangtidy_Performance(), label);
+			}
 
-            //Boost
-            if (configGraph.isDisplayBoostWarning())
-                dsb.add(statistics.getNumberBoostWarning(),
-                        Messages.clangtidy_Boost(), label);
+			// Readability
+			if (configGraph.isDisplayReadabilityWarning()) {
+				dsb.add(statistics.getNumberReadabilityWarning(), Messages.clangtidy_Readability(), label);
+			}
 
-            //Cert
-            if (configGraph.isDisplayCertWarning())
-                dsb.add(statistics.getNumberCertWarning(),
-                        Messages.clangtidy_Cert(), label);
+			// all errors
+			if (configGraph.isDisplayAllErrors()) {
+				dsb.add(statistics.getNumberTotal(), Messages.clangtidy_AllErrors(), label);
+			}
+		}
+		return dsb;
+	}
 
-            //Cppcoreguidelines
-            if (configGraph.isDisplayCppcoreguidelinesWarning())
-                dsb.add(statistics.getNumberCppcoreguidelinesWarning(),
-                        Messages.clangtidy_Cppcoreguidelines(), label);
+	@Override
+	public String getDisplayName() {
+		return Messages.clangtidy_ClangtidyResults();
+	}
 
-            //Clang-analyzer
-            if (configGraph.isDisplayClangAnalyzerWarning())
-                dsb.add(statistics.getNumberClangAnalyzerWarning(),
-                        Messages.clangtidy_ClangAnalyzer(), label);
+	@Override
+	public AbstractBuild<?, ?> getLastFinishedBuild() {
+		AbstractBuild<?, ?> lastBuild = project.getLastBuild();
+		while ((lastBuild != null)
+				&& (lastBuild.isBuilding() || (lastBuild.getAction(ClangtidyBuildAction.class) == null))) {
+			lastBuild = lastBuild.getPreviousBuild();
+		}
+		return lastBuild;
+	}
 
-            //Clang-diagnostic
-            if (configGraph.isDisplayClangDiagnosticWarning())
-                dsb.add(statistics.getNumberClangDiagnosticWarning(),
-                        Messages.clangtidy_ClangDiagnostic(), label);
-            
-            //Google
-            if (configGraph.isDisplayGoogleWarning())
-                dsb.add(statistics.getNumberGoogleWarning(),
-                        Messages.clangtidy_Google(), label);
-            
-            //Llvm
-            if (configGraph.isDisplayLlvmWarning())
-                dsb.add(statistics.getNumberLlvmWarning(),
-                        Messages.clangtidy_Llvm(), label);
-            
-            //Misc
-            if (configGraph.isDisplayMiscWarning())
-                dsb.add(statistics.getNumberMiscWarning(),
-                        Messages.clangtidy_Misc(), label);
-            
-            //Modernize
-            if (configGraph.isDisplayModernizeWarning())
-                dsb.add(statistics.getNumberModernizeWarning(),
-                        Messages.clangtidy_Modernize(), label);
-            
-            //Mpi
-            if (configGraph.isDisplayMpiWarning())
-                dsb.add(statistics.getNumberMpiWarning(),
-                        Messages.clangtidy_Mpi(), label);
-            
-            //Performance
-            if (configGraph.isDisplayPerformanceWarning())
-                dsb.add(statistics.getNumberPerformanceWarning(),
-                        Messages.clangtidy_Performance(), label);
-            
-            //Readability
-            if (configGraph.isDisplayReadabilityWarning())
-                dsb.add(statistics.getNumberReadabilityWarning(),
-                        Messages.clangtidy_Readability(), label);
+	/**
+	 * Get build action of the last finished build.
+	 *
+	 * @return the build action or null
+	 */
+	public ClangtidyBuildAction getLastFinishedBuildAction() {
+		AbstractBuild<?, ?> lastBuild = getLastFinishedBuild();
+		return (lastBuild != null) ? lastBuild.getAction(ClangtidyBuildAction.class) : null;
+	}
 
-            // all errors
-            if (configGraph.isDisplayAllErrors())
-                dsb.add(statistics.getNumberTotal(),
-                        Messages.clangtidy_AllErrors(), label);
-        }
-        return dsb;
-    }
+	@Override
+	public Integer getLastResultBuild() {
+		for (AbstractBuild<?, ?> b = project.getLastBuild(); b != null; b = b.getPreviousBuiltBuild()) {
+			ClangtidyBuildAction r = b.getAction(ClangtidyBuildAction.class);
+			if (r != null) {
+				return b.getNumber();
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public String getSearchUrl() {
+		return getUrlName();
+	}
+
+	@Override
+	public String getUrlName() {
+		return ClangtidyBuildAction.URL_NAME;
+	}
+
+	public final boolean isDisplayGraph() {
+		// Latest
+		AbstractBuild<?, ?> b = getLastFinishedBuild();
+		if (b == null) {
+			return false;
+		}
+
+		// Affect previous
+		b = b.getPreviousBuild();
+		if (b != null) {
+
+			for (; b != null; b = b.getPreviousBuild()) {
+				if (b.getResult().isWorseOrEqualTo(Result.FAILURE)) {
+					continue;
+				}
+				ClangtidyBuildAction action = b.getAction(ClangtidyBuildAction.class);
+				if ((action == null) || (action.getResult() == null)) {
+					continue;
+				}
+				ClangtidyResult result = action.getResult();
+				if (result == null) {
+					continue;
+				}
+
+				return true;
+			}
+		}
+		return false;
+	}
 }

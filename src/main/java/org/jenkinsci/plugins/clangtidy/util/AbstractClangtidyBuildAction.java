@@ -27,28 +27,32 @@ package org.jenkinsci.plugins.clangtidy.util;
 import hudson.model.*;
 import org.kohsuke.stapler.StaplerProxy;
 
-public abstract class AbstractClangtidyBuildAction extends Actionable implements Action, HealthReportingAction, StaplerProxy {
-    protected AbstractBuild<?, ?> owner;
+public abstract class AbstractClangtidyBuildAction extends Actionable
+		implements Action, HealthReportingAction, StaplerProxy {
+	protected AbstractBuild<?, ?> owner;
 
-    protected AbstractClangtidyBuildAction(AbstractBuild<?, ?> owner) {
-        this.owner = owner;
-    }
+	protected AbstractClangtidyBuildAction(AbstractBuild<?, ?> owner) {
+		this.owner = owner;
+	}
 
-    public <T extends AbstractClangtidyBuildAction> T getPreviousResult() {
-        AbstractBuild<?, ?> b = owner;
-        while (true) {
-            b = b.getPreviousBuild();
-            if (b == null)
-                return null;
-            if (b.getResult() == Result.FAILURE)
-                continue;
-            AbstractClangtidyBuildAction r = b.getAction(this.getClass());
-            if (r != null)
-                return (T) r;
-        }
-    }
+	public AbstractBuild<?, ?> getOwner() {
+		return owner;
+	}
 
-    public AbstractBuild<?, ?> getOwner() {
-        return owner;
-    }
+	public <T extends AbstractClangtidyBuildAction> T getPreviousResult() {
+		AbstractBuild<?, ?> b = owner;
+		while (true) {
+			b = b.getPreviousBuild();
+			if (b == null) {
+				return null;
+			}
+			if (b.getResult() == Result.FAILURE) {
+				continue;
+			}
+			AbstractClangtidyBuildAction r = b.getAction(this.getClass());
+			if (r != null) {
+				return (T) r;
+			}
+		}
+	}
 }

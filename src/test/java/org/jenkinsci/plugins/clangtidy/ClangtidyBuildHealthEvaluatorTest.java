@@ -37,37 +37,36 @@ import static org.mockito.Mockito.when;
 
 public class ClangtidyBuildHealthEvaluatorTest {
 
+	private ClangtidyBuildHealthEvaluator clangtidyBuildHealthEvaluator;
+	ClangtidyConfig clangtidyConfig;
 
-    private ClangtidyBuildHealthEvaluator clangtidyBuildHealthEvaluator;
-    ClangtidyConfig clangtidyConfig;
+	@Before
+	public void initialize() {
+		clangtidyConfig = mock(ClangtidyConfig.class);
+		clangtidyBuildHealthEvaluator = new ClangtidyBuildHealthEvaluator();
+	}
 
-    @Before
-    public void initialize() {
-        clangtidyConfig = mock(ClangtidyConfig.class);
-        clangtidyBuildHealthEvaluator = new ClangtidyBuildHealthEvaluator();
-    }
+	private int processSetThreshold(int healthy, int unHealthy, int errorsForSevrity) {
+		ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
+		when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
+		when(clangtidyConfig.getConfigSeverityEvaluation().getHealthy()).thenReturn(String.valueOf(healthy));
+		when(clangtidyConfig.getConfigSeverityEvaluation().getUnHealthy()).thenReturn(String.valueOf(unHealthy));
+		return clangtidyBuildHealthEvaluator.evaluatBuildHealth(configSeverityEvaluation, errorsForSevrity);
+	}
 
-    private int processSetThreshold(int healthy, int unHealthy, int errorsForSevrity) {
-        ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
-        when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
-        when(clangtidyConfig.getConfigSeverityEvaluation().getHealthy()).thenReturn(String.valueOf(healthy));
-        when(clangtidyConfig.getConfigSeverityEvaluation().getUnHealthy()).thenReturn(String.valueOf(unHealthy));
-        return clangtidyBuildHealthEvaluator.evaluatBuildHealth(configSeverityEvaluation, errorsForSevrity);
-    }
-
-    @Test
-    public void testScore() {
-        Assert.assertEquals(0, processSetThreshold(0, 10, 11));
-        Assert.assertEquals(0, processSetThreshold(0, 10, 10));
-        Assert.assertEquals(10, processSetThreshold(0, 10, 9));
-        Assert.assertEquals(20, processSetThreshold(0, 10, 8));
-        Assert.assertEquals(30, processSetThreshold(0, 10, 7));
-        Assert.assertEquals(40, processSetThreshold(0, 10, 6));
-        Assert.assertEquals(50, processSetThreshold(0, 10, 5));
-        Assert.assertEquals(60, processSetThreshold(0, 10, 4));
-        Assert.assertEquals(70, processSetThreshold(0, 10, 3));
-        Assert.assertEquals(80, processSetThreshold(0, 10, 2));
-        Assert.assertEquals(90, processSetThreshold(0, 10, 1));
-        Assert.assertEquals(100, processSetThreshold(0, 10, 0));
-    }
+	@Test
+	public void testScore() {
+		Assert.assertEquals(0, processSetThreshold(0, 10, 11));
+		Assert.assertEquals(0, processSetThreshold(0, 10, 10));
+		Assert.assertEquals(10, processSetThreshold(0, 10, 9));
+		Assert.assertEquals(20, processSetThreshold(0, 10, 8));
+		Assert.assertEquals(30, processSetThreshold(0, 10, 7));
+		Assert.assertEquals(40, processSetThreshold(0, 10, 6));
+		Assert.assertEquals(50, processSetThreshold(0, 10, 5));
+		Assert.assertEquals(60, processSetThreshold(0, 10, 4));
+		Assert.assertEquals(70, processSetThreshold(0, 10, 3));
+		Assert.assertEquals(80, processSetThreshold(0, 10, 2));
+		Assert.assertEquals(90, processSetThreshold(0, 10, 1));
+		Assert.assertEquals(100, processSetThreshold(0, 10, 0));
+	}
 }

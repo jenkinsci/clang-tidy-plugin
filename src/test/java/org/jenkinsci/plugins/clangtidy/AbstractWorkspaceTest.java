@@ -30,21 +30,21 @@ import java.io.File;
 
 public abstract class AbstractWorkspaceTest {
 
-    protected File parentFile;
-    protected FilePath workspace;
+	protected File parentFile;
+	protected FilePath workspace;
 
-    public void createWorkspace() throws Exception {
-        parentFile = Util.createTempDir();
-        workspace = new FilePath(parentFile);
-        if (workspace.exists()) {
-            workspace.deleteRecursive();
-        }
-        workspace.mkdirs();
-    }
+	public void createWorkspace() throws Exception {
+		parentFile = Util.createTempDir();
+		workspace = new FilePath(parentFile);
+		if (workspace.exists()) {
+			workspace.deleteRecursive();
+		}
+		workspace.mkdirs();
+	}
 
-    public void deleteWorkspace() throws Exception {
-        if(workspace != null) {
-            workspace.deleteRecursive();
-        }
-    }
+	public void deleteWorkspace() throws Exception {
+		if (workspace != null) {
+			workspace.deleteRecursive();
+		}
+	}
 }

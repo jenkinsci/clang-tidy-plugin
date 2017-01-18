@@ -31,244 +31,196 @@ import java.util.Collection;
  * @author Mickael Germain
  */
 public class ClangtidyPublisher extends Recorder {
-    /**
-     * XML file with source container data. Lazy loading instead of data in build.xml.
-     * 
-     * @since 1.15
-     */
-    public static final String XML_FILE_DETAILS = "clangtidy_details.xml";
+	@Extension
+	public static final class ClangtidyDescriptor extends BuildStepDescriptor<Publisher> {
 
-    private ClangtidyConfig clangtidyConfig;
+		public ClangtidyDescriptor() {
+			super(ClangtidyPublisher.class);
+			load();
+		}
 
-    @DataBoundConstructor
-    public ClangtidyPublisher(String pattern,
-                             boolean ignoreBlankFiles, String threshold,
-                             boolean allowNoReport,
-                             String newThreshold, String failureThreshold,
-                             String newFailureThreshold, String healthy, String unHealthy,
-                             boolean severityError,
-                             boolean severityWarning,
-                             boolean warningBoost,
-                             boolean warningCert,
-                             boolean warningCppcoreguidelines,
-                             boolean warningClangAnalyzer,
-                             boolean warningClangDiagnostic,
-                             boolean warningGoogle,
-                             boolean warningLlvm,
-                             boolean warningMisc,
-                             boolean warningModernize,
-                             boolean warningMpi,
-                             boolean warningPerformance,
-                             boolean warningReadability,
-                             int xSize, int ySize,
-                             int numBuildsInGraph,
-                             boolean displayAllErrors,
-                             boolean displayErrorSeverity,
-                             boolean displayWarningSeverity,
-                             boolean displayBoostWarning,
-                             boolean displayCertWarning,
-                             boolean displayCppcoreguidelinesWarning,
-                             boolean displayClangAnalyzerWarning,
-                             boolean displayClangDiagnosticWarning,
-                             boolean displayGoogleWarning,
-                             boolean displayLlvmWarning,
-                             boolean displayMiscWarning,
-                             boolean displayModernizeWarning,
-                             boolean displayMpiWarning,
-                             boolean displayPerformanceWarning,
-                             boolean displayReadabilityWarning) {
+		public ClangtidyConfig getConfig() {
+			return new ClangtidyConfig();
+		}
 
-        clangtidyConfig = new ClangtidyConfig();
+		@Override
+		public String getDisplayName() {
+			return Messages.clangtidy_PublishResults();
+		}
 
-        clangtidyConfig.setPattern(pattern);
-        clangtidyConfig.setAllowNoReport(allowNoReport);
-        clangtidyConfig.setIgnoreBlankFiles(ignoreBlankFiles);
-        ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation(
-                threshold, newThreshold, failureThreshold, newFailureThreshold, healthy, unHealthy,
-                severityError,
-                severityWarning,
-                warningBoost,
-                warningCert,
-                warningCppcoreguidelines,
-                warningClangAnalyzer,
-                warningClangDiagnostic,
-                warningGoogle,
-                warningLlvm,
-                warningMisc,
-                warningModernize,
-                warningMpi,
-                warningPerformance,
-                warningReadability);
-        clangtidyConfig.setConfigSeverityEvaluation(configSeverityEvaluation);
-        ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph(
-                xSize, ySize, numBuildsInGraph,
-                displayAllErrors,
-                displayErrorSeverity,
-                displayWarningSeverity,
-                displayBoostWarning,
-                displayCertWarning,
-                displayCppcoreguidelinesWarning,
-                displayClangAnalyzerWarning,
-                displayClangDiagnosticWarning,
-                displayGoogleWarning,
-                displayLlvmWarning,
-                displayMiscWarning,
-                displayModernizeWarning,
-                displayMpiWarning,
-                displayPerformanceWarning,
-                displayReadabilityWarning);
-        clangtidyConfig.setConfigGraph(configGraph);
-    }
+		@Override
+		public final String getHelpFile() {
+			return getPluginRoot() + "help.html";
+		}
 
+		public String getPluginRoot() {
+			return "/plugin/clangtidy/";
+		}
 
-    public ClangtidyPublisher(ClangtidyConfig clangtidyConfig) {
-        this.clangtidyConfig = clangtidyConfig;
-    }
+		@Override
+		public boolean isApplicable(Class<? extends AbstractProject> jobType) {
+			return true;
+		}
+	}
 
-    public ClangtidyConfig getClangtidyConfig() {
-        return clangtidyConfig;
-    }
+	/**
+	 * XML file with source container data. Lazy loading instead of data in
+	 * build.xml.
+	 *
+	 * @since 1.15
+	 */
+	public static final String XML_FILE_DETAILS = "clangtidy_details.xml";
 
-    @Override
-    public Action getProjectAction(AbstractProject<?, ?> project) {
-        return new ClangtidyProjectAction(project, clangtidyConfig.getConfigGraph());
-    }
+	private ClangtidyConfig clangtidyConfig;
 
-    protected boolean canContinue(final Result result) {
-        return result != Result.ABORTED && result != Result.FAILURE;
-    }
+	public ClangtidyPublisher(ClangtidyConfig clangtidyConfig) {
+		this.clangtidyConfig = clangtidyConfig;
+	}
 
-    public BuildStepMonitor getRequiredMonitorService() {
-        return BuildStepMonitor.BUILD;
-    }
+	@DataBoundConstructor
+	public ClangtidyPublisher(String pattern, boolean ignoreBlankFiles, String threshold, boolean allowNoReport,
+			String newThreshold, String failureThreshold, String newFailureThreshold, String healthy, String unHealthy,
+			boolean severityError, boolean severityWarning, boolean warningBoost, boolean warningCert,
+			boolean warningCppcoreguidelines, boolean warningClangAnalyzer, boolean warningClangDiagnostic,
+			boolean warningGoogle, boolean warningLlvm, boolean warningMisc, boolean warningModernize,
+			boolean warningMpi, boolean warningPerformance, boolean warningReadability, int xSize, int ySize,
+			int numBuildsInGraph, boolean displayAllErrors, boolean displayErrorSeverity,
+			boolean displayWarningSeverity, boolean displayBoostWarning, boolean displayCertWarning,
+			boolean displayCppcoreguidelinesWarning, boolean displayClangAnalyzerWarning,
+			boolean displayClangDiagnosticWarning, boolean displayGoogleWarning, boolean displayLlvmWarning,
+			boolean displayMiscWarning, boolean displayModernizeWarning, boolean displayMpiWarning,
+			boolean displayPerformanceWarning, boolean displayReadabilityWarning) {
 
-    @Override
-    public boolean perform(AbstractBuild<?, ?> build, Launcher launcher,
-            BuildListener listener) throws InterruptedException, IOException {
+		clangtidyConfig = new ClangtidyConfig();
 
-        if (this.canContinue(build.getResult())) {
-            ClangtidyLogger.log(listener, "Starting the clangtidy analysis.");
-            
-            EnvVars env = build.getEnvironment(listener);
-            String expandedPattern = env.expand(clangtidyConfig.getPattern());
-            
+		clangtidyConfig.setPattern(pattern);
+		clangtidyConfig.setAllowNoReport(allowNoReport);
+		clangtidyConfig.setIgnoreBlankFiles(ignoreBlankFiles);
+		ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation(threshold,
+				newThreshold, failureThreshold, newFailureThreshold, healthy, unHealthy, severityError, severityWarning,
+				warningBoost, warningCert, warningCppcoreguidelines, warningClangAnalyzer, warningClangDiagnostic,
+				warningGoogle, warningLlvm, warningMisc, warningModernize, warningMpi, warningPerformance,
+				warningReadability);
+		clangtidyConfig.setConfigSeverityEvaluation(configSeverityEvaluation);
+		ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph(xSize, ySize, numBuildsInGraph, displayAllErrors,
+				displayErrorSeverity, displayWarningSeverity, displayBoostWarning, displayCertWarning,
+				displayCppcoreguidelinesWarning, displayClangAnalyzerWarning, displayClangDiagnosticWarning,
+				displayGoogleWarning, displayLlvmWarning, displayMiscWarning, displayModernizeWarning,
+				displayMpiWarning, displayPerformanceWarning, displayReadabilityWarning);
+		clangtidyConfig.setConfigGraph(configGraph);
+	}
 
-            ClangtidyParserResult parser = new ClangtidyParserResult(listener,
-                    expandedPattern, clangtidyConfig.isIgnoreBlankFiles());
-            ClangtidyReport clangtidyReport;
-            try {
-                clangtidyReport = build.getWorkspace().act(parser);
-            } catch (Exception e) {
-                ClangtidyLogger.log(listener, "Error on clangtidy analysis: " + e);
-                build.setResult(Result.FAILURE);
-                return false;
-            }
+	protected boolean canContinue(final Result result) {
+		return (result != Result.ABORTED) && (result != Result.FAILURE);
+	}
 
-            if (clangtidyReport == null) {
-                // Check if we're configured to allow not having a report
-                if (clangtidyConfig.getAllowNoReport()) {
-                    return true;
-                } else {
-                    build.setResult(Result.FAILURE);
-                    return false;
-                }
-            }
+	/**
+	 * Copies all the source files from the workspace to the build folder.
+	 *
+	 * @param rootDir
+	 *            directory to store the copied files in
+	 * @param channel
+	 *            channel to get the files from
+	 * @param sourcesFiles
+	 *            the sources files to be copied
+	 * @throws IOException
+	 *             if the files could not be written
+	 * @throws java.io.FileNotFoundException
+	 *             if the files could not be written
+	 * @throws InterruptedException
+	 *             if the user cancels the processing
+	 */
+	private void copyFilesToBuildDirectory(final File rootDir, final VirtualChannel channel,
+			final Collection<ClangtidyWorkspaceFile> sourcesFiles) throws IOException, InterruptedException {
 
-            ClangtidySourceContainer clangtidySourceContainer
-                    = new ClangtidySourceContainer(listener, build.getWorkspace(),
-                            build.getModuleRoot(), clangtidyReport.getAllErrors());
+		File directory = new File(rootDir, ClangtidyWorkspaceFile.DIR_WORKSPACE_FILES);
+		if (!directory.exists() && !directory.mkdir()) {
+			throw new IOException("Can't create directory for copy of workspace files: " + directory.getAbsolutePath());
+		}
 
-            ClangtidyResult result = new ClangtidyResult(clangtidyReport.getStatistics(), build);
-            ClangtidyConfigSeverityEvaluation severityEvaluation
-                    = clangtidyConfig.getConfigSeverityEvaluation();
+		for (ClangtidyWorkspaceFile file : sourcesFiles) {
+			if (!file.isSourceIgnored()) {
+				File masterFile = new File(directory, file.getTempName());
+				if (!masterFile.exists()) {
+					FileOutputStream outputStream = new FileOutputStream(masterFile);
+					new FilePath(channel, file.getFileName()).copyTo(outputStream);
+				}
+			}
+		}
+	}
 
-            Result buildResult = new ClangtidyBuildResultEvaluator().evaluateBuildResult(
-                    listener, result.getNumberErrorsAccordingConfiguration(severityEvaluation, false),
-                    result.getNumberErrorsAccordingConfiguration(severityEvaluation, true),
-                    severityEvaluation);
+	public ClangtidyConfig getClangtidyConfig() {
+		return clangtidyConfig;
+	}
 
-            if (buildResult != Result.SUCCESS) {
-                build.setResult(buildResult);
-            }
+	@Override
+	public Action getProjectAction(AbstractProject<?, ?> project) {
+		return new ClangtidyProjectAction(project, clangtidyConfig.getConfigGraph());
+	}
 
-            ClangtidyBuildAction buildAction = new ClangtidyBuildAction(build, result,
-                    ClangtidyBuildAction.computeHealthReportPercentage(result, severityEvaluation));
+	@Override
+	public BuildStepMonitor getRequiredMonitorService() {
+		return BuildStepMonitor.BUILD;
+	}
 
-            build.addAction(buildAction);
+	@Override
+	public boolean perform(AbstractBuild<?, ?> build, Launcher launcher, BuildListener listener)
+			throws InterruptedException, IOException {
 
-            XmlFile xmlSourceContainer = new XmlFile(new File(build.getRootDir(),
-                    XML_FILE_DETAILS));
-            xmlSourceContainer.write(clangtidySourceContainer);
+		if (canContinue(build.getResult())) {
+			ClangtidyLogger.log(listener, "Starting the clangtidy analysis.");
 
-            copyFilesToBuildDirectory(build.getRootDir(), launcher.getChannel(),
-                    clangtidySourceContainer.getInternalMap().values());
+			EnvVars env = build.getEnvironment(listener);
+			String expandedPattern = env.expand(clangtidyConfig.getPattern());
 
-            ClangtidyLogger.log(listener, "Ending the clangtidy analysis.");
-        }
-        return true;
-    }
+			ClangtidyParserResult parser = new ClangtidyParserResult(listener, expandedPattern,
+					clangtidyConfig.isIgnoreBlankFiles());
+			ClangtidyReport clangtidyReport;
+			try {
+				clangtidyReport = build.getWorkspace().act(parser);
+			} catch (Exception e) {
+				ClangtidyLogger.log(listener, "Error on clangtidy analysis: " + e);
+				build.setResult(Result.FAILURE);
+				return false;
+			}
 
+			if (clangtidyReport == null) {
+				// Check if we're configured to allow not having a report
+				if (clangtidyConfig.getAllowNoReport()) {
+					return true;
+				} else {
+					build.setResult(Result.FAILURE);
+					return false;
+				}
+			}
 
-    /**
-     * Copies all the source files from the workspace to the build folder.
-     *
-     * @param rootDir      directory to store the copied files in
-     * @param channel      channel to get the files from
-     * @param sourcesFiles the sources files to be copied
-     * @throws IOException                   if the files could not be written
-     * @throws java.io.FileNotFoundException if the files could not be written
-     * @throws InterruptedException          if the user cancels the processing
-     */
-    private void copyFilesToBuildDirectory(final File rootDir,
-            final VirtualChannel channel,
-            final Collection<ClangtidyWorkspaceFile> sourcesFiles)
-            throws IOException, InterruptedException {
+			ClangtidySourceContainer clangtidySourceContainer = new ClangtidySourceContainer(listener,
+					build.getWorkspace(), build.getModuleRoot(), clangtidyReport.getAllErrors());
 
-        File directory = new File(rootDir, ClangtidyWorkspaceFile.DIR_WORKSPACE_FILES);
-        if (!directory.exists() && !directory.mkdir()) {
-            throw new IOException("Can't create directory for copy of workspace files: "
-                    + directory.getAbsolutePath());
-        }
+			ClangtidyResult result = new ClangtidyResult(clangtidyReport.getStatistics(), build);
+			ClangtidyConfigSeverityEvaluation severityEvaluation = clangtidyConfig.getConfigSeverityEvaluation();
 
-        for (ClangtidyWorkspaceFile file : sourcesFiles) {
-            if (!file.isSourceIgnored()) {
-                File masterFile = new File(directory, file.getTempName());
-                if (!masterFile.exists()) {
-                    FileOutputStream outputStream = new FileOutputStream(masterFile);
-                    new FilePath(channel, file.getFileName()).copyTo(outputStream);
-                }
-            }
-        }
-    }
+			Result buildResult = new ClangtidyBuildResultEvaluator().evaluateBuildResult(listener,
+					result.getNumberErrorsAccordingConfiguration(severityEvaluation, false),
+					result.getNumberErrorsAccordingConfiguration(severityEvaluation, true), severityEvaluation);
 
-    @Extension
-    public static final class ClangtidyDescriptor extends BuildStepDescriptor<Publisher> {
+			if (buildResult != Result.SUCCESS) {
+				build.setResult(buildResult);
+			}
 
-        public ClangtidyDescriptor() {
-            super(ClangtidyPublisher.class);
-            load();
-        }
+			ClangtidyBuildAction buildAction = new ClangtidyBuildAction(build, result,
+					ClangtidyBuildAction.computeHealthReportPercentage(result, severityEvaluation));
 
-        public boolean isApplicable(Class<? extends AbstractProject> jobType) {
-            return true;
-        }
+			build.addAction(buildAction);
 
-        @Override
-        public String getDisplayName() {
-            return Messages.clangtidy_PublishResults();
-        }
+			XmlFile xmlSourceContainer = new XmlFile(new File(build.getRootDir(), XML_FILE_DETAILS));
+			xmlSourceContainer.write(clangtidySourceContainer);
 
-        @Override
-        public final String getHelpFile() {
-            return getPluginRoot() + "help.html";
-        }
+			copyFilesToBuildDirectory(build.getRootDir(), launcher.getChannel(),
+					clangtidySourceContainer.getInternalMap().values());
 
-        public String getPluginRoot() {
-            return "/plugin/clangtidy/";
-        }
-
-        public ClangtidyConfig getConfig() {
-            return new ClangtidyConfig();
-        }
-    }
+			ClangtidyLogger.log(listener, "Ending the clangtidy analysis.");
+		}
+		return true;
+	}
 }

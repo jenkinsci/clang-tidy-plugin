@@ -45,34 +45,38 @@ import static org.mockito.Mockito.when;
 
 public class ClangtidyParserResultTest extends AbstractWorkspaceTest {
 
-    private BuildListener listener;
-    private VirtualChannel channel;
+	private BuildListener listener;
+	private VirtualChannel channel;
 
-    @Before
-    public void setUp() throws Exception {
-        listener = mock(BuildListener.class);
-        when(listener.getLogger()).thenReturn(new PrintStream(new ByteArrayOutputStream()));
-        channel = mock(VirtualChannel.class);
-        super.createWorkspace();
-    }
+	@Before
+	public void setUp() throws Exception {
+		listener = mock(BuildListener.class);
+		when(listener.getLogger()).thenReturn(new PrintStream(new ByteArrayOutputStream()));
+		channel = mock(VirtualChannel.class);
+		super.createWorkspace();
+	}
 
-    @Test
-    public void testNullPattern() {
-        ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, null, false);
-        Assert.assertEquals("With none pattern, the default pattern must be " + ClangtidyParserResult.DELAULT_REPORT_MAVEN, ClangtidyParserResult.DELAULT_REPORT_MAVEN, clangtidyParserResult.getClangtidyReportPattern());
-    }
+	@Test
+	public void testEmptyPattern() {
+		ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, null, false);
+		Assert.assertEquals(
+				"With empty pattern, the default pattern must be " + ClangtidyParserResult.DELAULT_REPORT_MAVEN,
+				ClangtidyParserResult.DELAULT_REPORT_MAVEN, clangtidyParserResult.getClangtidyReportPattern());
+	}
 
-    @Test
-    public void testEmptyPattern() {
-        ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, null, false);
-        Assert.assertEquals("With empty pattern, the default pattern must be " + ClangtidyParserResult.DELAULT_REPORT_MAVEN, ClangtidyParserResult.DELAULT_REPORT_MAVEN, clangtidyParserResult.getClangtidyReportPattern());
-    }
+	@Test
+	public void testNoMatch() throws Exception {
+		ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, "*.xml", false);
+		ClangtidyReport report = clangtidyParserResult.invoke(new File(workspace.toURI()), channel);
+		Assert.assertEquals("A pattern with no match files is not allowed.", null, report);
+	}
 
-    @Test
-    public void testNoMatch() throws Exception {
-        ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, "*.xml", false);
-        ClangtidyReport report = clangtidyParserResult.invoke(new File(workspace.toURI()), channel);
-        Assert.assertEquals("A pattern with no match files is not allowed.", null, report);
-    }
+	@Test
+	public void testNullPattern() {
+		ClangtidyParserResult clangtidyParserResult = new ClangtidyParserResult(listener, null, false);
+		Assert.assertEquals(
+				"With none pattern, the default pattern must be " + ClangtidyParserResult.DELAULT_REPORT_MAVEN,
+				ClangtidyParserResult.DELAULT_REPORT_MAVEN, clangtidyParserResult.getClangtidyReportPattern());
+	}
 
 }

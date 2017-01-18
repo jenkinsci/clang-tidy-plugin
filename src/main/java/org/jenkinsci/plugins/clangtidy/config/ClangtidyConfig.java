@@ -1,88 +1,87 @@
 package org.jenkinsci.plugins.clangtidy.config;
 
-
 import java.io.Serializable;
 
 /**
  * @author Gregory Boissinot
  */
 public class ClangtidyConfig implements Serializable {
-    /** Serial version UID. */
-    private static final long serialVersionUID = 1L;
+	/** Serial version UID. */
+	private static final long serialVersionUID = 1L;
 
-    private String pattern;
-    private boolean ignoreBlankFiles;
-    private boolean allowNoReport;
-    private ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation();
-    private ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph();
+	private String pattern;
+	private boolean ignoreBlankFiles;
+	private boolean allowNoReport;
+	private ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation();
+	private ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph();
 
-    public void setPattern(String pattern) {
-        this.pattern = pattern;
-    }
+	/*
+	 * Backward compatibility
+	 */
+	private transient String clangtidyReportPattern;
 
-    public void setIgnoreBlankFiles(boolean ignoreBlankFiles) {
-        this.ignoreBlankFiles = ignoreBlankFiles;
-    }
+	private transient boolean useWorkspaceAsRootPath;
 
-    public void setAllowNoReport(boolean allowNoReport) {
-        this.allowNoReport = allowNoReport;
-    }
+	public boolean getAllowNoReport() {
+		return allowNoReport;
+	}
 
-    public void setConfigSeverityEvaluation(ClangtidyConfigSeverityEvaluation configSeverityEvaluation) {
-        this.configSeverityEvaluation = configSeverityEvaluation;
-    }
+	@Deprecated
+	public String getClangtidyReportPattern() {
+		return clangtidyReportPattern;
+	}
 
-    public void setConfigGraph(ClangtidyConfigGraph configGraph) {
-        this.configGraph = configGraph;
-    }
+	public ClangtidyConfigGraph getConfigGraph() {
+		return configGraph;
+	}
 
-    public void setClangtidyReportPattern(String clangtidyReportPattern) {
-        this.clangtidyReportPattern = clangtidyReportPattern;
-    }
+	public ClangtidyConfigSeverityEvaluation getConfigSeverityEvaluation() {
+		return configSeverityEvaluation;
+	}
 
-    public void setUseWorkspaceAsRootPath(boolean useWorkspaceAsRootPath) {
-        this.useWorkspaceAsRootPath = useWorkspaceAsRootPath;
-    }
+	public String getPattern() {
+		return pattern;
+	}
 
-    public String getPattern() {
-        return pattern;
-    }
+	public boolean isIgnoreBlankFiles() {
+		return ignoreBlankFiles;
+	}
 
-    @Deprecated
-    public String getClangtidyReportPattern() {
-        return clangtidyReportPattern;
-    }
+	public boolean isUseWorkspaceAsRootPath() {
+		return useWorkspaceAsRootPath;
+	}
 
-    public boolean isUseWorkspaceAsRootPath() {
-        return useWorkspaceAsRootPath;
-    }
+	private Object readResolve() {
+		if (clangtidyReportPattern != null) {
+			pattern = clangtidyReportPattern;
+		}
+		return this;
+	}
 
-    public boolean isIgnoreBlankFiles() {
-        return ignoreBlankFiles;
-    }
+	public void setAllowNoReport(boolean allowNoReport) {
+		this.allowNoReport = allowNoReport;
+	}
 
-    public boolean getAllowNoReport() {
-        return allowNoReport;
-    }
+	public void setClangtidyReportPattern(String clangtidyReportPattern) {
+		this.clangtidyReportPattern = clangtidyReportPattern;
+	}
 
-    public ClangtidyConfigSeverityEvaluation getConfigSeverityEvaluation() {
-        return configSeverityEvaluation;
-    }
+	public void setConfigGraph(ClangtidyConfigGraph configGraph) {
+		this.configGraph = configGraph;
+	}
 
-    public ClangtidyConfigGraph getConfigGraph() {
-        return configGraph;
-    }
+	public void setConfigSeverityEvaluation(ClangtidyConfigSeverityEvaluation configSeverityEvaluation) {
+		this.configSeverityEvaluation = configSeverityEvaluation;
+	}
 
-    /*
-    Backward compatibility
-     */
-    private transient String clangtidyReportPattern;
-    private transient boolean useWorkspaceAsRootPath;
+	public void setIgnoreBlankFiles(boolean ignoreBlankFiles) {
+		this.ignoreBlankFiles = ignoreBlankFiles;
+	}
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
+	}
 
-    private Object readResolve() {
-        if (this.clangtidyReportPattern != null) {
-            this.pattern = clangtidyReportPattern;
-        }
-        return this;
-    }
+	public void setUseWorkspaceAsRootPath(boolean useWorkspaceAsRootPath) {
+		this.useWorkspaceAsRootPath = useWorkspaceAsRootPath;
+	}
 }

@@ -15,36 +15,38 @@ import java.io.IOException;
  */
 public abstract class AbstractClangtidyProjectAction extends Actionable implements Action {
 
-    protected final AbstractProject<?, ?> project;
+	protected final AbstractProject<?, ?> project;
 
-    public AbstractClangtidyProjectAction(AbstractProject<?, ?> project) {
-        this.project = project;
-    }
+	public AbstractClangtidyProjectAction(AbstractProject<?, ?> project) {
+		this.project = project;
+	}
 
-    public AbstractProject<?, ?> getProject() {
-        return project;
-    }
+	public abstract void doGraph(StaplerRequest req, StaplerResponse rsp) throws IOException;
 
-    public String getIconFileName() {
-        return "/plugin/clangtidy/icons/clangtidy-24.png";
-    }
+	public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException {
+		Integer buildNumber = getLastResultBuild();
+		if (buildNumber == null) {
+			rsp.sendRedirect2("nodata");
+		} else {
+			rsp.sendRedirect2("../" + buildNumber + "/" + getUrlName());
+		}
+	}
 
-    public String getSearchUrl() {
-        return getUrlName();
-    }
+	@Override
+	public String getIconFileName() {
+		return "/plugin/clangtidy/icons/clangtidy-24.png";
+	}
 
-    protected abstract AbstractBuild<?, ?> getLastFinishedBuild();
+	protected abstract AbstractBuild<?, ?> getLastFinishedBuild();
 
-    protected abstract Integer getLastResultBuild();
+	protected abstract Integer getLastResultBuild();
 
-    public abstract void doGraph(StaplerRequest req, StaplerResponse rsp) throws IOException;
+	public AbstractProject<?, ?> getProject() {
+		return project;
+	}
 
-    public void doIndex(StaplerRequest req, StaplerResponse rsp) throws IOException {
-        Integer buildNumber = getLastResultBuild();
-        if (buildNumber == null) {
-            rsp.sendRedirect2("nodata");
-        } else {
-            rsp.sendRedirect2("../" + buildNumber + "/" + getUrlName());
-        }
-    }
+	@Override
+	public String getSearchUrl() {
+		return getUrlName();
+	}
 }

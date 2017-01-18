@@ -11,58 +11,58 @@ import hudson.plugins.view.dashboard.DashboardPortlet;
 /**
  * Dashboard portlet that shows a sortable table with jobs and Clangtidy
  * statistics per severity type.
- * 
+ *
  * @author Michal Turek
  */
 public class ClangtidyTablePortlet extends DashboardPortlet {
-    /**
-     * Constructor.
-     * 
-     * @param name
-     *            the name of the portlet
-     */
-    @DataBoundConstructor
-    public ClangtidyTablePortlet(String name) {
-        super(name);
-    }
+	/**
+	 * Extension point registration.
+	 *
+	 * @author Michal Turek
+	 */
+	@Extension(optional = true)
+	public static class ClangtidyTableDescriptor extends Descriptor<DashboardPortlet> {
+		@Override
+		public String getDisplayName() {
+			return Messages.clangtidy_PortletName();
+		}
+	}
 
-    /**
-     * Get latest available Clangtidy statistics of a job.
-     * 
-     * @param job
-     *            the job
-     * @return the statistics, always non-null value
-     */
-    public ClangtidyStatistics getStatistics(Job<?, ?> job) {
-        Run<?, ?> build = job.getLastBuild();
+	/**
+	 * Constructor.
+	 *
+	 * @param name
+	 *            the name of the portlet
+	 */
+	@DataBoundConstructor
+	public ClangtidyTablePortlet(String name) {
+		super(name);
+	}
 
-        while(build != null){
-            ClangtidyBuildAction action = build.getAction(ClangtidyBuildAction.class);
+	/**
+	 * Get latest available Clangtidy statistics of a job.
+	 *
+	 * @param job
+	 *            the job
+	 * @return the statistics, always non-null value
+	 */
+	public ClangtidyStatistics getStatistics(Job<?, ?> job) {
+		Run<?, ?> build = job.getLastBuild();
 
-            if (action != null) {
-                ClangtidyResult result = action.getResult();
+		while (build != null) {
+			ClangtidyBuildAction action = build.getAction(ClangtidyBuildAction.class);
 
-                if(result != null) {
-                    return result.getStatistics();
-                }
-            }
+			if (action != null) {
+				ClangtidyResult result = action.getResult();
 
-            build = build.getPreviousBuild();
-        }
+				if (result != null) {
+					return result.getStatistics();
+				}
+			}
 
-        return new ClangtidyStatistics();
-    }
+			build = build.getPreviousBuild();
+		}
 
-    /**
-     * Extension point registration.
-     * 
-     * @author Michal Turek
-     */
-    @Extension(optional = true)
-    public static class ClangtidyTableDescriptor extends Descriptor<DashboardPortlet> {
-        @Override
-        public String getDisplayName() {
-            return Messages.clangtidy_PortletName();
-        }
-    }
+		return new ClangtidyStatistics();
+	}
 }

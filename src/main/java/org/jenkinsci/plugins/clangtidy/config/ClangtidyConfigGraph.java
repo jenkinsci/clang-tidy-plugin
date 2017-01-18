@@ -13,6 +13,15 @@ public class ClangtidyConfigGraph implements Serializable {
 	public static final int DEFAULT_CHART_WIDTH = 500;
 	public static final int DEFAULT_CHART_HEIGHT = 200;
 
+	public static int getDefaultChartHeight() {
+		return DEFAULT_CHART_HEIGHT;
+	}
+	public static int getDefaultChartWidth() {
+		return DEFAULT_CHART_WIDTH;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	private int xSize = DEFAULT_CHART_WIDTH;
 	private int ySize = DEFAULT_CHART_HEIGHT;
 	private int numBuildsInGraph = 0; // numBuildsInGraph <= 1 means unlimited
@@ -28,29 +37,12 @@ public class ClangtidyConfigGraph implements Serializable {
 	private boolean displayLlvmWarning = true;
 	private boolean displayMiscWarning = true;
 	private boolean displayModernizeWarning = true;
+
 	private boolean displayMpiWarning = true;
+
 	private boolean displayPerformanceWarning = true;
+
 	private boolean displayReadabilityWarning = true;
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public static int getDefaultChartWidth() {
-		return DEFAULT_CHART_WIDTH;
-	}
-
-	public static int getDefaultChartHeight() {
-		return DEFAULT_CHART_HEIGHT;
-	}
-
-	public int getxSize() {
-		return xSize;
-	}
-
-	public int getySize() {
-		return ySize;
-	}
 
 	public ClangtidyConfigGraph() {
 	}
@@ -81,28 +73,28 @@ public class ClangtidyConfigGraph implements Serializable {
 		this.displayReadabilityWarning = displayReadabilityWarning;
 	}
 
+	public int getNumBuildsInGraph() {
+		return numBuildsInGraph;
+	}
+
+	public int getxSize() {
+		return xSize;
+	}
+
 	public int getXSize() {
 		return xSize;
+	}
+
+	public int getySize() {
+		return ySize;
 	}
 
 	public int getYSize() {
 		return ySize;
 	}
 
-	public int getNumBuildsInGraph() {
-		return numBuildsInGraph;
-	}
-
 	public boolean isDisplayAllErrors() {
 		return displayAllErrors;
-	}
-
-	public boolean isDisplayErrorSeverity() {
-		return displayErrorSeverity;
-	}
-
-	public boolean isDisplayWarningSeverity() {
-		return displayWarningSeverity;
 	}
 
 	public boolean isDisplayBoostWarning() {
@@ -113,16 +105,20 @@ public class ClangtidyConfigGraph implements Serializable {
 		return displayCertWarning;
 	}
 
-	public boolean isDisplayCppcoreguidelinesWarning() {
-		return displayCppcoreguidelinesWarning;
-	}
-
 	public boolean isDisplayClangAnalyzerWarning() {
 		return displayClangAnalyzerWarning;
 	}
 
 	public boolean isDisplayClangDiagnosticWarning() {
 		return displayClangDiagnosticWarning;
+	}
+
+	public boolean isDisplayCppcoreguidelinesWarning() {
+		return displayCppcoreguidelinesWarning;
+	}
+
+	public boolean isDisplayErrorSeverity() {
+		return displayErrorSeverity;
 	}
 
 	public boolean isDisplayGoogleWarning() {
@@ -151,6 +147,10 @@ public class ClangtidyConfigGraph implements Serializable {
 
 	public boolean isDisplayReadabilityWarning() {
 		return displayReadabilityWarning;
+	}
+
+	public boolean isDisplayWarningSeverity() {
+		return displayWarningSeverity;
 	}
 
 }

@@ -36,128 +36,130 @@ import java.io.Serializable;
 @ExportedBean(defaultVisibility = 999)
 public class ClangtidyFile implements ModelObject, Serializable {
 
-    private static final long serialVersionUID = 3L;
+	private static final long serialVersionUID = 3L;
 
-    private Integer key;
+	private Integer key;
 
-    private String fileName;
+	private String fileName;
 
-    private int lineNumber;
-    
-    private int columnNumber;
+	private int lineNumber;
 
-    private String type;
+	private int columnNumber;
 
-    private String id;
-    
-    private String severity;
+	private String type;
 
-    private String message;
+	private String id;
 
-    @Exported
-    public String getFileName() {
-        return fileName;
-    }
+	private String severity;
 
-    /**
-     * Get the filename.
-     * 
-     * @return the filename or empty string if the filename is null
-     */
-    public String getFileNameNotNull() {
-        return (fileName != null) ? fileName : "";
-    }
+	private String message;
 
-    public void setFileName(String filename) {
-        this.fileName = filename;
-    }
+	@Exported
+	public int getColumnNumber() {
+		return columnNumber;
+	}
 
-    @Exported
-    public int getLineNumber() {
-        return lineNumber;
-    }
+	@Override
+	public String getDisplayName() {
+		return "clangtidyFile";
+	}
 
-    /**
-     * Get line number depending on availability of the file name.
-     * 
-     * @return the line number or empty string if the file name is empty
-     */
-    public String getLineNumberString() {
-        return ("".equals(getFileNameNotNull())) ? "" : String.valueOf(lineNumber);
-    }
+	@Exported
+	public String getFileName() {
+		return fileName;
+	}
 
-    /**
-     * Returns the line number that should be shown on top of the source code view.
-     *
-     * @return the line number
-     */
-    public int getLinkLineNumber() {
-        return Math.max(1, lineNumber - 10);
-    }
+	/**
+	 * Get the filename.
+	 *
+	 * @return the filename or empty string if the filename is null
+	 */
+	public String getFileNameNotNull() {
+		return (fileName != null) ? fileName : "";
+	}
 
-    public void setLineNumber(int lineNumber) {
-        this.lineNumber = lineNumber;
-    }
-    
-    @Exported
-    public int getColumnNumber() {
-        return columnNumber;
-    }
-    
-    public void setColumnNumber(int columnNumber) {
-        this.columnNumber = columnNumber;
-    }
-    
-    @Exported
-    public String getType() {
-        return type;
-    }
+	@Exported
+	public String getId() {
+		return id;
+	}
 
-    public void setType(String type) {
-        this.type = type;
-    }
-    
-    @Exported
-    public String getId() {
-        return id;
-    }
+	@Exported
+	public Integer getKey() {
+		return key;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	@Exported
+	public int getLineNumber() {
+		return lineNumber;
+	}
 
-    @Exported
-    public String getMessage() {
-        return message;
-    }
-    
-    public String getMessageHtml() {
-        return StringEscapeUtils.escapeHtml(message);
-    }
+	/**
+	 * Get line number depending on availability of the file name.
+	 *
+	 * @return the line number or empty string if the file name is empty
+	 */
+	public String getLineNumberString() {
+		return ("".equals(getFileNameNotNull())) ? "" : String.valueOf(lineNumber);
+	}
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+	/**
+	 * Returns the line number that should be shown on top of the source code
+	 * view.
+	 *
+	 * @return the line number
+	 */
+	public int getLinkLineNumber() {
+		return Math.max(1, lineNumber - 10);
+	}
 
-    @Exported
-    public String getSeverity() {
-        return severity;
-    }
+	@Exported
+	public String getMessage() {
+		return message;
+	}
 
-    public void setSeverity(String severity) {
-        this.severity = severity;
-    }
+	public String getMessageHtml() {
+		return StringEscapeUtils.escapeHtml(message);
+	}
 
-    @Exported
-    public Integer getKey() {
-        return key;
-    }
+	@Exported
+	public String getSeverity() {
+		return severity;
+	}
 
-    public void setKey(Integer key) {
-        this.key = key;
-    }
+	@Exported
+	public String getType() {
+		return type;
+	}
 
-    public String getDisplayName() {
-        return "clangtidyFile";
-    }
+	public void setColumnNumber(int columnNumber) {
+		this.columnNumber = columnNumber;
+	}
+
+	public void setFileName(String filename) {
+		fileName = filename;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public void setKey(Integer key) {
+		this.key = key;
+	}
+
+	public void setLineNumber(int lineNumber) {
+		this.lineNumber = lineNumber;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public void setSeverity(String severity) {
+		this.severity = severity;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 }

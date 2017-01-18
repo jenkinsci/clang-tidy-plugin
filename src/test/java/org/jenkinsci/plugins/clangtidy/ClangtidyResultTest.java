@@ -25,7 +25,6 @@
 
 package org.jenkinsci.plugins.clangtidy;
 
-
 import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
 
 import org.jenkinsci.plugins.clangtidy.ClangtidyResult;
@@ -39,103 +38,103 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-
 public class ClangtidyResultTest {
 
-    private BuildListener listener;
-    private AbstractBuild<?,?> owner;
-    private ClangtidyStatistics report;
+	private BuildListener listener;
+	private AbstractBuild<?, ?> owner;
+	private ClangtidyStatistics report;
 
-    @Before
-    public void setUp() throws Exception {
+	private int getNewError(boolean hasPreviousResult, int nbPreviousReportError, int nbReportError) {
 
-        //initialize the logger
-        listener = mock(BuildListener.class);
-        when(listener.getLogger()).thenReturn(new PrintStream(new ByteArrayOutputStream()));
+		if (hasPreviousResult) {
+			// Previous Report
+			ClangtidyStatistics previousStat = mock(ClangtidyStatistics.class);
+			when(previousStat.getNumberTotal()).thenReturn(nbPreviousReportError);
 
-        owner = mock(AbstractBuild.class);
-        report = mock(ClangtidyStatistics.class);
+			// Previous Result and associate previous report
+			ClangtidyResult previousClangtidyResult = mock(ClangtidyResult.class);
+			when(previousClangtidyResult.getReport()).thenReturn(previousStat);
 
-    }
+			// Previous build and bind with the current build
+			AbstractBuild<?, ?> previousBuild = mock(AbstractBuild.class);
+			ClangtidyBuildAction buildAction = new ClangtidyBuildAction(previousBuild, previousClangtidyResult,
+					ClangtidyBuildAction.computeHealthReportPercentage(previousClangtidyResult,
+							mock(ClangtidyConfigSeverityEvaluation.class)));
+			when(previousBuild.getAction(ClangtidyBuildAction.class)).thenReturn(buildAction);
+			Mockito.<AbstractBuild<?, ?>>when(owner.getPreviousBuild()).thenReturn(previousBuild);
+		} else {
+			when(owner.getPreviousBuild()).thenReturn(null);
+		}
 
+		// New report
+		when(report.getNumberTotal()).thenReturn(nbReportError);
 
-    private int getNewError(boolean hasPreviousResult, int nbPreviousReportError, int nbReportError) {
+		ClangtidyResult clangtidyResult = new ClangtidyResult(report, owner);
+		return clangtidyResult.getNumberNewErrorsFromPreviousBuild();
+	}
 
-        if (hasPreviousResult) {
-            //Previous Report
-            ClangtidyStatistics previousStat = mock(ClangtidyStatistics.class);
-            when(previousStat.getNumberTotal()).thenReturn(nbPreviousReportError);
+	private void processSecondBuild(int previousErrors, int atualErrors, int expectedNewErrors) {
+		String message = String.format(
+				"With a second build, the number of new errors have to be %d with %d errors for the previous build and %d errors for the current build.",
+				expectedNewErrors, previousErrors, atualErrors);
+		Assert.assertEquals(message, expectedNewErrors, getNewError(true, previousErrors, atualErrors));
+	}
 
-            // Previous Result and associate previous report
-            ClangtidyResult previousClangtidyResult = mock(ClangtidyResult.class);
-            when(previousClangtidyResult.getReport()).thenReturn(previousStat);
+	@Before
+	public void setUp() throws Exception {
 
-            //Previous build and bind with the current build
-            AbstractBuild<?,?> previousBuild = mock(AbstractBuild.class);
-            ClangtidyBuildAction buildAction = new ClangtidyBuildAction(previousBuild, previousClangtidyResult, ClangtidyBuildAction.computeHealthReportPercentage(previousClangtidyResult, mock(ClangtidyConfigSeverityEvaluation.class)));
-            when(previousBuild.getAction(ClangtidyBuildAction.class)).thenReturn(buildAction);
-            Mockito.<AbstractBuild<?,?>>when(owner.getPreviousBuild()).thenReturn(previousBuild);
-        } else {
-            when(owner.getPreviousBuild()).thenReturn(null);
-        }
+		// initialize the logger
+		listener = mock(BuildListener.class);
+		when(listener.getLogger()).thenReturn(new PrintStream(new ByteArrayOutputStream()));
 
-        //New report
-        when(report.getNumberTotal()).thenReturn(nbReportError);
+		owner = mock(AbstractBuild.class);
+		report = mock(ClangtidyStatistics.class);
 
-        ClangtidyResult clangtidyResult = new ClangtidyResult(report, owner);
-        return clangtidyResult.getNumberNewErrorsFromPreviousBuild();
-    }
+	}
 
-    @Test
-    public void testNumberNewErrorsFromPreviousBuildFirstBuild1() {
-        Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 0));
-    }
+	@Test
+	public void testNumberNewErrorsFromPreviousBuildFirstBuild1() {
+		Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 0));
+	}
 
-    @Test
-    public void testNumberNewErrorsFromPreviousBuildFirstBuild2() {
-        Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 1));
-    }
+	@Test
+	public void testNumberNewErrorsFromPreviousBuildFirstBuild2() {
+		Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 1));
+	}
 
-    @Test
-    public void testNumberNewErrorsFromPreviousBuildFirstBuild3() {
-        Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 3));
-    }
+	@Test
+	public void testNumberNewErrorsFromPreviousBuildFirstBuild3() {
+		Assert.assertEquals("With a first build, the number of new errors must be 0.", 0, getNewError(false, 0, 3));
+	}
 
+	@Test
+	public void testNumberNewErrorsFromPreviousBuildSecondBuild1() {
 
-    private void processSecondBuild(int previousErrors, int atualErrors, int expectedNewErrors) {
-        String message = String.format("With a second build, the number of new errors have to be %d with %d errors for the previous build and %d errors for the current build.", expectedNewErrors, previousErrors, atualErrors);
-        Assert.assertEquals(message, expectedNewErrors, getNewError(true, previousErrors, atualErrors));
-    }
+		processSecondBuild(0, 0, 0);
+		processSecondBuild(0, 1, 1);
+		processSecondBuild(0, 2, 2);
+		processSecondBuild(0, 3, 3);
 
-    @Test
-    public void testNumberNewErrorsFromPreviousBuildSecondBuild1() {
+		processSecondBuild(1, 0, 0);
+		processSecondBuild(1, 1, 0);
+		processSecondBuild(1, 2, 1);
+		processSecondBuild(1, 3, 2);
 
-        processSecondBuild(0, 0, 0);
-        processSecondBuild(0, 1, 1);
-        processSecondBuild(0, 2, 2);
-        processSecondBuild(0, 3, 3);
+		processSecondBuild(2, 0, 0);
+		processSecondBuild(2, 1, 0);
+		processSecondBuild(2, 2, 0);
+		processSecondBuild(2, 3, 1);
 
-        processSecondBuild(1, 0, 0);
-        processSecondBuild(1, 1, 0);
-        processSecondBuild(1, 2, 1);
-        processSecondBuild(1, 3, 2);
-
-        processSecondBuild(2, 0, 0);
-        processSecondBuild(2, 1, 0);
-        processSecondBuild(2, 2, 0);
-        processSecondBuild(2, 3, 1);
-
-        processSecondBuild(3, 0, 0);
-        processSecondBuild(3, 1, 0);
-        processSecondBuild(3, 2, 0);
-        processSecondBuild(3, 3, 0);
-    }
+		processSecondBuild(3, 0, 0);
+		processSecondBuild(3, 1, 0);
+		processSecondBuild(3, 2, 0);
+		processSecondBuild(3, 3, 0);
+	}
 
 }

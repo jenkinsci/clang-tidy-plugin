@@ -49,106 +49,108 @@ import java.util.Collections;
 import java.util.List;
 
 public class ClangtidyGraph extends Graph {
-    private final String yLabel;
+	public static final int DEFAULT_CHART_WIDTH = 500;
 
-    private final CategoryDataset categoryDataset;
+	public static final int DEFAULT_CHART_HEIGHT = 200;
 
-    public static final int DEFAULT_CHART_WIDTH = 500;
-    public static final int DEFAULT_CHART_HEIGHT = 200;
+	private static final Color GREEN = new Color(0x00FF00);
+	private static final Color BLUE = new Color(0x0000FF);
 
-    private static final Color GREEN = new Color(0x00FF00);
-    private static final Color BLUE = new Color(0x0000FF);
-    private static final Color RED = new Color(0xFF0000);
-    private static final Color CYAN = new Color(0x01FFFE);
-    private static final Color LIGHT_PINK = new Color(0xFFA6FE);
-    private static final Color LIGHT_YELLOW = new Color(0xFFDB66);
-    private static final Color DARK_GREEN = new Color(0x006401);
-    private static final Color DARK_BLUE = new Color(0x010067);
-    private static final Color BORDEAU = new Color(0x95003A);
-    private static final Color GRAY_BLUE = new Color(0x007DB5);
-    private static final Color PINK = new Color(0xFF00F6);
-    private static final Color BROWN = new Color(0x774D00);
-    private static final Color YELLOW = new Color(0xFFE502);
-    private static final Color ORANGE = new Color(0xFF6E41);
-    private static final Color GRAY = new Color(0x6B6882);
+	private static final Color RED = new Color(0xFF0000);
+	private static final Color CYAN = new Color(0x01FFFE);
+	private static final Color LIGHT_PINK = new Color(0xFFA6FE);
+	private static final Color LIGHT_YELLOW = new Color(0xFFDB66);
+	private static final Color DARK_GREEN = new Color(0x006401);
+	private static final Color DARK_BLUE = new Color(0x010067);
+	private static final Color BORDEAU = new Color(0x95003A);
+	private static final Color GRAY_BLUE = new Color(0x007DB5);
+	private static final Color PINK = new Color(0xFF00F6);
+	private static final Color BROWN = new Color(0x774D00);
+	private static final Color YELLOW = new Color(0xFFE502);
+	private static final Color ORANGE = new Color(0xFF6E41);
+	private static final Color GRAY = new Color(0x6B6882);
+	/** Color palette for the lines in the graph. */
+	private static final List<Color> colors = Collections.unmodifiableList(Arrays.asList(GREEN, BLUE, RED, CYAN,
+			LIGHT_PINK, LIGHT_YELLOW, DARK_GREEN, BORDEAU, DARK_BLUE, GRAY_BLUE, PINK, BROWN, YELLOW, ORANGE, GRAY));
+	private final String yLabel;
 
-    /** Color palette for the lines in the graph. */
-    private static final List<Color> colors = Collections.unmodifiableList(
-            Arrays.asList(GREEN, BLUE, RED, CYAN, LIGHT_PINK, LIGHT_YELLOW, DARK_GREEN, BORDEAU, DARK_BLUE, GRAY_BLUE, PINK, BROWN, YELLOW, ORANGE, GRAY ));
+	private final CategoryDataset categoryDataset;
 
-    public ClangtidyGraph(AbstractBuild<?, ?> owner, CategoryDataset categoryDataset,
-            String yLabel, int chartWidth, int chartHeight) {
-        super(owner.getTimestamp(), chartWidth, chartHeight);
-        this.yLabel = yLabel;
-        this.categoryDataset = categoryDataset;
-    }
+	public ClangtidyGraph(AbstractBuild<?, ?> owner, CategoryDataset categoryDataset, String yLabel, int chartWidth,
+			int chartHeight) {
+		super(owner.getTimestamp(), chartWidth, chartHeight);
+		this.yLabel = yLabel;
+		this.categoryDataset = categoryDataset;
+	}
 
-    /**
-     * Creates a Clangtidy trend graph
-     *
-     * @return the JFreeChart graph object
-     */
-    protected JFreeChart createGraph() {
+	/**
+	 * Apply color palette to the lines in the graph.
+	 *
+	 * @param renderer
+	 *            the graph renderer
+	 * @see ColorPalette#apply(LineAndShapeRenderer)
+	 */
+	private void applyColorPalette(LineAndShapeRenderer renderer) {
+		int n = 0;
 
-        final JFreeChart chart = ChartFactory.createLineChart(
-                null,                     // chart title
-                null,                     // unused
-                yLabel,                   // range axis label
-                categoryDataset,          // data
-                PlotOrientation.VERTICAL, // orientation
-                true,                     // include legend
-                true,                     // tooltips
-                false                     // urls
-        );
+		for (Color c : colors) {
+			renderer.setSeriesPaint(n++, c);
+		}
+	}
 
-        // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
+	/**
+	 * Creates a Clangtidy trend graph
+	 *
+	 * @return the JFreeChart graph object
+	 */
+	@Override
+	protected JFreeChart createGraph() {
 
-        final LegendTitle legend = chart.getLegend();
-        legend.setPosition(RectangleEdge.RIGHT);
+		final JFreeChart chart = ChartFactory.createLineChart(null, // chart
+																	// title
+				null, // unused
+				yLabel, // range axis label
+				categoryDataset, // data
+				PlotOrientation.VERTICAL, // orientation
+				true, // include legend
+				true, // tooltips
+				false // urls
+		);
 
-        chart.setBackgroundPaint(Color.white);
+		// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
 
-        final CategoryPlot plot = chart.getCategoryPlot();
+		final LegendTitle legend = chart.getLegend();
+		legend.setPosition(RectangleEdge.RIGHT);
 
-        // plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
-        plot.setBackgroundPaint(Color.WHITE);
-        plot.setOutlinePaint(null);
-        plot.setRangeGridlinesVisible(true);
-        plot.setRangeGridlinePaint(Color.black);
+		chart.setBackgroundPaint(Color.white);
 
-        CategoryAxis domainAxis = new ShiftedCategoryAxis(null);
-        plot.setDomainAxis(domainAxis);
-        domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
-        domainAxis.setLowerMargin(0.0);
-        domainAxis.setUpperMargin(0.0);
-        domainAxis.setCategoryMargin(0.0);
+		final CategoryPlot plot = chart.getCategoryPlot();
 
-        final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
-        rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        rangeAxis.setLowerBound(0);
-        rangeAxis.setAutoRange(true);
+		// plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
+		plot.setBackgroundPaint(Color.WHITE);
+		plot.setOutlinePaint(null);
+		plot.setRangeGridlinesVisible(true);
+		plot.setRangeGridlinePaint(Color.black);
 
-        final LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
-        renderer.setBaseStroke(new BasicStroke(2.0f));
-        applyColorPalette(renderer);
+		CategoryAxis domainAxis = new ShiftedCategoryAxis(null);
+		plot.setDomainAxis(domainAxis);
+		domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
+		domainAxis.setLowerMargin(0.0);
+		domainAxis.setUpperMargin(0.0);
+		domainAxis.setCategoryMargin(0.0);
 
-        // crop extra space around the graph
-        plot.setInsets(new RectangleInsets(5.0, 0, 0, 5.0));
+		final NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+		rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		rangeAxis.setLowerBound(0);
+		rangeAxis.setAutoRange(true);
 
-        return chart;
-    }
+		final LineAndShapeRenderer renderer = (LineAndShapeRenderer) plot.getRenderer();
+		renderer.setBaseStroke(new BasicStroke(2.0f));
+		applyColorPalette(renderer);
 
-    /**
-     * Apply color palette to the lines in the graph.
-     * 
-     * @param renderer the graph renderer
-     * @see ColorPalette#apply(LineAndShapeRenderer)
-     */
-    private void applyColorPalette(LineAndShapeRenderer renderer) {
-        int n = 0;
+		// crop extra space around the graph
+		plot.setInsets(new RectangleInsets(5.0, 0, 0, 5.0));
 
-        for (Color c : colors) {
-            renderer.setSeriesPaint(n++, c);
-        }
-    }
+		return chart;
+	}
 }

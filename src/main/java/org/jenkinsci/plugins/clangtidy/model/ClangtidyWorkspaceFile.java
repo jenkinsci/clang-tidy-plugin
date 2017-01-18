@@ -34,99 +34,96 @@ import java.io.File;
 import java.io.Serializable;
 
 public class ClangtidyWorkspaceFile implements Serializable {
-    /** Serial version UID. */
-    private static final long serialVersionUID = 1L;
+	/** Serial version UID. */
+	private static final long serialVersionUID = 1L;
 
-    /**
-     * Subdirectory of build directory to store the workspace files.
-     */
-    public static final String DIR_WORKSPACE_FILES = "workspace-files";
+	/**
+	 * Subdirectory of build directory to store the workspace files.
+	 */
+	public static final String DIR_WORKSPACE_FILES = "workspace-files";
 
-    private String fileName;
+	private String fileName;
 
-    private ClangtidyFile clangtidyFile;
+	private ClangtidyFile clangtidyFile;
 
-    /**
-     * Useful for files that are not found on the build file system
-     */
-    private boolean sourceIgnored;
+	/**
+	 * Useful for files that are not found on the build file system
+	 */
+	private boolean sourceIgnored;
 
-    /**
-     * State of compare. It is a runtime parameter, don't store it anywhere
-     * (transient).
-     * 
-     * @since 1.15
-     */
-    private transient ClangtidyDiffState diffState = null;
+	/**
+	 * State of compare. It is a runtime parameter, don't store it anywhere
+	 * (transient).
+	 *
+	 * @since 1.15
+	 */
+	private transient ClangtidyDiffState diffState = null;
 
-    public ClangtidyWorkspaceFile(File file) {
-        if (file != null)
-            this.fileName = file.getAbsolutePath().replace('\\', '/');
-    }
+	public ClangtidyWorkspaceFile() {
 
-    public ClangtidyWorkspaceFile() {
+	}
 
-    }
+	public ClangtidyWorkspaceFile(File file) {
+		if (file != null) {
+			fileName = file.getAbsolutePath().replace('\\', '/');
+		}
+	}
 
+	public ClangtidyFile getClangtidyFile() {
+		return clangtidyFile;
+	}
 
-    public ClangtidyFile getClangtidyFile() {
-        return clangtidyFile;
-    }
+	public ClangtidyDiffState getDiffState() {
+		return diffState;
+	}
 
+	/**
+	 * Returns the name of this file.
+	 *
+	 * @return the name of this file
+	 */
+	public final String getFileName() {
+		return fileName;
+	}
 
-    public void setClangtidyFile(ClangtidyFile clangtidyFile) {
-        this.clangtidyFile = clangtidyFile;
-    }
+	/**
+	 * Returns a file name for a temporary file that will hold the contents of
+	 * the source.
+	 *
+	 * @return the temporary name
+	 */
+	public String getTempName() {
+		return Integer.toHexString(getFileName().hashCode()) + ".tmp";
+	}
 
+	public String getTempName(final AbstractBuild<?, ?> owner) {
+		if (fileName != null) {
+			return owner.getRootDir().getAbsolutePath() + "/" + DIR_WORKSPACE_FILES + "/"
+					+ Integer.toHexString(fileName.hashCode()) + ".tmp";
+		}
+		return StringUtils.EMPTY;
+	}
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-        if (fileName == null) {
-            setSourceIgnored(true);
-        }
-    }
+	public boolean isSourceIgnored() {
+		return sourceIgnored;
+	}
 
+	public void setClangtidyFile(ClangtidyFile clangtidyFile) {
+		this.clangtidyFile = clangtidyFile;
+	}
 
-    /**
-     * Returns a file name for a temporary file that will hold the contents of the source.
-     *
-     * @return the temporary name
-     */
-    public String getTempName() {
-        return Integer.toHexString(getFileName().hashCode()) + ".tmp";
-    }
+	public void setDiffState(ClangtidyDiffState diffState) {
+		this.diffState = diffState;
+	}
 
-    /**
-     * Returns the name of this file.
-     *
-     * @return the name of this file
-     */
-    public final String getFileName() {
-        return fileName;
-    }
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+		if (fileName == null) {
+			setSourceIgnored(true);
+		}
+	}
 
-    public String getTempName(final AbstractBuild<?, ?> owner) {
-        if (fileName != null) {
-            return owner.getRootDir().getAbsolutePath() + "/"
-                    + DIR_WORKSPACE_FILES + "/"
-                    + Integer.toHexString(fileName.hashCode()) + ".tmp";
-        }
-        return StringUtils.EMPTY;
-    }
-
-    public boolean isSourceIgnored() {
-        return sourceIgnored;
-    }
-
-    public void setSourceIgnored(boolean sourceIgnored) {
-        this.sourceIgnored = sourceIgnored;
-    }
-
-    public ClangtidyDiffState getDiffState() {
-        return diffState;
-    }
-
-    public void setDiffState(ClangtidyDiffState diffState) {
-        this.diffState = diffState;
-    }
+	public void setSourceIgnored(boolean sourceIgnored) {
+		this.sourceIgnored = sourceIgnored;
+	}
 }
