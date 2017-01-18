@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -23,10 +25,9 @@
 
 package com.thalesgroup.hudson.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.config.ClangtidyConfig;
-import com.thalesgroup.hudson.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
-import com.thalesgroup.hudson.plugins.clangtidy.util.ClangtidyBuildHealthEvaluator;
-import hudson.model.HealthReport;
+import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfig;
+import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
+import org.jenkinsci.plugins.clangtidy.util.ClangtidyBuildHealthEvaluator;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,8 +52,7 @@ public class ClangtidyBuildHealthEvaluatorTest {
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getHealthy()).thenReturn(String.valueOf(healthy));
         when(clangtidyConfig.getConfigSeverityEvaluation().getUnHealthy()).thenReturn(String.valueOf(unHealthy));
-        HealthReport healthReport = clangtidyBuildHealthEvaluator.evaluatBuildHealth(clangtidyConfig, errorsForSevrity);
-        return healthReport.getScore();
+        return clangtidyBuildHealthEvaluator.evaluatBuildHealth(configSeverityEvaluation, errorsForSevrity);
     }
 
     @Test

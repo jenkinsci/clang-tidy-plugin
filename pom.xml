@@ -139,28 +139,13 @@
                 <version>${jaxb2.maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>generatedClang-tidy1</id>
-                        <configuration>
-                            <packageName>com.thalesgroup.jenkinsci.plugins.clangtidy.model</packageName>
-                            <schemaDirectory>${basedir}/src/main/resources/com/thalesgroup/hudson/plugins/clangtidy
-                            </schemaDirectory>
-                            <schemaFiles>clangtidy-1.0.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy1/.staleFlag.
-                            </staleFile>
-                            <clearOutputDir>false</clearOutputDir>
-                        </configuration>
-                        <goals>
-                            <goal>xjc</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generatedClang-tidy2</id>
+                        <id>generatedClang-tidy</id>
                         <configuration>
                             <packageName>org.jenkinsci.plugins.clangtidy.model</packageName>
                             <schemaDirectory>${basedir}/src/main/resources/org/jenkinsci/plugins/clangtidy
                             </schemaDirectory>
-                            <schemaFiles>clangtidy-2.0.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy2/.staleFlag.
+                            <schemaFiles>clangtidy.xsd</schemaFiles>
+                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy/.staleFlag.
                             </staleFile>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>

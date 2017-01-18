@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <clangtidy version="4.0"/>
+    <errors>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Display/TestGenericDisplay.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="21" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Server/SuperFly.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="22" column="1"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Graphics/DispColors.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="23" column="54"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Graphics/TextureData.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="24" column="5"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error" message="Include file: &quot;Graphics/Decals.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="25" column="452"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;InterfaceTest/InterfaceTest.hpp&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="26" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error" message="Include file: &quot;Utility/Assert.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="27" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Utility/FormatCharTesters.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="28" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="warning" message="Include file: &quot;Utility/Units.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="29" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Display/TestRegion.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="31" column="54"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;DisplayExec/DisplayModel.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="32" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Display/TestIndicatorFactory.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="33" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Display/TestDataMonitor.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="35" column="42"/>
+        </error>
+        <error type="clang-analyzer" id="cplusplus.NewDeleteLeaks" severity="error"
+               message="Include file: &quot;Test/Display/TestStatusBlock.h&quot; not found.">
+            <location file="TestGenericDisplay.cpp" line="38" column="42"/>
+        </error>
+        <error type="cppcoreguidelines" id="cppcoreguidelines" severity="error"
+               message="Invalid number of charTestter ({) when these macros are defined: 'TEST;TEST_VM2;TODO_TESTS_REFACTOR'.">
+            <location file="TestGenericDisplay.cpp" line="1600" column="42"/>
+        </error>
+        <error type="mpi" id="buffer-deref" severity="error"
+               message="Invalid number of charTestter ({) when these macros are defined: 'TODO_TESTS_REFACTOR'.">
+            <location file="TestGenericDisplay.cpp" line="1600" column="42"/>
+        </error>
+    </errors>
+</results>

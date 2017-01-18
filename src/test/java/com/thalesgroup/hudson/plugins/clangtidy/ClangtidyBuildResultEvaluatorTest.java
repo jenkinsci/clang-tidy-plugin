@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -23,9 +25,9 @@
 
 package com.thalesgroup.hudson.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.config.ClangtidyConfig;
-import com.thalesgroup.hudson.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
-import com.thalesgroup.hudson.plugins.clangtidy.util.ClangtidyBuildResultEvaluator;
+import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfig;
+import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
+import org.jenkinsci.plugins.clangtidy.util.ClangtidyBuildResultEvaluator;
 import hudson.model.BuildListener;
 import hudson.model.Result;
 import junit.framework.Assert;
@@ -56,28 +58,28 @@ public class ClangtidyBuildResultEvaluatorTest {
         ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getFailureThreshold()).thenReturn(String.valueOf(failureThreshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
     private Result processNewFailurThreshold(int newfailureThreshold, int errorsCount, int newErrors) {
         ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getNewFailureThreshold()).thenReturn(String.valueOf(newfailureThreshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
     private Result processNewThreshold(int newThreshold, int errorsCount, int newErrors) {
         ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getNewThreshold()).thenReturn(String.valueOf(newThreshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
     private Result processThreshold(int threshold, int errorsCount, int newErrors) {
         ClangtidyConfigSeverityEvaluation configSeverityEvaluation = mock(ClangtidyConfigSeverityEvaluation.class);
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getThreshold()).thenReturn(String.valueOf(threshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
 
@@ -174,7 +176,7 @@ public class ClangtidyBuildResultEvaluatorTest {
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getNewFailureThreshold()).thenReturn(String.valueOf(newFailureThreshold));
         when(clangtidyConfig.getConfigSeverityEvaluation().getNewThreshold()).thenReturn(String.valueOf(newThreshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
     private Result processTestCaseLimit2(int failureThreshold, int threshold, int errorsCount, int newErrors) {
@@ -182,7 +184,7 @@ public class ClangtidyBuildResultEvaluatorTest {
         when(clangtidyConfig.getConfigSeverityEvaluation()).thenReturn(configSeverityEvaluation);
         when(clangtidyConfig.getConfigSeverityEvaluation().getFailureThreshold()).thenReturn(String.valueOf(failureThreshold));
         when(clangtidyConfig.getConfigSeverityEvaluation().getThreshold()).thenReturn(String.valueOf(threshold));
-        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig);
+        return clangtidyBuildResultEvaluator.evaluateBuildResult(listener, errorsCount, newErrors, clangtidyConfig.getConfigSeverityEvaluation());
     }
 
 

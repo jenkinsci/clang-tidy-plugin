@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -23,12 +25,20 @@
 
 package com.thalesgroup.hudson.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.config.ClangtidyConfig;
+
+import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
+
+import org.jenkinsci.plugins.clangtidy.ClangtidyResult;
+import org.jenkinsci.plugins.clangtidy.ClangtidyStatistics;
+import org.jenkinsci.plugins.clangtidy.ClangtidyBuildAction;
+
 import hudson.model.AbstractBuild;
 import hudson.model.BuildListener;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -40,8 +50,8 @@ import static org.mockito.Mockito.when;
 public class ClangtidyResultTest {
 
     private BuildListener listener;
-    private AbstractBuild owner;
-    private ClangtidyReport report;
+    private AbstractBuild<?,?> owner;
+    private ClangtidyStatistics report;
 
     @Before
     public void setUp() throws Exception {
@@ -51,7 +61,7 @@ public class ClangtidyResultTest {
         when(listener.getLogger()).thenReturn(new PrintStream(new ByteArrayOutputStream()));
 
         owner = mock(AbstractBuild.class);
-        report = mock(ClangtidyReport.class);
+        report = mock(ClangtidyStatistics.class);
 
     }
 
@@ -60,18 +70,18 @@ public class ClangtidyResultTest {
 
         if (hasPreviousResult) {
             //Previous Report
-            ClangtidyReport previousReport = mock(ClangtidyReport.class);
-            when(previousReport.getNumberTotal()).thenReturn(nbPreviousReportError);
+            ClangtidyStatistics previousStat = mock(ClangtidyStatistics.class);
+            when(previousStat.getNumberTotal()).thenReturn(nbPreviousReportError);
 
             // Previous Result and associate previous report
             ClangtidyResult previousClangtidyResult = mock(ClangtidyResult.class);
-            when(previousClangtidyResult.getReport()).thenReturn(previousReport);
+            when(previousClangtidyResult.getReport()).thenReturn(previousStat);
 
             //Previous build and bind with the current build
-            AbstractBuild previousBuild = mock(AbstractBuild.class);
-            ClangtidyBuildAction buildAction = new ClangtidyBuildAction(previousBuild, previousClangtidyResult, mock(ClangtidyConfig.class));
+            AbstractBuild<?,?> previousBuild = mock(AbstractBuild.class);
+            ClangtidyBuildAction buildAction = new ClangtidyBuildAction(previousBuild, previousClangtidyResult, ClangtidyBuildAction.computeHealthReportPercentage(previousClangtidyResult, mock(ClangtidyConfigSeverityEvaluation.class)));
             when(previousBuild.getAction(ClangtidyBuildAction.class)).thenReturn(buildAction);
-            when(owner.getPreviousBuild()).thenReturn(previousBuild);
+            Mockito.<AbstractBuild<?,?>>when(owner.getPreviousBuild()).thenReturn(previousBuild);
         } else {
             when(owner.getPreviousBuild()).thenReturn(null);
         }
@@ -79,7 +89,7 @@ public class ClangtidyResultTest {
         //New report
         when(report.getNumberTotal()).thenReturn(nbReportError);
 
-        ClangtidyResult clangtidyResult = new ClangtidyResult(report, null, owner);
+        ClangtidyResult clangtidyResult = new ClangtidyResult(report, owner);
         return clangtidyResult.getNumberNewErrorsFromPreviousBuild();
     }
 

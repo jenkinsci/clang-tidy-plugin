@@ -2,7 +2,7 @@
 <!--
 /*******************************************************************************
 * Author : Gregory Boissinot                                                   *
-* Author : Mickael Germain                                                   *
+* Author : Mickael Germain                                                     *
 ******************************************************************************/
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">

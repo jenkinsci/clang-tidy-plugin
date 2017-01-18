@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<results>
+    <clangtidy version="4.0.0"/>
+    <errors>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="102" column="37"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="105" column="32"/>
+        </error>
+        <error type="readability" id="simplify-boolean-expr" severity="warning" message="redundant boolean literal supplied to boolean operator">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="108" column="28"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="116" column="132"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="116" column="18"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="152" column="118"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="152" column="18"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="159" column="14"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="160" column="43"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="165" column="18"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="166" column="59"/>
+        </error>
+        <error type="modernize" id="raw-string-literal" severity="warning" message="escaped string literal can be written as a raw string literal">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="167" column="73"/>
+        </error>
+        <error type="modernize" id="raw-string-literal" severity="warning" message="escaped string literal can be written as a raw string literal">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="190" column="26"/>
+        </error>
+        <error type="google" id="runtime-int" severity="warning" message="consider replacing &apos;unsigned long long&apos; with &apos;uint64&apos;">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="195" column="18"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="197" column="14"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="199" column="40"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="204" column="73"/>
+        </error>
+        <error type="readability" id="simplify-boolean-expr" severity="warning" message="redundant boolean literal supplied to boolean operator">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="210" column="36"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="217" column="34"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="230" column="62"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="233" column="88"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="236" column="91"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="239" column="102"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="246" column="53"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="255" column="29"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="259" column="50"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="269" column="29"/>
+        </error>
+        <error type="modernize" id="raw-string-literal" severity="warning" message="escaped string literal can be written as a raw string literal">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="274" column="30"/>
+        </error>
+        <error type="modernize" id="raw-string-literal" severity="warning" message="escaped string literal can be written as a raw string literal">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="274" column="55"/>
+        </error>
+        <error type="google" id="runtime-int" severity="warning" message="consider replacing &apos;unsigned long long&apos; with &apos;uint64&apos;">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="282" column="27"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="284" column="106"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="300" column="33"/>
+        </error>
+        <error type="readability" id="implicit-bool-cast" severity="warning" message="implicit cast &apos;const class Token *&apos; -&gt; bool">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="311" column="21"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="334" column="47"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="400" column="10"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="401" column="36"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="404" column="35"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="412" column="10"/>
+        </error>
+        <error type="readability" id="braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="414" column="27"/>
+        </error>
+        <error type="cert" id="err58-cpp" severity="warning" message="initialization of &apos;S_timerResults&apos; with static storage duration may throw an exception that cannot be caught">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="42" column="21"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="428" column="10"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="429" column="36"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="432" column="35"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="440" column="33"/>
+        </error>
+        <error type="cert" id="err58-cpp" severity="warning" message="initialization of &apos;CWE398&apos; with static storage duration may throw an exception that cannot be caught">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="45" column="18"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="539" column="64"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="544" column="60"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="556" column="55"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="558" column="22"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="564" column="22"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="582" column="60"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="606" column="52"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="610" column="24"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="614" column="85"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="625" column="63"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="628" column="68"/>
+        </error>
+        <error type="cppcoreguidelines" id="pro-bounds-array-to-pointer-decay" severity="warning" message="do not implicitly decay an array into a pointer; consider using gsl::array_view or an explicit cast instead">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="63" column="12"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="632" column="115"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="660" column="63"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="663" column="68"/>
+        </error>
+        <error type="cppcoreguidelines" id="pro-bounds-array-to-pointer-decay" severity="warning" message="do not implicitly decay an array into a pointer; consider using gsl::array_view or an explicit cast instead">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="68" column="12"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="688" column="10"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="688" column="115"/>
+        </error>
+        <error type="modernize" id="use-auto" severity="warning" message="use auto when declaring iterators">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="697" column="10"/>
+        </error>
+        <error type="google" id="readability-braces-around-statements" severity="warning" message="statement should be inside braces">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="697" column="115"/>
+        </error>
+        <error type="google" id="readability-todo" severity="warning" message="missing username/bug in TODO">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="89" column="5"/>
+        </error>
+        <error type="llvm" id="include-order" severity="warning" message="#includes are not sorted properly">
+            <location file="/home/germain/other_ws/cppcheck-1.76.1/lib/cppcheck.cpp" line="27" column="1"/>
+        </error>
+    </errors>
+</results>

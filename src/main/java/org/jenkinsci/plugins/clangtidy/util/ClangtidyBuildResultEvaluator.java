@@ -8,6 +8,7 @@ import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidyBuildResultEvaluator {
     public Result evaluateBuildResult(
@@ -52,7 +53,7 @@ public class ClangtidyBuildResultEvaluator {
 
     private boolean isErrorCountExceeded(final int errorCount, final String errorThreshold) {
         if (errorCount > 0 && ClangtidyMetricUtil.isValid(errorThreshold)) {
-            return errorCount >= ClangtidyMetricUtil.convert(errorThreshold);
+            return errorCount > ClangtidyMetricUtil.convert(errorThreshold);
         }
         return false;
     }

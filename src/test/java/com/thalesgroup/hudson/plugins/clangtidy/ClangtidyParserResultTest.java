@@ -1,6 +1,8 @@
 /*******************************************************************************
  * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2017 PIXMAP                                                    *
  * Author : Gregory Boissinot                                                   *
+ * Author : Mickael Germain                                                     *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -26,6 +28,11 @@ package com.thalesgroup.hudson.plugins.clangtidy;
 import hudson.model.BuildListener;
 import hudson.remoting.VirtualChannel;
 import junit.framework.Assert;
+
+import org.jenkinsci.plugins.clangtidy.ClangtidyParserResult;
+import org.jenkinsci.plugins.clangtidy.ClangtidyReport;
+
+import com.thalesgroup.hudson.plugins.clangtidy.AbstractWorkspaceTest;
 import org.junit.Before;
 import org.junit.Test;
 

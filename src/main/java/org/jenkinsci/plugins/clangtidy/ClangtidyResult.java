@@ -28,23 +28,6 @@ public class ClangtidyResult implements Serializable {
     private static final long serialVersionUID = 2L;
 
     /**
-     * The Clangtidy report.
-     * 
-     * @deprecated Only for backward compatibility with version 1.14 and less.
-     */
-    @Deprecated
-    private transient ClangtidyReport report;
-
-    /**
-     * The Clangtidy container with all source files.
-     * 
-     * @deprecated Only for backward compatibility with version 1.14 and less.
-     * @see #lazyLoadSourceContainer()
-     */
-    @Deprecated
-    private transient ClangtidySourceContainer clangtidySourceContainer;
-
-    /**
      * The build owner.
      */
     private AbstractBuild<?, ?> owner;
@@ -69,23 +52,6 @@ public class ClangtidyResult implements Serializable {
     public ClangtidyResult(ClangtidyStatistics statistics, AbstractBuild<?, ?> owner) {
         this.statistics = statistics;
         this.owner = owner;
-    }
-    
-    /**
-     * Constructor. Only for backward compatibility with previous versions.
-     * 
-     * @param report
-     * @param clangtidySourceContainer
-     * @param owner
-     * 
-     * @deprecated Use a different constructor instead.
-     */
-    public ClangtidyResult(ClangtidyReport report,
-            ClangtidySourceContainer clangtidySourceContainer, AbstractBuild<?, ?> owner) {
-        this.report = report;
-        this.clangtidySourceContainer = clangtidySourceContainer;
-        this.owner = owner;
-        this.statistics = report.getStatistics();
     }
 
     /**
@@ -269,7 +235,23 @@ public class ClangtidyResult implements Serializable {
                 current.getNumberReadabilityWarning() - previous.getNumberReadabilityWarning(),
                 current.getVersions());
     }
-
+    
+    
+    /** 
+     * Returns the number of new errors from the previous build result. 
+     * 
+     * @return the number of new errors 
+     */ 
+    public int getNumberNewErrorsFromPreviousBuild() { 
+        ClangtidyResult previousClangtidyResult = getPreviousResult(); 
+        if (previousClangtidyResult == null) { 
+            return 0; 
+        } else { 
+            int diff = getReport().getNumberTotal() - previousClangtidyResult.getReport().getNumberTotal(); 
+            return (diff > 0) ? diff : 0; 
+        } 
+    } 
+    
     /**
      * Gets the number of errors according the selected severities form the configuration user object.
      *
@@ -309,104 +291,6 @@ public class ClangtidyResult implements Serializable {
                 nbPreviousError += prev.getNumberWarningSeverity();
             }
         }
-
-        //Boost
-        if (severityEvaluation.isWarningBoost()) {
-            nbErrors += st.getNumberBoostWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberBoostWarning();
-            }
-        }
-
-        //Cert
-        if (severityEvaluation.isWarningCert()) {
-            nbErrors += st.getNumberCertWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberCertWarning();
-            }
-        }
-
-        //Cppcoreguidelines
-        if (severityEvaluation.isWarningCppcoreguidelines()) {
-            nbErrors += st.getNumberCppcoreguidelinesWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberCppcoreguidelinesWarning();
-            }
-        }
-
-        //Clang-analyzer
-        if (severityEvaluation.isWarningClangAnalyzer()) {
-            nbErrors += st.getNumberClangAnalyzerWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberClangAnalyzerWarning();
-            }
-        }
-
-        //Clang-diagnostic
-        if (severityEvaluation.isWarningClangDiagnostic()) {
-            nbErrors += st.getNumberClangDiagnosticWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberClangDiagnosticWarning();
-            }
-        }
-
-        //Google
-        if (severityEvaluation.isWarningGoogle()) {
-            nbErrors += st.getNumberGoogleWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberGoogleWarning();
-            }
-        }
-
-        //Llvm
-        if (severityEvaluation.isWarningLlvm()) {
-            nbErrors += st.getNumberLlvmWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberLlvmWarning();
-            }
-        }
-
-        //Misc
-        if (severityEvaluation.isWarningMisc()) {
-            nbErrors += st.getNumberMiscWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberMiscWarning();
-            }
-        }
-
-        //Modernize
-        if (severityEvaluation.isWarningModernize()) {
-            nbErrors += st.getNumberModernizeWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberModernizeWarning();
-            }
-        }
-
-        //Mpi
-        if (severityEvaluation.isWarningMpi()) {
-            nbErrors += st.getNumberMpiWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberMpiWarning();
-            }
-        }
-
-        //Performance
-        if (severityEvaluation.isWarningPerformance()) {
-            nbErrors += st.getNumberPerformanceWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberPerformanceWarning();
-            }
-        }
-
-        //Readability
-        if (severityEvaluation.isWarningReadability()) {
-            nbErrors += st.getNumberReadabilityWarning();
-            if (previousResult != null) {
-                nbPreviousError += prev.getNumberReadabilityWarning();
-            }
-        }
-
-
 
         if (checkNewError) {
             if (previousResult != null) {
@@ -555,9 +439,6 @@ public class ClangtidyResult implements Serializable {
      * @return this with optionally updated data
      */
     private Object readResolve() {
-        if (report != null && statistics == null) {
-            statistics = report.getStatistics();
-        }
 
         // Just for sure
         if (statistics == null) {
@@ -573,10 +454,6 @@ public class ClangtidyResult implements Serializable {
      * @return the loaded and parsed data or empty object on error
      */
     private ClangtidySourceContainer lazyLoadSourceContainer() {
-        // Backward compatibility with version 1.14 and less
-        if(clangtidySourceContainer != null) {
-            return clangtidySourceContainer;
-        }
 
         XmlFile xmlSourceContainer = new XmlFile(new File(owner.getRootDir(),
                 ClangtidyPublisher.XML_FILE_DETAILS));

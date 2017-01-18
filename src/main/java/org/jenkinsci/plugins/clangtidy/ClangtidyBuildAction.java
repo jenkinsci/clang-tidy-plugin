@@ -66,8 +66,7 @@ public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
 
     public HealthReport getBuildHealth() {
         if(healthReportPercentage >= 0 && healthReportPercentage <= 100) {
-            return new HealthReport(healthReportPercentage,
-                    Messages._clangtidy_BuildStability());
+            return new HealthReport(healthReportPercentage, Messages._clangtidy_BuildStability());
         } else {
             return null;
         }
@@ -84,29 +83,5 @@ public class ClangtidyBuildAction extends AbstractClangtidyBuildAction {
         }
     }
 
-    // Backward compatibility
-    @Deprecated
-    private transient AbstractBuild<?, ?> build;
 
-    /** Backward compatibility with version 1.14 and less. */
-    @Deprecated
-    private transient ClangtidyConfig clangtidyConfig;
-
-    /**
-     * Initializes members that were not present in previous versions of this plug-in.
-     *
-     * @return the created object
-     */
-    private Object readResolve() {
-        if (build != null) {
-            this.owner = build;
-        }
-
-        // Backward compatibility with version 1.14 and less
-        if (clangtidyConfig != null) {
-            healthReportPercentage = 100;
-        }
-
-        return this;
-    }
 }
