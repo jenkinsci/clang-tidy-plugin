@@ -23,7 +23,7 @@
  * THE SOFTWARE.                                                                *
  *******************************************************************************/
 
-package com.thalesgroup.hudson.plugins.clangtidy;
+package org.jenkinsci.plugins.clangtidy;
 
 import hudson.model.BuildListener;
 import hudson.remoting.VirtualChannel;
@@ -32,7 +32,7 @@ import junit.framework.Assert;
 import org.jenkinsci.plugins.clangtidy.ClangtidyParserResult;
 import org.jenkinsci.plugins.clangtidy.ClangtidyReport;
 
-import com.thalesgroup.hudson.plugins.clangtidy.AbstractWorkspaceTest;
+import org.jenkinsci.plugins.clangtidy.AbstractWorkspaceTest;
 import org.junit.Before;
 import org.junit.Test;
 

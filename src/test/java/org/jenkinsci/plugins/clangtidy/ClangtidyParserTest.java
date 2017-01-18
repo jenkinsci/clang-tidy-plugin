@@ -9,7 +9,7 @@ import org.jenkinsci.plugins.clangtidy.parser.ClangtidyParser;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
 
 import hudson.model.BuildListener;
 import junit.framework.Assert;

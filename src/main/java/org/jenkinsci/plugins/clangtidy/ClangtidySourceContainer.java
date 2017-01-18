@@ -1,7 +1,7 @@
 package org.jenkinsci.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyWorkspaceFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyWorkspaceFile;
 import hudson.FilePath;
 import hudson.model.BuildListener;
 import org.jenkinsci.plugins.clangtidy.util.ClangtidyLogger;
@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * @author Gregory Boissinot
+ * @author Mickael Germain
  */
 public class ClangtidySourceContainer {
 

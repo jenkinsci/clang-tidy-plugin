@@ -12,13 +12,13 @@ import java.util.Collection;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringEscapeUtils;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyWorkspaceFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyWorkspaceFile;
 
 /**
  * Show all violations highlighted on a single page.
  * 
  * @author Michal Turek
- * @since 1.16
+ * @author Mickael Germain
  */
 public class ClangtidySourceAll {
     /** The related build. */

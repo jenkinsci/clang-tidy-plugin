@@ -23,10 +23,10 @@
  * THE SOFTWARE.                                                                *
  *******************************************************************************/
 
-package com.thalesgroup.hudson.plugins.clangtidy;
+package org.jenkinsci.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyWorkspaceFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyWorkspaceFile;
 import de.java2html.converter.JavaSource2HTMLConverter;
 import de.java2html.javasource.JavaSource;
 import de.java2html.javasource.JavaSourceParser;

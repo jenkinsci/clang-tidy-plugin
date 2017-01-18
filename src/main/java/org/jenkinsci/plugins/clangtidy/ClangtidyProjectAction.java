@@ -15,7 +15,7 @@ import org.jenkinsci.plugins.clangtidy.util.AbstractClangtidyProjectAction;
 import org.kohsuke.stapler.StaplerRequest;
 import org.kohsuke.stapler.StaplerResponse;
 
-import com.thalesgroup.hudson.plugins.clangtidy.graph.ClangtidyGraph;
+import org.jenkinsci.plugins.clangtidy.graph.ClangtidyGraph;
 
 /**
  * @author Gregory Boissinot

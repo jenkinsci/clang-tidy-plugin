@@ -1,6 +1,6 @@
 package org.jenkinsci.plugins.clangtidy.parser;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
 import hudson.model.BuildListener;
 import org.jenkinsci.plugins.clangtidy.ClangtidyReport;
 import org.jenkinsci.plugins.clangtidy.model.Errors;

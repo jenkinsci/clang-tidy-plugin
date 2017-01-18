@@ -1,6 +1,6 @@
 package org.jenkinsci.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
 import org.kohsuke.stapler.export.Exported;
 import org.kohsuke.stapler.export.ExportedBean;
 

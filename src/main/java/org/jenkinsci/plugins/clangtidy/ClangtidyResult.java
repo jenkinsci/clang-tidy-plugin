@@ -1,8 +1,8 @@
 package org.jenkinsci.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.ClangtidySource;
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyFile;
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyWorkspaceFile;
+import org.jenkinsci.plugins.clangtidy.ClangtidySource;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyWorkspaceFile;
 
 import hudson.XmlFile;
 import hudson.model.AbstractBuild;

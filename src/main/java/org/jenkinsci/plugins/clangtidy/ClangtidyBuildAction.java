@@ -3,7 +3,7 @@ package org.jenkinsci.plugins.clangtidy;
 
 import java.io.IOException;
 
-import com.thalesgroup.hudson.plugins.clangtidy.util.AbstractClangtidyBuildAction;
+import org.jenkinsci.plugins.clangtidy.util.AbstractClangtidyBuildAction;
 
 import hudson.model.AbstractBuild;
 import hudson.model.HealthReport;

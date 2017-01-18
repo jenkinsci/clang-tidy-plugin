@@ -21,7 +21,7 @@
  * THE SOFTWARE.                                                                *
  *******************************************************************************/
 
-package com.thalesgroup.hudson.plugins.clangtidy;
+package org.jenkinsci.plugins.clangtidy;
 
 import hudson.FilePath;
 import hudson.Util;

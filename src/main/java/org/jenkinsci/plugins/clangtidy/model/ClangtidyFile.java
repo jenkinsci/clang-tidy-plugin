@@ -23,7 +23,7 @@
  * THE SOFTWARE.                                                                *
  *******************************************************************************/
 
-package com.thalesgroup.hudson.plugins.clangtidy.model;
+package org.jenkinsci.plugins.clangtidy.model;
 
 import hudson.model.ModelObject;
 

@@ -23,7 +23,7 @@
  * THE SOFTWARE.                                                                *
  *******************************************************************************/
 
-package com.thalesgroup.hudson.plugins.clangtidy;
+package org.jenkinsci.plugins.clangtidy;
 
 
 import org.jenkinsci.plugins.clangtidy.config.ClangtidyConfigSeverityEvaluation;

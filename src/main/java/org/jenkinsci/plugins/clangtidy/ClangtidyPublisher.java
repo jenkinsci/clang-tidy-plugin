@@ -1,6 +1,6 @@
 package org.jenkinsci.plugins.clangtidy;
 
-import com.thalesgroup.hudson.plugins.clangtidy.model.ClangtidyWorkspaceFile;
+import org.jenkinsci.plugins.clangtidy.model.ClangtidyWorkspaceFile;
 
 import hudson.EnvVars;
 import hudson.Extension;
