@@ -79,12 +79,12 @@ public class ClangtidyPublisher extends Recorder {
 
 	@DataBoundConstructor
 	public ClangtidyPublisher(String pattern, boolean ignoreBlankFiles, String threshold, boolean allowNoReport,
-			String newThreshold, String failureThreshold, String newFailureThreshold, String healthy, String unHealthy,
-			boolean severityError, boolean severityWarning, boolean warningBoost, boolean warningCert,
-			boolean warningCppcoreguidelines, boolean warningClangAnalyzer, boolean warningClangDiagnostic,
-			boolean warningGoogle, boolean warningLlvm, boolean warningMisc, boolean warningModernize,
-			boolean warningMpi, boolean warningPerformance, boolean warningReadability, int xSize, int ySize,
-			int numBuildsInGraph, boolean displayAllErrors, boolean displayErrorSeverity,
+			boolean stableBuild, String newThreshold, String failureThreshold, String newFailureThreshold,
+			String healthy, String unHealthy, boolean severityError, boolean severityWarning, boolean warningBoost,
+			boolean warningCert, boolean warningCppcoreguidelines, boolean warningClangAnalyzer,
+			boolean warningClangDiagnostic, boolean warningGoogle, boolean warningLlvm, boolean warningMisc,
+			boolean warningModernize, boolean warningMpi, boolean warningPerformance, boolean warningReadability,
+			int xSize, int ySize, int numBuildsInGraph, boolean displayAllErrors, boolean displayErrorSeverity,
 			boolean displayWarningSeverity, boolean displayBoostWarning, boolean displayCertWarning,
 			boolean displayCppcoreguidelinesWarning, boolean displayClangAnalyzerWarning,
 			boolean displayClangDiagnosticWarning, boolean displayGoogleWarning, boolean displayLlvmWarning,
@@ -96,6 +96,7 @@ public class ClangtidyPublisher extends Recorder {
 		clangtidyConfig.setPattern(pattern);
 		clangtidyConfig.setAllowNoReport(allowNoReport);
 		clangtidyConfig.setIgnoreBlankFiles(ignoreBlankFiles);
+		clangtidyConfig.setStableBuild(stableBuild);
 		ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation(threshold,
 				newThreshold, failureThreshold, newFailureThreshold, healthy, unHealthy, severityError, severityWarning,
 				warningBoost, warningCert, warningCppcoreguidelines, warningClangAnalyzer, warningClangDiagnostic,

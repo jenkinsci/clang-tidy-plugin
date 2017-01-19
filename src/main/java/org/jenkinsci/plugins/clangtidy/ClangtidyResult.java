@@ -40,18 +40,38 @@ public class ClangtidyResult implements Serializable {
 	private ClangtidyStatistics statistics;
 
 	/**
+	 * Statistics should be computed from last stable build.
+	 */
+	private boolean useStableBuild;
+
+	/**
 	 * Constructor.
 	 *
 	 * @param statistics
 	 *            the Clangtidy report statistics
 	 * @param owner
 	 *            the build owner
-	 *
-	 * @since 1.15
 	 */
 	public ClangtidyResult(ClangtidyStatistics statistics, AbstractBuild<?, ?> owner) {
 		this.statistics = statistics;
 		this.owner = owner;
+		useStableBuild = false;
+	}
+
+	/**
+	 * Constructor.
+	 *
+	 * @param statistics
+	 *            the Clangtidy report statistics
+	 * @param owner
+	 *            the build owner
+	 * @param useStableBuild
+	 *            should use last stable build
+	 */
+	public ClangtidyResult(ClangtidyStatistics statistics, AbstractBuild<?, ?> owner, boolean useStableBuild) {
+		this.statistics = statistics;
+		this.owner = owner;
+		this.useStableBuild = useStableBuild;
 	}
 
 	/**
@@ -355,7 +375,8 @@ public class ClangtidyResult implements Serializable {
 	 * @return the previous Clangtidy Build Action
 	 */
 	private ClangtidyBuildAction getPreviousAction() {
-		AbstractBuild<?, ?> previousBuild = owner.getPreviousBuild();
+		AbstractBuild<?, ?> previousBuild = useStableBuild ? owner.getPreviousSuccessfulBuild()
+				: owner.getPreviousBuild();
 		if (previousBuild != null) {
 			return previousBuild.getAction(ClangtidyBuildAction.class);
 		}
@@ -390,6 +411,11 @@ public class ClangtidyResult implements Serializable {
 	@Exported
 	public ClangtidyStatistics getStatistics() {
 		return statistics;
+	}
+
+	@Exported
+	public boolean getUseStateBuild() {
+		return useStableBuild;
 	}
 
 	/**

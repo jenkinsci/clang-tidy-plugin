@@ -1,0 +1,6 @@
+<p style="margin-top: 0px;">By default, the issues comparison is done between a build and the previous one independently to their status. To compare a build against the previous stable build, check this option.</p>
+
+<p>Note: When computing a build status based on threshold of newly introduced issues without this option being checked, the build after an unstable one can be marked as stable even if no issue was fixed - the delta is zero. Enabling this option will ensure all builds after an unstable one will be unstable too until the threshold of new issues related to the last stable build is met.</p>
+
+<p>Note: The plugin doesn't consider the source of build instability, it may and may not be the threshold. For example unit tests or code coverage can make the build unstable too.</p>
+

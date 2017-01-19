@@ -16,12 +16,15 @@ public class ClangtidyConfigGraph implements Serializable {
 	public static int getDefaultChartHeight() {
 		return DEFAULT_CHART_HEIGHT;
 	}
+
 	public static int getDefaultChartWidth() {
 		return DEFAULT_CHART_WIDTH;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	private int xSize = DEFAULT_CHART_WIDTH;
 	private int ySize = DEFAULT_CHART_HEIGHT;
 	private int numBuildsInGraph = 0; // numBuildsInGraph <= 1 means unlimited

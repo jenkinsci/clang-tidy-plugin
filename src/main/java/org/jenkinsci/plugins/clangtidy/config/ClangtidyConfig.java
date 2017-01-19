@@ -12,6 +12,7 @@ public class ClangtidyConfig implements Serializable {
 	private String pattern;
 	private boolean ignoreBlankFiles;
 	private boolean allowNoReport;
+	private boolean stableBuild;
 	private ClangtidyConfigSeverityEvaluation configSeverityEvaluation = new ClangtidyConfigSeverityEvaluation();
 	private ClangtidyConfigGraph configGraph = new ClangtidyConfigGraph();
 
@@ -26,11 +27,6 @@ public class ClangtidyConfig implements Serializable {
 		return allowNoReport;
 	}
 
-	@Deprecated
-	public String getClangtidyReportPattern() {
-		return clangtidyReportPattern;
-	}
-
 	public ClangtidyConfigGraph getConfigGraph() {
 		return configGraph;
 	}
@@ -41,6 +37,10 @@ public class ClangtidyConfig implements Serializable {
 
 	public String getPattern() {
 		return pattern;
+	}
+
+	public boolean getStableBuild() {
+		return stableBuild;
 	}
 
 	public boolean isIgnoreBlankFiles() {
@@ -77,8 +77,13 @@ public class ClangtidyConfig implements Serializable {
 	public void setIgnoreBlankFiles(boolean ignoreBlankFiles) {
 		this.ignoreBlankFiles = ignoreBlankFiles;
 	}
+
 	public void setPattern(String pattern) {
 		this.pattern = pattern;
+	}
+
+	public void setStableBuild(boolean stableBuild) {
+		this.stableBuild = stableBuild;
 	}
 
 	public void setUseWorkspaceAsRootPath(boolean useWorkspaceAsRootPath) {

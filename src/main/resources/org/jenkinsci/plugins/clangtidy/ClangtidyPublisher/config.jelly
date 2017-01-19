@@ -19,6 +19,11 @@
         <label class="attach-previous">${%Do not fail the build if the Clangtidy report is not found}</label>
     </f:entry>
 
+    <f:entry field="stableBuild">
+        <f:checkbox name="cppcheck.stableBuild" checked="${config.stableBuild}"/>
+        <label class="attach-previous">${%Compare the Clangtidy report to the previous stable build's report}</label>
+    </f:entry>
+
     <f:advanced>
         <u:thresholds id="clangtidy"/>
     </f:advanced>
