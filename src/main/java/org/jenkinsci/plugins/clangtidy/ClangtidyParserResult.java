@@ -113,9 +113,45 @@ public class ClangtidyParserResult implements FilePath.FileCallable<ClangtidyRep
 				ClangtidyReport clangtidyReport = new ClangtidyParser().parse(new File(basedir, cppchecReportkFileName),
 						listener);
 				mergeReport(clangtidyReportResult, clangtidyReport);
+
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberErrorSeverity() + " Error severities");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberWarningSeverity() + " Warning severities");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberBoostWarning() + " Boost warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberCertWarning() + " Cert warnings");
+				ClangtidyLogger.log(listener, "Merged " + clangtidyReportResult.getNumberCppcoreguidelinesWarning()
+						+ " Cppcoreguidelines warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberClangAnalyzerWarning() + " Clang-Analyzer warnings");
+				ClangtidyLogger.log(listener, "Merged " + clangtidyReportResult.getNumberClangDiagnosticWarning()
+						+ " Clang-Diagnostic warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberGoogleWarning() + " Google warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberLlvmWarning() + " LLVM warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberMiscWarning() + " Misc warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberModernizeWarning() + " Modernize warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberMpiWarning() + " MPI warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberPerformanceWarning() + " Performance warnings");
+				ClangtidyLogger.log(listener,
+						"Merged " + clangtidyReportResult.getNumberReadabilityWarning() + " Readability warnings");
+				ClangtidyLogger.log(listener, "Merged " + clangtidyReportResult.getNumberTotal() + " All Errors");
+				ClangtidyLogger.log(listener, "Merged " + clangtidyReportResult.getVersions().size() + " Versions");
 			}
 		} catch (Exception e) {
 			ClangtidyLogger.log(listener, "Parsing throws exceptions. " + e.getMessage());
+			StackTraceElement[] elements = e.getStackTrace();
+
+			for (StackTraceElement element : elements) {
+				ClangtidyLogger.log(listener, element.toString());
+			}
 			return null;
 		}
 
