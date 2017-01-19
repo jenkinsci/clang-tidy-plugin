@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -161,8 +162,8 @@ public class ClangtidyParser implements Serializable {
 					org.jenkinsci.plugins.clangtidy.model.Clangtidy.class,
 					org.jenkinsci.plugins.clangtidy.model.Results.class));
 			Unmarshaller unmarshaller = jc.get().createUnmarshaller();
-			org.jenkinsci.plugins.clangtidy.model.Results results = (org.jenkinsci.plugins.clangtidy.model.Results) unmarshaller
-					.unmarshal(file);
+			FileInputStream stream = new FileInputStream(file);
+			org.jenkinsci.plugins.clangtidy.model.Results results = (org.jenkinsci.plugins.clangtidy.model.Results) unmarshaller.unmarshal(stream);
 			if (results.getClangtidy() == null) {
 
 				throw new JAXBException("Clang tidy not Found");
