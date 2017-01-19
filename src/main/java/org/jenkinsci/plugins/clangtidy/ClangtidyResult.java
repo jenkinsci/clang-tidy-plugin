@@ -26,6 +26,8 @@ import java.util.*;
  */
 public class ClangtidyResult implements Serializable {
 	private static final long serialVersionUID = 2L;
+	private static final String PULL_REQUEST_TO_HASH = "PULL_REQUEST_TO_HASH";
+	private static final String GIT_COMMIT = "GIT_COMMIT";
 
 	/**
 	 * The build owner.
@@ -375,6 +377,17 @@ public class ClangtidyResult implements Serializable {
 	 * @return the previous Clangtidy Build Action
 	 */
 	private ClangtidyBuildAction getPreviousAction() {
+		String pull_request_to_hash = owner.getBuildVariables().get(PULL_REQUEST_TO_HASH);
+		if (pull_request_to_hash != null) {
+			AbstractBuild<?, ?> lOwner = owner.getPreviousBuild();
+			while (lOwner != null) {
+				String commit_hash = lOwner.getBuildVariables().get(GIT_COMMIT);
+				if (pull_request_to_hash.equals(commit_hash)) {
+					return lOwner.getAction(ClangtidyBuildAction.class);
+				}
+				lOwner = lOwner.getPreviousBuild();
+			}
+		}
 		AbstractBuild<?, ?> previousBuild = useStableBuild ? owner.getPreviousSuccessfulBuild()
 				: owner.getPreviousBuild();
 		if (previousBuild != null) {
