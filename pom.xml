@@ -32,7 +32,7 @@
     <artifactId>clangtidy</artifactId>
     <packaging>hpi</packaging>
     <name>Jenkins Clang-tidy Plug-in</name>
-    <version>0.1</version>
+    <version>1.0</version>
     <url></url>
     
     <licenses>
