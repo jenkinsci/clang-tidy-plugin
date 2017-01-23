@@ -38,7 +38,7 @@
     <licenses>
         <license>
             <name>The MIT license</name>
-            <url>https://github.com/migermain/clang-tidy-plugin/blob/master/LICENCE.md</url>
+            <url>https://github.com/pixmap3d/clang-tidy-plugin/blob/master/README.md</url>
             <distribution>repo</distribution>
         </license>
     </licenses>
