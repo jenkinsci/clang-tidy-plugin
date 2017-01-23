@@ -29,9 +29,9 @@
         <version>1.447</version>
     </parent>
 
-    <artifactId>clangtidy</artifactId>
+    <artifactId>clang-tidy</artifactId>
     <packaging>hpi</packaging>
-    <name>Jenkins Clang-tidy Plug-in</name>
+    <name>Clang-Tidy Plug-in</name>
     <version>1.0</version>
     <url></url>
     
