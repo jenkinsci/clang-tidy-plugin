@@ -34,16 +34,15 @@
     <packaging>hpi</packaging>
     <name>Clang-Tidy Plug-in</name>
     <version>1.0</version>
+    <description>This Jenkins CI plug-in generates the trend report for Clang-tidy, a tool for static C/C++ code analysis and linting.</description>
     <url></url>
     
     <licenses>
         <license>
             <name>The MIT license</name>
-            <url>https://github.com/pixmap3d/clang-tidy-plugin/blob/master/README.md</url>
-            <distribution>repo</distribution>
+            <url>http://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
-
 
     <developers>
         <developer>
@@ -65,11 +64,33 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/migermain/clang-tidy-plugin.git</connection>
-        <developerConnection>scm:git:git@github.com/migermain/clang-tidy-plugin.git</developerConnection>
+        <connection>scm:git:git://github.com/jenkinsci/clang-tidy-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/clang-tidy-plugin.git</developerConnection>
+        <url>http://github.com/jenkinsci/clang-tidy-plugin</url>
         <tag>HEAD</tag>
     </scm>
-
+    
+    <repositories>
+        <repository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </repository>
+    </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>repo.jenkins-ci.org</id>
+            <url>https://repo.jenkins-ci.org/public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <distributionManagement>
+        <site>
+            <id>github-project-site</id>
+            <url>gitsite:git@github.com/jenkinsci/clang-tidy-plugin</url>
+        </site>
+    </distributionManagement>
+    
     <properties>
         <dashboard.view.version>2.0</dashboard.view.version>
         <java.level>7</java.level>
@@ -113,11 +134,9 @@
                         <id>generatedClang-tidy</id>
                         <configuration>
                             <packageName>org.jenkinsci.plugins.clangtidy.model</packageName>
-                            <schemaDirectory>${basedir}/src/main/resources/org/jenkinsci/plugins/clangtidy
-                            </schemaDirectory>
+                            <schemaDirectory>${basedir}/src/main/resources/org/jenkinsci/plugins/clangtidy</schemaDirectory>
                             <schemaFiles>clangtidy.xsd</schemaFiles>
-                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy/.staleFlag.
-                            </staleFile>
+                            <staleFile>${project.build.directory}/generated-sources/jaxb/clangtidy/.staleFlag.</staleFile>
                             <clearOutputDir>false</clearOutputDir>
                         </configuration>
                         <goals>
