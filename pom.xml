@@ -32,8 +32,9 @@
 
     <artifactId>clang-tidy</artifactId>
     <packaging>hpi</packaging>
+    <version>1.2</version>
+    
     <name>Clang-Tidy Plug-in</name>
-    <version>1.0</version>
     <description>This Jenkins CI plug-in generates the trend report for Clang-tidy, a tool for static C/C++ code analysis and linting.</description>
     <url></url>
     
