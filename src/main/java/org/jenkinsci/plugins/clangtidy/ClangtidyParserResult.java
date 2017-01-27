@@ -10,6 +10,7 @@ import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.selectors.FileSelector;
 import org.jenkinsci.plugins.clangtidy.parser.ClangtidyParser;
 import org.jenkinsci.plugins.clangtidy.util.ClangtidyLogger;
+import org.jenkinsci.remoting.RoleChecker;
 
 import java.io.File;
 import java.io.IOException;
@@ -156,5 +157,11 @@ public class ClangtidyParserResult implements FilePath.FileCallable<ClangtidyRep
 		}
 
 		return clangtidyReportResult;
+	}
+
+	@Override
+	public void checkRoles(RoleChecker arg0) throws SecurityException {
+		// TODO Auto-generated method stub
+		
 	}
 }

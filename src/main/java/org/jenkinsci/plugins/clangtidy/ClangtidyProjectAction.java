@@ -62,7 +62,7 @@ public class ClangtidyProjectAction extends AbstractClangtidyProjectAction {
 				&& ((configGraph.getNumBuildsInGraph() <= 1) || (numBuilds < configGraph.getNumBuildsInGraph())); a = a
 						.getPreviousResult(), ++numBuilds) {
 
-			ChartUtil.NumberOnlyBuildLabel label = new ChartUtil.NumberOnlyBuildLabel(a.getOwner());
+			ChartUtil.NumberOnlyBuildLabel label = new ChartUtil.NumberOnlyBuildLabel((hudson.model.Run<?,?> )a.getOwner());
 			ClangtidyStatistics statistics = a.getResult().getStatistics();
 
 			// Error
