@@ -36,7 +36,7 @@
     
     <name>Clang-Tidy Plug-in</name>
     <description>This Jenkins CI plug-in generates the trend report for Clang-tidy, a tool for static C/C++ code analysis and linting.</description>
-    <url></url>
+    <url>https://wiki.jenkins-ci.org/display/JENKINS/Clang+Tidy+Plugin</url>
     
     <licenses>
         <license>
